@@ -1,0 +1,32 @@
+--- a/Makefile.am	2015-01-28 16:15:33.000000000 +0800
++++ b/Makefile.am	2015-01-28 16:16:17.000000000 +0800
+@@ -1,3 +1,4 @@
++AUTOMAKE_OPTIONS = foreign
+ bin_PROGRAMS = memcached
+ pkginclude_HEADERS = protocol_binary.h
+ noinst_PROGRAMS = memcached-debug sizes testapp timedrun
+--- a/configure.ac	2015-01-01 14:49:53.000000000 +0800
++++ b/configure.ac	2015-01-28 16:27:09.000000000 +0800
+@@ -313,9 +313,6 @@
+ 
+ dnl ----------------------------------------------------------------------------
+ 
+-AC_SEARCH_LIBS(umem_cache_create, umem)
+-AC_SEARCH_LIBS(gethugepagesizes, hugetlbfs)
+-
+ AC_HEADER_STDBOOL
+ AH_BOTTOM([#if HAVE_STDBOOL_H
+ #include <stdbool.h>
+@@ -551,11 +548,7 @@
+ 
+ AM_CONDITIONAL([BUILD_SOLARIS_PRIVS],[test "$build_solaris_privs" = "yes"])
+ 
+-AC_CHECK_HEADER(umem.h, [
+-   AC_DEFINE([HAVE_UMEM_H], 1,
+-         [Define this if you have umem.h])
+-   build_cache=no
+-], [build_cache=yes])
++build_cache=yes
+ 
+ AM_CONDITIONAL([BUILD_CACHE], [test "x$build_cache" = "xyes"])
+ 

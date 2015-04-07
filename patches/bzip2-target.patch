@@ -1,0 +1,79 @@
+--- a/autogen.sh	2009-04-21 23:12:16.000000000 +0800
++++ b/autogen.sh	2014-01-27 15:46:40.000000000 +0800
+@@ -0,0 +1,3 @@
++#! /bin/sh
++mkdir -p m4
++autoreconf -fvi
+--- a/configure.ac	2009-04-21 23:12:16.000000000 +0800
++++ b/configure.ac	2014-01-27 15:40:53.000000000 +0800
+@@ -0,0 +1,12 @@
++AC_PREREQ([2.59])
++AC_INIT([bzip2], [1.0.6])
++AC_CONFIG_FILES([Makefile])
++AC_CONFIG_HEADER([config.h])
++
++AM_INIT_AUTOMAKE
++
++AC_PROG_CC
++AM_PROG_CC_C_O
++AC_PROG_LIBTOOL
++
++AC_OUTPUT
+--- a/Makefile.am	2009-04-21 23:12:16.000000000 +0800
++++ b/Makefile.am	2014-01-27 15:45:17.000000000 +0800
+@@ -0,0 +1,55 @@
++AUTOMAKE_OPTIONS = foreign
++
++dist_man1_MANS = bzip2.1 bzgrep.1 bzmore.1 bzdiff.1
++bin_PROGRAMS = bzip2 bzip2recover
++lib_LTLIBRARIES = libbz2.la
++include_HEADERS = bzlib.h
++
++extrabindir = $(bindir)
++extrabin_DATA = bzgrep bzmore bzdiff
++EXTRA_DIST = bzgrep bzmore bzdiff
++
++bzip2_LDADD = libbz2.la
++bzip2_SOURCES = bzip2.c
++
++bzip2recover_LDADD = libbz2.la
++bzip2recover_SOURCES = bzip2recover.c
++
++libbz2_la_LDFLAGS = -version-info 1:6:0
++libbz2_la_SOURCES = bzlib_private.h \
++                    blocksort.c \
++                    huffman.c \
++                    crctable.c \
++                    randtable.c \
++                    compress.c \
++                    decompress.c \
++                    bzlib.c
++
++install-exec-hook:
++	ln -sf bzip2  $(DESTDIR)$(bindir)/bunzip2
++	ln -sf bzip2  $(DESTDIR)$(bindir)/bzcat
++	ln -sf bzgrep $(DESTDIR)$(bindir)/bzegrep
++	ln -sf bzgrep $(DESTDIR)$(bindir)/bzfgrep
++	ln -sf bzmore $(DESTDIR)$(bindir)/bzless
++	ln -sf bzdiff $(DESTDIR)$(bindir)/bzcmp
++
++install-data-hook:
++	chmod +x $(DESTDIR)$(bindir)/bzgrep
++	chmod +x $(DESTDIR)$(bindir)/bzmore
++	chmod +x $(DESTDIR)$(bindir)/bzdiff
++	echo ".so man1/bzgrep.1" > $(DESTDIR)$(mandir)/man1/bzegrep.1
++	echo ".so man1/bzgrep.1" > $(DESTDIR)$(mandir)/man1/bzfgrep.1
++	echo ".so man1/bzmore.1" > $(DESTDIR)$(mandir)/man1/bzless.1
++	echo ".so man1/bzdiff.1" > $(DESTDIR)$(mandir)/man1/bzcmp.1
++
++uninstall-hook:
++	rm -f $(DESTDIR)$(bindir)/bunzip2
++	rm -f $(DESTDIR)$(bindir)/bzcat
++	rm -f $(DESTDIR)$(bindir)/bzegrep
++	rm -f $(DESTDIR)$(bindir)/bzfgrep
++	rm -f $(DESTDIR)$(bindir)/bzless
++	rm -f $(DESTDIR)$(bindir)/bzcmp
++	rm -f $(DESTDIR)$(mandir)/man1/bzegrep.1
++	rm -f $(DESTDIR)$(mandir)/man1/bzfgrep.1
++	rm -f $(DESTDIR)$(mandir)/man1/bzless.1
++	rm -f $(DESTDIR)$(mandir)/man1/bzcmp.1

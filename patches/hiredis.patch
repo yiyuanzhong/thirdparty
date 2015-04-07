@@ -1,0 +1,11 @@
+--- a/Makefile	2014-04-26 22:48:17.000000000 +0800
++++ b/Makefile	2014-04-26 22:48:38.000000000 +0800
+@@ -39,7 +39,7 @@
+   DYLIBSUFFIX=dylib
+   DYLIB_MINOR_NAME=$(LIBNAME).$(HIREDIS_MAJOR).$(HIREDIS_MINOR).$(DYLIBSUFFIX)
+   DYLIB_MAJOR_NAME=$(LIBNAME).$(HIREDIS_MAJOR).$(DYLIBSUFFIX)
+-  DYLIB_MAKE_CMD=$(CC) -shared -Wl,-install_name,$(DYLIB_MINOR_NAME) -o $(DYLIBNAME) $(LDFLAGS)
++  DYLIB_MAKE_CMD=$(CC) -shared -Wl,-install_name,`cd ../../.. && pwd`/staging/lib/$(DYLIB_MINOR_NAME) -o $(DYLIBNAME) $(LDFLAGS)
+ endif
+ 
+ all: $(DYLIBNAME)

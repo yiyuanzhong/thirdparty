@@ -1,0 +1,34 @@
+##
+##  config.layout -- Pre-defined Installation Path Layouts
+##
+##  Hints:
+##  - layouts can be loaded with configure's --enable-layout=ID option
+##  - when no --enable-layout option is given, the default layout is `Apache'
+##  - a trailing plus character (`+') on paths is replaced with a 
+##    `/<target>' suffix where <target> is currently hardcoded to 'apache2'.
+##    (This may become a configurable parameter at some point.)
+##
+
+#   Classical Apache path layout.
+<Layout Apache>
+    prefix:        /usr
+    exec_prefix:   ${prefix}
+    bindir:        ${exec_prefix}/bin
+    sbindir:       ${exec_prefix}/sbin
+    libdir:        ${exec_prefix}/lib
+    libexecdir:    ${exec_prefix}/lib/apache2
+    mandir:        ${prefix}/man
+    sysconfdir:    ${prefix}/etc
+    datadir:       ${prefix}
+    installbuilddir: ${datadir}/build
+    errordir:      ${datadir}/error
+    iconsdir:      ${datadir}/icons
+    htdocsdir:     ${datadir}/htdocs
+    manualdir:     ${datadir}/manual
+    cgidir:        ${datadir}/cgi-bin
+    includedir:    ${prefix}/include
+    localstatedir: ${prefix}
+    runtimedir:    ${localstatedir}/run
+    logfiledir:    ${localstatedir}/log/apache2
+    proxycachedir: ${localstatedir}/proxy
+</Layout>

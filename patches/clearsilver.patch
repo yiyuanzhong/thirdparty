@@ -1,0 +1,323 @@
+--- a/cs/csparse.c
++++ b/cs/csparse.c
+@@ -3717,7 +3717,7 @@
+   if (val.op_type & (CS_TYPE_VAR | CS_TYPE_STRING))
+   {
+     char *s = arg_eval(parse, &val);
+-    if (s) result->n = ne_crc((unsigned char *)s, strlen(s));
++    if (s) result->n = (INT32) ne_crc((unsigned char *)s, strlen(s));
+   }
+   if (val.alloc) free(val.s);
+   return STATUS_OK;
+--- a/python/neo_cgi.c
++++ b/python/neo_cgi.c
+@@ -178,7 +178,7 @@
+   if (!PyArg_ParseTuple(args, "s:error(str)", &s))
+     return NULL;
+
+-  cgi_error (cgi, s);
++  cgi_error (cgi, "%s", s);
+   rv = Py_None;
+   Py_INCREF(rv);
+   return rv;
+--- a/cs/cs.h	2013-08-25 10:33:05.271051747 +0800
++++ b/cs/cs.h	2013-08-25 10:33:13.427051820 +0800
+@@ -42,11 +42,11 @@
+ #ifndef __CSHDF_H_
+ #define __CSHDF_H_ 1
+ 
+-#include "util/neo_misc.h"
+-#include "util/neo_err.h"
+-#include "util/ulist.h"
+-#include "util/neo_hdf.h"
+-#include "util/neo_str.h"
++#include "../util/neo_misc.h"
++#include "../util/neo_err.h"
++#include "../util/ulist.h"
++#include "../util/neo_hdf.h"
++#include "../util/neo_str.h"
+ 
+ __BEGIN_DECLS
+ 
+--- a/cgi/cgi.h	2013-08-25 10:33:05.287051741 +0800
++++ b/cgi/cgi.h	2013-08-25 10:33:13.447051821 +0800
+@@ -13,9 +13,9 @@
+ #define __CGI_H_ 1
+ 
+ #include <stdarg.h>
+-#include "util/neo_err.h"
+-#include "util/neo_hdf.h"
+-#include "cs/cs.h"
++#include "../util/neo_err.h"
++#include "../util/neo_hdf.h"
++#include "../cs/cs.h"
+ 
+ __BEGIN_DECLS
+ 
+--- a/cgi/html.h	2013-08-25 10:33:05.275051745 +0800
++++ b/cgi/html.h	2013-08-25 10:33:13.435051821 +0800
+@@ -13,8 +13,8 @@
+ #define __HTML_H_ 1
+ 
+ #include <stdarg.h>
+-#include "util/neo_err.h"
+-#include "util/neo_hdf.h"
++#include "../util/neo_err.h"
++#include "../util/neo_hdf.h"
+ 
+ __BEGIN_DECLS
+ 
+--- a/cgi/cgiwrap.h	2013-08-25 10:33:05.279051744 +0800
++++ b/cgi/cgiwrap.h	2013-08-25 10:33:13.439051821 +0800
+@@ -23,7 +23,7 @@
+ #define __CGIWRAP_H_ 1
+ 
+ #include <stdarg.h>
+-#include "util/neo_err.h"
++#include "../util/neo_err.h"
+ 
+ __BEGIN_DECLS
+ 
+--- a/util/ulist.h	2013-08-25 10:33:05.323051742 +0800
++++ b/util/ulist.h	2013-08-25 10:33:13.495051822 +0800
+@@ -11,7 +11,7 @@
+ #ifndef __ULIST_H_
+ #define __ULIST_H_ 1
+ 
+-#include "util/neo_err.h"
++#include "../util/neo_err.h"
+ 
+ typedef struct _ulist
+ {
+--- a/util/neo_files.h	2013-08-25 10:33:05.335051742 +0800
++++ b/util/neo_files.h	2013-08-25 10:33:13.507051821 +0800
+@@ -16,7 +16,7 @@
+ 
+ #include <stdarg.h>
+ #include <sys/types.h>
+-#include "util/ulist.h"
++#include "../util/ulist.h"
+ 
+ 
+ 
+--- a/util/wdb.h	2013-08-25 10:33:05.291051742 +0800
++++ b/util/wdb.h	2013-08-25 10:33:13.455051821 +0800
+@@ -12,9 +12,9 @@
+ #ifndef __WDB_H_
+ #define __WDB_H_ 1
+ 
+-#include "util/skiplist.h"
+-#include "util/dict.h"
+-#include "util/ulist.h"
++#include "../util/skiplist.h"
++#include "../util/dict.h"
++#include "../util/ulist.h"
+ #include <db.h>
+ 
+ typedef struct _column
+--- a/util/neo_hash.h	2013-08-25 10:33:05.307051742 +0800
++++ b/util/neo_hash.h	2013-08-25 10:33:13.475051821 +0800
+@@ -15,7 +15,7 @@
+ __BEGIN_DECLS
+ 
+ #include <stdlib.h>
+-#include "util/neo_misc.h"
++#include "../util/neo_misc.h"
+ 
+ typedef UINT32 (*NE_HASH_FUNC)(const void *);
+ typedef int (*NE_COMP_FUNC)(const void *, const void *);
+--- a/util/filter.h	2013-08-25 10:33:05.319051742 +0800
++++ b/util/filter.h	2013-08-25 10:33:13.487051821 +0800
+@@ -16,8 +16,8 @@
+ 
+ #include <stdarg.h>
+ #include <stdio.h>
+-#include "util/neo_misc.h"
+-#include "util/neo_err.h"
++#include "../util/neo_misc.h"
++#include "../util/neo_err.h"
+ 
+ /*
+  * Function: filter_wait - wrap waitpid to decode the exitcode and why
+--- a/util/skiplist.h	2013-08-25 10:33:05.299051743 +0800
++++ b/util/skiplist.h	2013-08-25 10:33:13.463051821 +0800
+@@ -17,7 +17,7 @@
+ #ifndef __SKIPLIST_H_
+ #define __SKIPLIST_H_
+ 
+-#include "util/neo_err.h"
++#include "../util/neo_err.h"
+ 
+ __BEGIN_DECLS
+ 
+--- a/util/neo_hdf.h	2013-08-25 10:33:05.303051742 +0800
++++ b/util/neo_hdf.h	2013-08-25 10:33:13.471051821 +0800
+@@ -15,8 +15,8 @@
+ __BEGIN_DECLS
+ 
+ #include <stdio.h>
+-#include "util/neo_err.h"
+-#include "util/neo_hash.h"
++#include "../util/neo_err.h"
++#include "../util/neo_hash.h"
+ 
+ #define FORCE_HASH_AT 10
+ 
+--- a/util/neo_str.h	2013-08-25 10:33:05.331051743 +0800
++++ b/util/neo_str.h	2013-08-25 10:33:13.503051821 +0800
+@@ -16,7 +16,7 @@
+ 
+ #include <stdarg.h>
+ #include <stdio.h>
+-#include "util/neo_misc.h"
++#include "../util/neo_misc.h"
+ 
+ /* This modifies the string its called with by replacing all the white
+  * space on the end with \0, and returns a pointer to the first
+@@ -65,7 +65,7 @@
+ void string_clear (STRING *str);
+ 
+ /* typedef struct _ulist ULIST; */
+-#include "util/ulist.h"
++#include "../util/ulist.h"
+ /* s is not const because we actually temporarily modify the string
+  * during split */
+ NEOERR *string_array_split (ULIST **list, char *s, const char *sep,
+--- a/python/p_neo_util.h	2013-08-25 10:33:05.347051743 +0800
++++ b/python/p_neo_util.h	2013-08-25 10:33:13.519051821 +0800
+@@ -12,8 +12,8 @@
+ #ifndef __P_NEO_UTIL_H_
+ #define __P_NEO_UTIL_H_ 1
+ 
+-#include "util/neo_misc.h"
+-#include "util/neo_hdf.h"
++#include "../util/neo_misc.h"
++#include "../util/neo_hdf.h"
+ 
+ #ifndef DL_EXPORT
+ #define DL_EXPORT(x)	x
+--- a/util/neo_err.c	2013-08-26 13:03:53.000000000 +0800
++++ b/util/neo_err.c	2013-08-26 13:08:55.000000000 +0800
+@@ -470,3 +470,20 @@
+   }
+   return STATUS_OK;
+ }
++
++NEOERR *nerr_shutdown (void)
++{
++    NEOERR *err;
++
++    if (!Inited) {
++        return STATUS_OK;
++    }
++
++    err = uListDestroy(&Errors, 0);
++    if (err != STATUS_OK) {
++        return nerr_pass(err);
++    }
++
++    Inited = 0;
++    return STATUS_OK;
++}
+--- a/cs_config.h.in	2014-01-09 14:20:24.000000000 +0800
++++ b/cs_config.h.in	2014-01-09 14:20:36.000000000 +0800
+@@ -193,21 +193,6 @@
+    longer depend upon `wait3'. */
+ #undef HAVE_WAIT3
+ 
+-/* Define to the address where bug reports for this package should be sent. */
+-#undef PACKAGE_BUGREPORT
+-
+-/* Define to the full name of this package. */
+-#undef PACKAGE_NAME
+-
+-/* Define to the full name and version of this package. */
+-#undef PACKAGE_STRING
+-
+-/* Define to the one symbol short name of this package. */
+-#undef PACKAGE_TARNAME
+-
+-/* Define to the version of this package. */
+-#undef PACKAGE_VERSION
+-
+ /* Define as the return type of signal handlers (`int' or `void'). */
+ #undef RETSIGTYPE
+ 
+--- a/util/neo_err.h	2007-07-12 11:09:09.000000000 +0800
++++ b/util/neo_err.h	2014-01-13 20:50:08.000000000 +0800
+@@ -12,7 +12,7 @@
+ #ifndef __NEO_ERR_H_
+ #define __NEO_ERR_H_ 1
+ 
+-#include "util/neo_misc.h"
++#include "../util/neo_misc.h"
+ 
+ /* For compilers (well, cpp actually) which don't define __PRETTY_FUNCTION__ */
+ #ifndef __GNUC__
+@@ -62,7 +62,7 @@
+ 
+ /* Technically, we could do this in configure and detect what their compiler
+  * can handle, but for now... */
+-#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
++#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L && !defined (__clang__)
+ #define USE_C99_VARARG_MACROS 1
+ #elif __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 4) || defined (S_SPLINT_S)
+ #define USE_GNUC_VARARG_MACROS 1
+@@ -155,7 +155,7 @@
+  */
+ void nerr_log_error (NEOERR *err);
+ 
+-#include "util/neo_str.h"
++#include "../util/neo_str.h"
+ /* function: nerr_error_string
+  * description: returns the string associated with an error (the bottom
+  *              level of the error chain)
+@@ -199,6 +199,9 @@
+  */
+ NEOERR *nerr_init (void);
+ 
++#define HAVE_NERR_SHUTDOWN 1
++NEOERR *nerr_shutdown (void);
++
+ /* function: nerr_match
+  * description: nerr_match is used to walk the NEOERR chain and match
+  *              the error against a specific error type.  In exception
+--- a/dso/Makefile	2014-01-27 14:44:21.000000000 +0800
++++ b/dso/Makefile	2014-04-24 22:44:28.000000000 +0800
+@@ -6,7 +6,13 @@
+ 
+ include $(NEOTONIC_ROOT)/rules.mk
+ 
+-NEO_SO = libneo.so
++SYSTEM := $(shell uname -s)
++ifeq ($(SYSTEM),Darwin)
++NEO_SO = libneo.0.0.0.dylib
++else
++NEO_SO = libneo.so.0.0.0
++endif
++
+ NEO_STATIC_LIBS =  
+ 
+ LIBS += $(DLIBS) $(DB2_LIB)
+@@ -16,8 +22,20 @@
+ 
+ all: $(TARGETS)
+ 
++ifeq ($(SYSTEM),Darwin)
++$(NEO_SO): $(NEO_STATIC_LIBS) $(DEP_LIBS) Makefile 
++	 ar x ../libs/libneo_cgi.a
++	 ar x ../libs/libneo_cs.a
++	 ar x ../libs/libneo_utl.a
++	 /usr/bin/ld -dylib -o libneo.0.0.0.dylib -install_name `cd ../../../.. && pwd`/staging/lib/libneo.0.dylib *.o -lc $(LDFLAGS) $(LIBS)
++	 ln -sf libneo.0.0.0.dylib libneo.0.dylib
++	 ln -sf libneo.0.0.0.dylib libneo.dylib
++else
+ $(NEO_SO): $(NEO_STATIC_LIBS) $(DEP_LIBS) Makefile 
+-	 /usr/bin/ld  -rpath ../libs -shared -o libneo.so -whole-archive ../libs/libneo_cgi.a ../libs/libneo_cs.a ../libs/libneo_utl.a -no-whole-archive $(LDFLAGS) $(LIBS)
++	 /usr/bin/ld --soname=libneo.so.0 -rpath ../libs -shared -o libneo.so.0.0.0 -whole-archive ../libs/libneo_cgi.a ../libs/libneo_cs.a ../libs/libneo_utl.a -no-whole-archive $(LDFLAGS) $(LIBS)
++	 ln -sf libneo.so.0.0.0 libneo.so.0
++	 ln -sf libneo.so.0.0.0 libneo.so
++endif
+ 
+ #	$(LDSHARED) -o $@ $(LDFLAGS) -Wl,-whole-archive $(DLIBS)
+ 

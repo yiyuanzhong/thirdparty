@@ -1,0 +1,68 @@
+--- a/config.c	2013-08-12 10:07:10.000000000 +0800
++++ b/config.c	2013-08-12 10:08:29.000000000 +0800
+@@ -101,6 +101,11 @@
+ }
+ #endif
+ 
++#ifndef TAILQ_LAST
++#define TAILQ_LAST(head, headname) \
++    (*(((struct headname *)((head)->tqh_last))->tqh_last))
++#endif
++
+ enum {
+ 	STATE_DEFAULT = 2,
+ 	STATE_SKIP_LINE = 4,
+--- a/config.h	2014-02-10 15:35:21.000000000 +0800
++++ b/config.h	2014-02-10 15:37:32.000000000 +0800
+@@ -5,21 +5,21 @@
+ #define ROOT_UID 0
+ 
+ #ifdef __hpux
+-#define DEFAULT_MAIL_COMMAND "/usr/bin/mailx"
+-#define COMPRESS_COMMAND "/usr/contrib/bin/gzip"
+-#define UNCOMPRESS_COMMAND "/usr/contrib/bin/gunzip"
++#define DEFAULT_MAIL_COMMAND "mailx"
++#define COMPRESS_COMMAND "gzip"
++#define UNCOMPRESS_COMMAND "gunzip"
+ #define STATEFILE "/var/run/logrotate.status"
+ #endif
+ 
+ #ifdef SunOS
+-#define DEFAULT_MAIL_COMMAND "/usr/bin/mailx"
++#define DEFAULT_MAIL_COMMAND "mailx"
+ #define STATEFILE "/var/log/logrotate.status"
+ #endif
+ 
+ #ifdef __NetBSD__
+-#define DEFAULT_MAIL_COMMAND "/usr/bin/mail -s"
+-#define COMPRESS_COMMAND "/usr/bin/gzip"
+-#define UNCOMPRESS_COMMAND "/usr/bin/gunzip"
++#define DEFAULT_MAIL_COMMAND "mail -s"
++#define COMPRESS_COMMAND "gzip"
++#define UNCOMPRESS_COMMAND "gunzip"
+ #define STATEFILE "/var/log/logrotate.status"
+ #endif
+ 
+@@ -27,11 +27,11 @@
+  * Default settings for Linux - leave these last.
+  */
+ #ifndef DEFAULT_MAIL_COMMAND
+-#define DEFAULT_MAIL_COMMAND "/bin/mail"
++#define DEFAULT_MAIL_COMMAND "mail"
+ #endif
+ 
+ #ifndef COMPRESS_COMMAND
+-#define COMPRESS_COMMAND "/bin/gzip"
++#define COMPRESS_COMMAND "gzip"
+ #endif
+ 
+ #ifndef COMPRESS_EXT
+@@ -39,7 +39,7 @@
+ #endif
+ 
+ #ifndef UNCOMPRESS_COMMAND
+-#define UNCOMPRESS_COMMAND "/bin/gunzip"
++#define UNCOMPRESS_COMMAND "gunzip"
+ #endif
+ 
+ #ifndef STATEFILE

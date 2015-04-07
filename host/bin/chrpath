@@ -1,0 +1,5 @@
+#! /bin/sh
+
+echo 'chrpath: MacOSX support is temporarily not implemented.' >&2
+
+exit 0

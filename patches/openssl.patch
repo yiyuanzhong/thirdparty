@@ -1,0 +1,68 @@
+--- a/ssl/ssl.h	2014-01-28 17:32:00.000000000 +0800
++++ b/ssl/ssl.h	2014-01-28 17:37:50.000000000 +0800
+@@ -2079,6 +2079,8 @@
+ long SSL_get_default_timeout(const SSL *s);
+ 
+ int SSL_library_init(void);
++void SSL_library_cleanup(void );
++#define HAVE_SSL_LIBRARY_CLEANUP 1
+ 
+ char *SSL_CIPHER_description(const SSL_CIPHER *, char *buf, int size);
+ STACK_OF(X509_NAME) *SSL_dup_CA_list(STACK_OF(X509_NAME) *sk);
+--- a/ssl/ssl_algs.c	2014-01-28 17:33:06.000000000 +0800
++++ b/ssl/ssl_algs.c	2014-01-28 17:34:38.000000000 +0800
+@@ -149,3 +149,10 @@
+     ssl_load_ciphers();
+     return (1);
+ }
++
++void SSL_library_cleanup(void)
++{
++#ifndef OPENSSL_NO_COMP
++    SSL_COMP_free_compression_methods();
++#endif
++}
+--- a/ssl/ssl_ciph.c	2014-01-28 17:32:57.000000000 +0800
++++ b/ssl/ssl_ciph.c	2014-01-28 17:37:24.000000000 +0800
+@@ -1838,6 +1838,10 @@
+     return NULL;
+ }
+ 
++void SSL_COMP_free_compression_methods(void)
++{
++}
++
+ int SSL_COMP_add_compression_method(int id, void *cm)
+ {
+     return 1;
+@@ -1854,6 +1858,30 @@
+     return (ssl_comp_methods);
+ }
+ 
++void SSL_COMP_free_compression_methods(void)
++{
++    int got_write_lock = 0;
++
++    CRYPTO_r_lock(CRYPTO_LOCK_SSL);
++    if (ssl_comp_methods != NULL) {
++        CRYPTO_r_unlock(CRYPTO_LOCK_SSL);
++        CRYPTO_w_lock(CRYPTO_LOCK_SSL);
++        got_write_lock = 1;
++
++        if (ssl_comp_methods != NULL) {
++            MemCheck_off();
++            sk_SSL_COMP_pop_free(ssl_comp_methods, OPENSSL_freeFunc);
++            ssl_comp_methods = NULL;
++            MemCheck_on();
++        }
++    }
++
++    if (got_write_lock)
++        CRYPTO_w_unlock(CRYPTO_LOCK_SSL);
++    else
++        CRYPTO_r_unlock(CRYPTO_LOCK_SSL);
++}
++
+ int SSL_COMP_add_compression_method(int id, COMP_METHOD *cm)
+ {
+     SSL_COMP *comp;

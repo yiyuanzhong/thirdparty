@@ -1,0 +1,41 @@
+--- a/libmemcached-1.0/memcached.h	2012-12-26 15:06:35.000000000 +0800
++++ b/libmemcached-1.0/memcached.h	2012-12-26 15:06:43.000000000 +0800
+@@ -43,7 +43,6 @@
+ #endif
+ 
+ #ifdef __cplusplus
+-#  include <cinttypes>
+ #  include <cstddef>
+ #  include <cstdlib>
+ #else
+--- a/clients/memflush.cc	2014-04-17 14:48:14.000000000 +0800
++++ b/clients/memflush.cc	2014-04-17 14:48:30.000000000 +0800
+@@ -39,7 +39,7 @@
+ {
+   options_parse(argc, argv);
+ 
+-  if (opt_servers == false)
++  if (opt_servers == NULL)
+   {
+     char *temp;
+ 
+@@ -48,7 +48,7 @@
+       opt_servers= strdup(temp);
+     }
+ 
+-    if (opt_servers == false)
++    if (opt_servers == NULL)
+     {
+       std::cerr << "No Servers provided" << std::endl;
+       exit(EXIT_FAILURE);
+--- a/libmemcached/byteorder.cc	2014-12-08 13:55:16.000000000 +0800
++++ b/libmemcached/byteorder.cc	2014-12-08 13:55:33.000000000 +0800
+@@ -38,6 +38,8 @@
+ #include "mem_config.h"
+ #include "libmemcached/byteorder.h"
+ 
++#include <arpa/inet.h>
++
+ /* Byte swap a 64-bit number. */
+ #ifndef swap64
+ static inline uint64_t swap64(uint64_t in)
