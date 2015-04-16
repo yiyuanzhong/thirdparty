@@ -36,6 +36,8 @@ CHMOD := chmod
 STRIP := strip
 TOUCH := touch
 XARGS := xargs
+FALSE := false
+TRUE := true
 FIND := find
 ECHO := echo
 SED := sed
@@ -88,7 +90,7 @@ endef
 
 all: staging
 ifeq ($(SYSTEM),Linux)
-	-cd $(STAGING) && for i in `$(FIND) bin lib libexec sbin -type f`; do $(READELF) -d "$${i}" | $(FGREP) -q 'rpath' && $(ECHO) "$${i}"; done >chrpath.txt 2>/dev/null
+	cd $(STAGING) && for i in `$(FIND) bin lib libexec sbin -type f`; do $(READELF) -d "$${i}" | $(FGREP) -q 'rpath' && $(ECHO) "$${i}"; done >chrpath.txt 2>/dev/null; $(TRUE)
 	cd $(STAGING) && if [ -s 'chrpath.txt' ]; then $(CAT) chrpath.txt | $(XARGS) $(CHMOD) 0755; $(CAT) chrpath.txt | $(XARGS) $(CHRPATH) -d; fi
 endif
 
@@ -110,7 +112,7 @@ $(eval $(call M,c-ares,c-ares-1.10.0.tar.gz))
 $(eval $(call M,libpng,libpng-1.6.16.tar.xz))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz))
 $(eval $(call M,protobuf,protobuf-2.6.1.tar.bz2,zlib))
-$(eval $(call M,sqlite3,sqlite-autoconf-3080803.tar.gz))
+$(eval $(call M,sqlite3,sqlite-autoconf-3080900.tar.gz))
 $(eval $(call M,libpopt,popt-1.16.tar.gz,,--disable-nls))
 $(eval $(call M,apr,apr-1.5.1.tar.bz2,util-linux,--enable-threads))
 $(eval $(call M,gperftools,gperftools-2.4.tar.gz,,--enable-minimal))
@@ -396,7 +398,7 @@ $(eval $(call M,php5,php-5.5.23.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # Nginx is naughty about dependencies.
-._nginx: $(SOURCES)/nginx-1.6.2.tar.gz ._openssl ._pcre
+._nginx: $(SOURCES)/nginx-1.6.3.tar.gz ._openssl ._pcre
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	$(MKDIR) $(STAGING)/sbin
