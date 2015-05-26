@@ -13,11 +13,11 @@ LC_ALL   = C
 CFLAGS   = -g -O2
 CXXFLAGS = -g -O2
 LDFLAGS  = -L$(STAGING)/lib
+LD_RUN_PATH = $(STAGING)/lib
 CPPFLAGS = -I$(STAGING)/include -DNDEBUG
-LD_LIBRARY_PATH = $(STAGING)/lib
 PKG_CONFIG_PATH = $(STAGING)/lib/pkgconfig
 PATH := $(STAGING)/sbin:$(STAGING)/bin:$(TOOLS)/bin:$(PATH)
-export CFLAGS CPPFLAGS CXXFLAGS LC_ALL LDFLAGS LD_LIBRARY_PATH PATH PKG_CONFIG_PATH
+export CFLAGS CPPFLAGS CXXFLAGS LC_ALL LD_RUN_PATH LDFLAGS PATH PKG_CONFIG_PATH
 
 CMAKE_INCLUDE_PATH = $(STAGING)/include
 CMAKE_LIBRARY_PATH = $(STAGING)/lib
@@ -26,7 +26,7 @@ export CMAKE_INCLUDE_PATH CMAKE_LIBRARY_PATH
 AUTORECONF := autoreconf
 PATCH_RAW := patch
 CHRPATH := chrpath
-READELF = readelf
+READELF := readelf
 PATCH := patch -b
 MKDIR := mkdir -p
 UNZIP := unzip -q
@@ -89,10 +89,7 @@ define M
 endef
 
 all: staging
-ifeq ($(SYSTEM),Linux)
-	cd $(STAGING) && for i in `$(FIND) bin lib libexec sbin -type f`; do $(READELF) -d "$${i}" | $(FGREP) -q 'rpath' && $(ECHO) "$${i}"; done >chrpath.txt 2>/dev/null; $(TRUE)
-	cd $(STAGING) && if [ -s 'chrpath.txt' ]; then $(CAT) chrpath.txt | $(XARGS) $(CHMOD) 0755; $(CAT) chrpath.txt | $(XARGS) $(CHRPATH) -d; fi
-endif
+	cd $(STAGING) && for i in `$(FIND) bin lib libexec sbin -type f`; do ../fixpath.sh "$${i}" lib; done >chrpath.log 2>&1
 
 staging: ._libintl ._mod_fcgid ._sqlite3 ._mysql++ ._clearsilver ._jsoncpp \
          ._libcurl ._logrotate ._gsoap ._fcgi ._libxslt ._php5 ._memcached \
@@ -112,26 +109,39 @@ $(eval $(call M,c-ares,c-ares-1.10.0.tar.gz))
 $(eval $(call M,libpng,libpng-1.6.16.tar.xz))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz))
 $(eval $(call M,protobuf,protobuf-2.6.1.tar.bz2,zlib))
-$(eval $(call M,sqlite3,sqlite-autoconf-3080900.tar.gz))
+$(eval $(call M,sqlite3,sqlite-autoconf-3081002.tar.gz))
 $(eval $(call M,libpopt,popt-1.16.tar.gz,,--disable-nls))
-$(eval $(call M,apr,apr-1.5.1.tar.bz2,util-linux,--enable-threads))
 $(eval $(call M,gperftools,gperftools-2.4.tar.gz,,--enable-minimal))
 $(eval $(call M,libmcrypt,libmcrypt-2.5.8.tar.bz2,,--enable-static))
 $(eval $(call M,libevent,libevent-2.0.22-stable.tar.gz,openssl zlib))
 $(eval $(call M,libfreetype2,freetype-2.5.5.tar.bz2,bzip2 libpng zlib))
 $(eval $(call M,libxslt,libxslt-1.1.28.tar.gz,libxml2,--without-python))
 $(eval $(call M,libreadline,readline-6.3.tar.gz,libncurses,--with-curses))
+$(eval $(call M,apr,apr-1.5.1.tar.bz2,util-linux,--enable-threads --enable-posix-shm))
+$(eval $(call M,libiconv,libiconv-1.14.tar.gz,,--enable-static --disable-rpath --disable-nls))
 $(eval $(call M,libncurses,ncurses-5.9.tar.gz,,--without-debug --with-shared --enable-overwrite))
 $(eval $(call M,flex,flex-2.5.39.tar.xz,,--disable-shared --disable-nls,,,$(LN) -s flex $(STAGING)/bin/lex))
 $(eval $(call M,util-linux,util-linux-2.21.2.tar.xz,,--without-ncurses --disable-nls,-C libuuid,-C libuuid))
 $(eval $(call M,libxml2,libxml2-2.9.2.tar.gz,libreadline xz zlib,--without-python --with-zlib=$(STAGING) --with-lzma=$(STAGING)))
-$(eval $(call M,tar,tar-1.27.1.tar.xz,bzip2 gzip xz,--disable-acl --disable-nls --without-posix-acls --without-selinux --without-xattrs))
-$(eval $(call M,libarchive,libarchive-3.1.2.tar.gz,bzip2 gzip libxml2 xz openssl zlib,--disable-acl --disable-bsdtar --disable-bsdcpio --disable-xattr))
-$(eval $(call M,libiconv,libiconv-1.14.tar.gz,,--enable-static --disable-rpath --disable-nls,,,$(CHMOD) +x $(STAGING)/lib/libiconv.$(SO) $(STAGING)/lib/libcharset.$(SO)))
-$(eval $(call M,pcre,pcre-8.36.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
+$(eval $(call M,tar,tar-1.27.1.tar.xz,bzip2 gzip xz,--disable-rpath --disable-acl --disable-nls --without-posix-acls --without-selinux --without-xattrs))
+$(eval $(call M,pcre,pcre-8.37.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-$(thrift_version).tar.gz,boost libevent openssl php5 zlib,PHP_PREFIX='$(STAGING)/lib/php' $(thrift_flags) --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
-$(eval $(call M,php5,php-5.5.24.tar.xz,bzip2 libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-iconv=$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
+$(eval $(call M,php5,php-5.5.25.tar.xz,bzip2 libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-iconv=$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
+
+# libarchive uses cmake.
+._libarchive: $(SOURCES)/libarchive-3.1.2.tar.gz ._bzip2 ._gzip ._libxml2 ._xz ._openssl ._zlib
+	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
+	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
+	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
+        $(CMAKE) . -DCMAKE_INSTALL_PREFIX=$(STAGING) \
+                   -DENABLE_ACL=OFF \
+                   -DENABLE_TAR=OFF \
+                   -DENABLE_CPIO=OFF \
+                   -DENABLE_TEST=OFF \
+                   -DENABLE_XATTR=OFF && \
+        $(MAKE) && $(MAKE) install
+	$(TOUCH) $@
 
 # MySQL uses cmake.
 ._mysql: $(SOURCES)/mysql-5.6.24.tar.gz ._libncurses ._openssl
@@ -177,17 +187,15 @@ $(eval $(call M,php5,php-5.5.24.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	cd $(BUILD)/$(basename $(basename $(notdir $<)))/gettext-runtime && \
         ./configure --prefix=$(STAGING) --disable-rpath \
         --with-included-gettext && $(MAKE) -C intl && $(MAKE) -C intl install
-	$(CHMOD) +x $(STAGING)/lib/libintl.$(SO)
 	$(TOUCH) $@
 
-# memcached is sensitive about NDEBUG.
-._memcached: $(SOURCES)/memcached-1.4.23.tar.gz ._libevent
+# memcached needs to be reconfigured.
+._memcached: $(SOURCES)/memcached-1.4.24.tar.gz ._libevent
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
         $(PATCH) -p1 <$(PATCHES)/memcached.patch && \
         $(AUTORECONF) -fvi && \
-        CPPFLAGS='$(filter-out $(CPPFLAGS),-DNDEBUG)' \
         ./configure --prefix=$(STAGING) --bindir=$(STAGING)/sbin && \
         $(MAKE) && $(MAKE) install
 	$(TOUCH) $@
@@ -238,7 +246,8 @@ $(eval $(call M,php5,php-5.5.24.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
         $(PATCH) -p1 <$(PATCHES)/mysql++.patch && \
-        ./configure --prefix=$(STAGING) --enable-static --enable-thread_check \
+        PTHREAD_CFLAGS="-pthread" PTHREAD_LIBS="-pthread" \
+        ./configure --prefix=$(STAGING) --enable-static --enable-thread-check \
         --with-mysql=$(STAGING) && $(MAKE) && $(MAKE) install
 	$(SED) -e 's|@libdir@|$(STAGING)/lib|g' lib/$(MACOSX)libmysqlpp.la.in >$(STAGING)/lib/libmysqlpp.la
 	$(TOUCH) $@
@@ -316,7 +325,7 @@ $(eval $(call M,php5,php-5.5.24.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # libcurl needs some tweaks and is sensitive about CFLAGS.
-._libcurl: $(SOURCES)/curl-7.41.0.tar.lzma ._c-ares ._openssl ._zlib
+._libcurl: $(SOURCES)/curl-7.42.1.tar.lzma ._c-ares ._openssl ._zlib
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
@@ -353,7 +362,7 @@ $(eval $(call M,php5,php-5.5.24.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # jsoncpp uses cmake.
-._jsoncpp: $(SOURCES)/jsoncpp-0.10.1.tar.gz
+._jsoncpp: $(SOURCES)/jsoncpp-0.10.2.tar.gz
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -496,7 +505,7 @@ $(eval $(call M,php5,php-5.5.24.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # Hiredis, too simple, sometimes naive.
-._hiredis: $(SOURCES)/hiredis-0.12.1.tar.gz
+._hiredis: $(SOURCES)/hiredis-0.13.1.tar.gz
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \

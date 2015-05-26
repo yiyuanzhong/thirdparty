@@ -314,7 +314,7 @@
 +else
  $(NEO_SO): $(NEO_STATIC_LIBS) $(DEP_LIBS) Makefile 
 -	 /usr/bin/ld  -rpath ../libs -shared -o libneo.so -whole-archive ../libs/libneo_cgi.a ../libs/libneo_cs.a ../libs/libneo_utl.a -no-whole-archive $(LDFLAGS) $(LIBS)
-+	 /usr/bin/ld --soname=libneo.so.0 -rpath ../libs -shared -o libneo.so.0.0.0 -whole-archive ../libs/libneo_cgi.a ../libs/libneo_cs.a ../libs/libneo_utl.a -no-whole-archive $(LDFLAGS) $(LIBS)
++	 /usr/bin/ld --soname=libneo.so.0 -rpath '$$ORIGIN' -shared -o libneo.so.0.0.0 -whole-archive ../libs/libneo_cgi.a ../libs/libneo_cs.a ../libs/libneo_utl.a -no-whole-archive $(LDFLAGS) $(LIBS)
 +	 ln -sf libneo.so.0.0.0 libneo.so.0
 +	 ln -sf libneo.so.0.0.0 libneo.so
 +endif
