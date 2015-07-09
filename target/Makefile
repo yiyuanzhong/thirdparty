@@ -104,7 +104,7 @@ clean:
 $(eval $(call M,xz,xz-5.2.1.tar.bz2))
 $(eval $(call M,gzip,gzip-1.6.tar.gz))
 $(eval $(call M,fcgi,fcgi-2.4.0.tar.gz))
-$(eval $(call M,libev,libev-4.19.tar.gz))
+$(eval $(call M,libev,libev-4.20.tar.gz))
 $(eval $(call M,c-ares,c-ares-1.10.0.tar.gz))
 $(eval $(call M,libpng,libpng-1.6.16.tar.xz))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz))
@@ -127,7 +127,7 @@ $(eval $(call M,tar,tar-1.27.1.tar.xz,bzip2 gzip xz,--disable-rpath --disable-ac
 $(eval $(call M,pcre,pcre-8.37.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-$(thrift_version).tar.gz,boost libevent openssl php5 zlib,PHP_PREFIX='$(STAGING)/lib/php' $(thrift_flags) --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
-$(eval $(call M,php5,php-5.5.26.tar.xz,bzip2 libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-iconv=$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
+$(eval $(call M,php5,php-5.6.10.tar.xz,bzip2 libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-iconv=$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
 
 # libarchive uses cmake.
 ._libarchive: $(SOURCES)/libarchive-3.1.2.tar.gz ._bzip2 ._gzip ._libxml2 ._xz ._openssl ._zlib
@@ -325,7 +325,7 @@ $(eval $(call M,php5,php-5.5.26.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # libcurl needs some tweaks and is sensitive about CFLAGS.
-._libcurl: $(SOURCES)/curl-7.42.1.tar.lzma ._c-ares ._openssl ._zlib
+._libcurl: $(SOURCES)/curl-7.43.0.tar.lzma ._c-ares ._openssl ._zlib
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
@@ -466,7 +466,7 @@ $(eval $(call M,php5,php-5.5.26.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # It's a PHP module.
-._php5-uuid: $(SOURCES)/uuid-1.0.3.tgz ._php5 ._util-linux
+._php5-uuid: $(SOURCES)/uuid-1.0.4.tgz ._php5 ._util-linux
 	$(RM) -R $(BUILD)/$(basename $(notdir $<))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(notdir $<)) && \
