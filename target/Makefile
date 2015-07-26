@@ -299,7 +299,7 @@ $(eval $(call M,php5,php-5.6.11.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # HTTPd needs a little tweak.
-._httpd: $(SOURCES)/httpd-2.4.12.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2
+._httpd: $(SOURCES)/httpd-2.4.16.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
