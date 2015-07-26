@@ -95,7 +95,7 @@ staging: ._libintl ._mod_fcgid ._sqlite3 ._mysql++ ._clearsilver ._jsoncpp \
          ._libcurl ._logrotate ._gsoap ._fcgi ._libxslt ._php5 ._memcached \
          ._tinyxml ._nginx ._libmemcached ._php5-memcached ._hiredis \
          ._libev ._xlslib ._libxls ._tar ._gmock ._protobuf ._libarchive \
-         ._php5-uuid ._snacc ._thrift ._gperftools ._zookeeper
+         ._php5-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++
 
 clean:
 	rm -f ._*
@@ -127,7 +127,7 @@ $(eval $(call M,tar,tar-1.27.1.tar.xz,bzip2 gzip xz,--disable-rpath --disable-ac
 $(eval $(call M,pcre,pcre-8.37.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-$(thrift_version).tar.gz,boost libevent openssl php5 zlib,PHP_PREFIX='$(STAGING)/lib/php' $(thrift_flags) --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
-$(eval $(call M,php5,php-5.6.10.tar.xz,bzip2 libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-iconv=$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
+$(eval $(call M,php5,php-5.6.11.tar.xz,bzip2 libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-iconv=$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
 
 # libarchive uses cmake.
 ._libarchive: $(SOURCES)/libarchive-3.1.2.tar.gz ._bzip2 ._gzip ._libxml2 ._xz ._openssl ._zlib
@@ -157,6 +157,16 @@ $(eval $(call M,php5,php-5.6.10.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
                    -DWITHOUT_SERVER=ON \
                    -DWITH_SSL=system \
                    -DWITH_ZLIB=system && \
+        $(MAKE) && $(MAKE) install
+	$(TOUCH) $@
+
+# MySQL Connector/C++ uses cmake.
+._mysql-connector-c++: $(SOURCES)/mysql-connector-c++-1.1.6.tar.gz ._boost ._mysql
+	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
+	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
+	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
+        $(CMAKE) . -DCMAKE_INSTALL_PREFIX=$(STAGING) \
+                   -DINSTALL_LIBDIR=lib && \
         $(MAKE) && $(MAKE) install
 	$(TOUCH) $@
 
@@ -252,17 +262,6 @@ $(eval $(call M,php5,php-5.6.10.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(SED) -e 's|@libdir@|$(STAGING)/lib|g' lib/$(MACOSX)libmysqlpp.la.in >$(STAGING)/lib/libmysqlpp.la
 	$(TOUCH) $@
 
-# snacc needs to be patched.
-._snacc: $(SOURCES)/snacc-1.3.1.tar.bz2 ._flex
-	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
-	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
-	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
-        $(PATCH) -p1 <$(PATCHES)/snacc.patch && \
-        $(AUTORECONF) -fvi && \
-        TCLSH=false ./configure --prefix=$(STAGING) && \
-        $(MAKE) && $(MAKE) install
-	$(TOUCH) $@
-
 # ClearSilver needs to be patched on 64 bit platforms.
 ._clearsilver: $(SOURCES)/clearsilver-0.10.5.tar.gz
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
@@ -346,7 +345,7 @@ $(eval $(call M,php5,php-5.6.10.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # OpenSSL has something really weird.
-._openssl: $(SOURCES)/openssl-1.0.1o.tar.gz ._zlib
+._openssl: $(SOURCES)/openssl-1.0.1p.tar.gz ._zlib
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
