@@ -72,7 +72,7 @@ define M
 endef
 
 $(eval $(call M,m4,m4-1.4.17.tar.xz))
-$(eval $(call M,cmake,cmake-3.2.3.tar.gz))
+$(eval $(call M,cmake,cmake-3.3.1.tar.gz))
 $(eval $(call M,autoconf,autoconf-2.69.tar.xz,m4))
 $(eval $(call M,make,make-4.1.tar.bz2,,--disable-nls))
 $(eval $(call M,automake,automake-1.15.tar.xz,autoconf))
@@ -83,7 +83,7 @@ $(eval $(call M,find,findutils-4.5.14.tar.gz,,--disable-nls --without-selinux))
 $(eval $(call M,sed,sed-4.2.2.tar.bz2,,--disable-acl --disable-nls --without-selinux))
 $(eval $(call M,pkg-config,pkg-config-0.28.tar.gz,,--disable-host-tool --with-internal-glib))
 $(eval $(call M,flex,flex-2.5.39.tar.xz,,--disable-shared --disable-nls,,,$(LN) -s flex $(STAGING)/bin/lex))
-$(eval $(call M,coreutils,coreutils-8.23.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
+$(eval $(call M,coreutils,coreutils-8.24.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
 
 ifeq ($(SYSTEM),Darwin)
 ._chrpath: bin/chrpath

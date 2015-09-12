@@ -8,7 +8,7 @@
 dlname='libjsoncpp.so.0'
 
 # Names of this library.
-library_names='libjsoncpp.so.0.10.1 libjsoncpp.so.0 libjsoncpp.so'
+library_names='libjsoncpp.so.0.10.5 libjsoncpp.so.0 libjsoncpp.so'
 
 # The name of the static archive.
 old_library='libjsoncpp.a'

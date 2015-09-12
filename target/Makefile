@@ -49,7 +49,7 @@ LN := ln -f
 AR := ar
 
 ifeq ($(shell ../version.sh $(CXX) 4.2.0),OK)
-boost_version := 1_58_0
+boost_version := 1_59_0
 thrift_version := 0.9.2
 thrift_flags := --disable-tests --disable-tutorial
 else
@@ -127,7 +127,16 @@ $(eval $(call M,tar,tar-1.27.1.tar.xz,bzip2 gzip xz,--disable-rpath --disable-ac
 $(eval $(call M,pcre,pcre-8.37.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-$(thrift_version).tar.gz,boost libevent openssl php5 zlib,PHP_PREFIX='$(STAGING)/lib/php' $(thrift_flags) --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
-$(eval $(call M,php5,php-5.6.12.tar.xz,bzip2 libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-iconv=$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
+$(eval $(call M,php5,php-5.6.13.tar.xz,bzip2 icu libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --enable-intl --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
+
+# ICU is hard to build.
+._icu: $(SOURCES)/icu4c-55_1-src.tgz
+	$(RM) -R $(BUILD)/icu
+	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
+	cd $(BUILD)/icu/source && \
+        ./configure --prefix=$(STAGING) && \
+        $(MAKE) && $(MAKE) install
+	$(TOUCH) $@
 
 # libarchive uses cmake.
 ._libarchive: $(SOURCES)/libarchive-3.1.2.tar.gz ._bzip2 ._gzip ._libxml2 ._xz ._openssl ._zlib
@@ -287,7 +296,7 @@ $(eval $(call M,php5,php-5.6.12.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # gSOAP is distributed with zipball.
-._gsoap: $(SOURCES)/gsoap_2.8.22.zip ._openssl
+._gsoap: $(SOURCES)/gsoap_2.8.23.zip ._openssl
 	$(RM) -R $(BUILD)/gsoap-2.8
 	$(MKDIR) $(BUILD) && cd $(BUILD) && $(UNZIP) $<
 	cd $(BUILD)/gsoap-2.8 && \
@@ -345,7 +354,7 @@ $(eval $(call M,php5,php-5.6.12.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # OpenSSL has something really weird.
-._openssl: $(SOURCES)/openssl-1.0.1p.tar.gz ._zlib
+._openssl: $(SOURCES)/openssl-1.0.2d.tar.gz ._zlib
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -504,10 +513,9 @@ $(eval $(call M,php5,php-5.6.12.tar.xz,bzip2 libcurl libfreetype2 libiconv libjp
 	$(TOUCH) $@
 
 # Hiredis, too simple, sometimes naive.
-._hiredis: $(SOURCES)/hiredis-0.13.1.tar.gz
+._hiredis: $(SOURCES)/hiredis-0.13.2.tar.gz
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
-        $(PATCH) -p1 <$(PATCHES)/hiredis.patch && \
         $(MAKE) && $(MAKE) PREFIX=$(STAGING) install
 	$(TOUCH) $@
