@@ -134,7 +134,7 @@ $(eval $(call M,php5,php-5.6.13.tar.xz,bzip2 icu libcurl libfreetype2 libiconv l
 	$(RM) -R $(BUILD)/icu
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/icu/source && \
-        ./configure --prefix=$(STAGING) && \
+        ./configure --prefix=$(STAGING) --enable-rpath && \
         $(MAKE) && $(MAKE) install
 	$(TOUCH) $@
 
