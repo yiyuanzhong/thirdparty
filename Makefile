@@ -1,4 +1,4 @@
-.PHONY: all clean host scmclean sources target
+.PHONY: all clean debug host release shrink sources target
 
 TOP = $(shell cd .. && pwd)
 CWD = $(shell pwd)
@@ -10,7 +10,9 @@ TOOLS = $(CWD)/tools
 CP = cp -pd
 RM = rm -f
 
-all: sources host target scmclean
+all: release
+release: debug shrink
+debug: sources host target
 
 host:
 	$(MAKE) -C host
@@ -21,11 +23,9 @@ target:
 sources:
 	$(MAKE) -C sources
 
-scmclean:
-	@if [ -n "$${SCMBUILD}" ]; then \
-        $(MAKE) -C target clean; \
-        $(MAKE) -C host clean; \
-    fi
+shrink:
+	$(MAKE) -C target clean
+	$(MAKE) -C host clean
 
 clean:
 	$(MAKE) -C target clean

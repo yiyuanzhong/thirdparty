@@ -72,7 +72,7 @@ define M
 endef
 
 $(eval $(call M,m4,m4-1.4.17.tar.xz))
-$(eval $(call M,cmake,cmake-3.3.1.tar.gz))
+$(eval $(call M,cmake,cmake-3.3.2.tar.gz))
 $(eval $(call M,autoconf,autoconf-2.69.tar.xz,m4))
 $(eval $(call M,make,make-4.1.tar.bz2,,--disable-nls))
 $(eval $(call M,automake,automake-1.15.tar.xz,autoconf))
