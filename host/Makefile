@@ -1,32 +1,34 @@
 .PHONY: all clean
 
-TOP = $(shell cd .. && pwd)
-CWD = $(shell pwd)
+TOP := $(shell cd .. && pwd)
+CWD := $(shell pwd)
 
-BUILD = $(CWD)/build
-STAGING = $(TOP)/tools
-SOURCES = $(TOP)/sources
-PATCHES = $(TOP)/patches
+BUILD := $(CWD)/build
+STAGING := $(TOP)/tools
+SOURCES := $(TOP)/sources
+PATCHES := $(TOP)/patches
 
-LC_ALL   = C
-CFLAGS   = -g -O2
-CXXFLAGS = -g -O2
-CPPFLAGS = -I$(STAGING)/include -DNDEBUG
-LDFLAGS  = -L$(STAGING)/lib
+LC_ALL   := C
+CFLAGS   := -g -O2
+CXXFLAGS := -g -O2
+CPPFLAGS := -I$(STAGING)/include -DNDEBUG
+LDFLAGS  := -L$(STAGING)/lib
 PATH := $(STAGING)/bin:$(PATH)
-PKG_CONFIG_PATH = $(STAGING)/lib/pkgconfig
+PKG_CONFIG_PATH := $(STAGING)/lib/pkgconfig
 export CFLAGS CPPFLAGS CXXFLAGS LC_ALL LDFLAGS PATH PKG_CONFIG_PATH
 
-PATCH=patch -b
-MKDIR=mkdir -p
-TOUCH=touch
-CP=cp -af
-RM=rm -f
-LN=ln -f
+PATCH := patch -b
+MKDIR := mkdir -p
+TOUCH := touch
+CMAKE := cmake
+CP := cp -af
+RM := rm -f
+LN := ln -f
 
 SYSTEM := $(shell uname -s)
 
-all: ._tar ._coreutils ._patch ._find ._sed ._unzip ._make ._pkg-config ._bison ._flex ._libtool ._cmake ._chrpath
+all: ._tar ._coreutils ._patch ._find ._sed ._unzip ._make ._pkg-config \
+     ._bison ._flex ._libtool ._cmake ._doxygen ._chrpath
 
 clean:
 	$(RM) ._*
@@ -82,6 +84,7 @@ $(eval $(call M,libtool,libtool-2.4.6.tar.xz,automake,--disable-ltdl-install))
 $(eval $(call M,find,findutils-4.5.14.tar.gz,,--disable-nls --without-selinux))
 $(eval $(call M,sed,sed-4.2.2.tar.bz2,,--disable-acl --disable-nls --without-selinux))
 $(eval $(call M,pkg-config,pkg-config-0.28.tar.gz,,--disable-host-tool --with-internal-glib))
+$(eval $(call M,python,Python-2.7.10.tar.xz,,--disable-shared,,,$(RM) $(STAGING)/bin/python*-config))
 $(eval $(call M,flex,flex-2.5.39.tar.xz,,--disable-shared --disable-nls,,,$(LN) -s flex $(STAGING)/bin/lex))
 $(eval $(call M,coreutils,coreutils-8.24.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
 
@@ -103,4 +106,13 @@ endif
 	$(RM) -r $(BUILD)/unzip60
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/unzip60 && $(LN) unix/Makefile . && $(MAKE) generic && $(MAKE) prefix=$(STAGING) install
+	$(TOUCH) $@
+
+# Doxygen uses cmake.
+._doxygen: $(SOURCES)/doxygen-1.8.10.tar.gz ._cmake ._python
+	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
+	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
+	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
+        $(CMAKE) . -DCMAKE_INSTALL_PREFIX=$(STAGING) && \
+        $(MAKE) && $(MAKE) install
 	$(TOUCH) $@

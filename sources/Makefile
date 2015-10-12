@@ -1,4 +1,4 @@
-CURL = curl --connect-timeout 10 --ftp-pasv --retry 3 --retry-delay 1 -L --max-redirs 3 --silent
+CURL = curl --connect-timeout 10 --ftp-pasv --retry 3 --retry-delay 1 -L --max-redirs 3 --insecure --silent
 MD5SUM = (md5sum -b | awk '{print $$1}' || md5 || openssl md5)
 FALSE = false
 ECHO = echo
@@ -24,6 +24,7 @@ check/$(2):
 	@if [ `$$(CAT) $(2) | $$(MD5SUM) | $$(AWK) '{ print $$$$NF }'` != '$(1)' ]; then $$(RM) $(2); $$(FALSE); fi
 endef
 
+$(eval $(call M,c685ef0b8e9f27b5e3db5db12b268ac6,Python-2.7.10.tar.xz,https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tar.xz))
 $(eval $(call M,4e9769f3349fe11fc0a5e1b224c236aa,apr-1.5.2.tar.bz2,http://mirrors.cnnic.cn/apache/apr/apr-1.5.2.tar.bz2))
 $(eval $(call M,2202b18f269ad606d70e1864857ed93c,apr-util-1.5.4.tar.bz2,http://mirrors.cnnic.cn/apache/apr/apr-util-1.5.4.tar.bz2))
 $(eval $(call M,50f97f4159805e374639a73e2636f22e,autoconf-2.69.tar.xz,http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz))
@@ -38,6 +39,7 @@ $(eval $(call M,b8c0c7fbe0ef5e06e0c935f134304d44,clearsilver-0.10.5.tar.gz,http:
 $(eval $(call M,5febbd11bcaac854a27eebaf4a124be2,cmake-3.3.2.tar.gz,http://www.cmake.org/files/v3.3/cmake-3.3.2.tar.gz))
 $(eval $(call M,40efdbce865d2458d8da0a9dcee7c16c,coreutils-8.24.tar.xz,http://ftp.gnu.org/gnu/coreutils/coreutils-8.24.tar.xz))
 $(eval $(call M,2f924c80bb7124dff1b39f54ffda3781,curl-7.44.0.tar.lzma,http://curl.haxx.se/download/curl-7.44.0.tar.lzma))
+$(eval $(call M,79767ccd986f12a0f949015efb5f058f,doxygen-1.8.10.tar.gz,http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.10.src.tar.gz))
 $(eval $(call M,d15060a813b91383a9f3c66faf84867e,fcgi-2.4.0.tar.gz,http://www.fastcgi.com/dist/fcgi-2.4.0.tar.gz))
 $(eval $(call M,a8a8176282fd28e8d1234c84d847fa66,findutils-4.5.14.tar.gz,http://alpha.gnu.org/gnu/findutils/findutils-4.5.14.tar.gz))
 $(eval $(call M,477679c37ff8b28248a9b05f1da29a82,flex-2.5.39.tar.xz,http://sourceforge.net/projects/flex/files/flex-2.5.39.tar.xz/download))
@@ -77,7 +79,7 @@ $(eval $(call M,3ca4a37931e9fa301964b8ce889da8cb,nginx-1.8.0.tar.gz,http://nginx
 $(eval $(call M,38dd619b2e77cbac69b99f52a053d25a,openssl-1.0.2d.tar.gz,https://www.openssl.org/source/openssl-1.0.2d.tar.gz))
 $(eval $(call M,e3da7940431633fb65a01b91d3b7a27a,patch-2.7.5.tar.xz,http://ftp.gnu.org/gnu/patch/patch-2.7.5.tar.xz))
 $(eval $(call M,ed91be292cb01d21bc7e526816c26981,pcre-8.37.tar.bz2,http://sourceforge.net/projects/pcre/files/pcre/8.37/pcre-8.37.tar.bz2/download))
-$(eval $(call M,de4a8ff544986d9e0da90522fa66f195,php-5.6.13.tar.xz,http://cn2.php.net/get/php-5.6.13.tar.xz/from/this/mirror))
+$(eval $(call M,96080ad8c5111446f58290cc6f18698c,php-5.6.14.tar.xz,http://cn2.php.net/get/php-5.6.14.tar.xz/from/this/mirror))
 $(eval $(call M,aa3c86e67551adc3ac865160e34a2a0d,pkg-config-0.28.tar.gz,http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz))
 $(eval $(call M,3743beefa3dd6247a73f8f7a32c14c33,popt-1.16.tar.gz,http://rpm5.org/files/popt/popt-1.16.tar.gz))
 $(eval $(call M,11aaac2d704eef8efd1867a807865d85,protobuf-2.6.1.tar.bz2,https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.bz2))
