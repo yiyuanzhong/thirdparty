@@ -92,7 +92,7 @@ all: staging
 	cd $(STAGING) && for i in `$(FIND) bin lib libexec sbin -type f`; do ../fixpath.sh "$${i}" lib; done >chrpath.log 2>&1
 
 staging: ._libintl ._mod_fcgid ._sqlite3 ._mysql++ ._clearsilver ._jsoncpp \
-         ._libcurl ._logrotate ._fcgi ._libxslt ._php5 ._memcached \
+         ._libcurl ._logrotate ._gsoap ._fcgi ._libxslt ._php5 ._memcached \
          ._tinyxml ._nginx ._libmemcached ._php5-memcached ._hiredis \
          ._libev ._xlslib ._libxls ._tar ._gmock ._protobuf ._libarchive \
          ._php5-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++
