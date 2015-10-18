@@ -133,3 +133,39 @@ diff -ur gsoap-2.8.orig/gsoap/samples/Makefile.defines gsoap-2.8/gsoap/samples/M
 +SOAP_CPP_LIB=$(top_builddir)/gsoap/libgsoap++.la
 +SOAP_CPP_LIB_CK=$(top_builddir)/gsoap/libgsoapck++.la
 +SOAP_CPP_LIB_SSL=$(top_builddir)/gsoap/libgsoapssl++.la
+--- a/gsoap/stdsoap2.c	2015-10-12 22:26:03.000000000 +0800
++++ b/gsoap/stdsoap2.c	2015-10-12 22:26:32.000000000 +0800
+@@ -5098,6 +5098,7 @@
+   }
+ #endif
+ #ifdef TCP_FASTOPEN
++#ifdef SOL_TCP
+   if (!(soap->omode & SOAP_IO_UDP) && setsockopt(soap->master, SOL_TCP, TCP_FASTOPEN, (char*)&set, sizeof(int)))
+   { soap->errnum = soap_socket_errno(soap->master);
+     soap_set_receiver_error(soap, tcp_error(soap), "setsockopt TCP_FASTOPEN failed in soap_bind()", SOAP_TCP_ERROR);
+@@ -5106,6 +5107,7 @@
+ #endif
+ #endif
+ #endif
++#endif
+ #ifdef WITH_IPV6
+ #ifdef WITH_IPV6_V6ONLY
+   if (res.ai_family == AF_INET6 && setsockopt(soap->master, IPPROTO_IPV6, IPV6_V6ONLY, (char*)&set, sizeof(int)))
+--- a/gsoap/stdsoap2.cpp	2015-10-12 22:26:03.000000000 +0800
++++ b/gsoap/stdsoap2.cpp	2015-10-12 22:26:32.000000000 +0800
+@@ -5098,6 +5098,7 @@
+   }
+ #endif
+ #ifdef TCP_FASTOPEN
++#ifdef SOL_TCP
+   if (!(soap->omode & SOAP_IO_UDP) && setsockopt(soap->master, SOL_TCP, TCP_FASTOPEN, (char*)&set, sizeof(int)))
+   { soap->errnum = soap_socket_errno(soap->master);
+     soap_set_receiver_error(soap, tcp_error(soap), "setsockopt TCP_FASTOPEN failed in soap_bind()", SOAP_TCP_ERROR);
+@@ -5106,6 +5107,7 @@
+ #endif
+ #endif
+ #endif
++#endif
+ #ifdef WITH_IPV6
+ #ifdef WITH_IPV6_V6ONLY
+   if (res.ai_family == AF_INET6 && setsockopt(soap->master, IPPROTO_IPV6, IPV6_V6ONLY, (char*)&set, sizeof(int)))

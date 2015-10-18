@@ -1,26 +1,26 @@
 .PHONY: all clean staging
 
-TOP = $(shell cd .. && pwd)
-CWD = $(shell pwd)
+TOP := $(shell cd .. && pwd)
+CWD := $(shell pwd)
 
-BUILD = $(CWD)/build
-TOOLS = $(TOP)/tools
-STAGING = $(TOP)/staging
-SOURCES = $(TOP)/sources
-PATCHES = $(TOP)/patches
+BUILD := $(CWD)/build
+TOOLS := $(TOP)/tools
+STAGING := $(TOP)/staging
+SOURCES := $(TOP)/sources
+PATCHES := $(TOP)/patches
 
-LC_ALL   = C
-CFLAGS   = -g -O2
-CXXFLAGS = -g -O2
-LDFLAGS  = -L$(STAGING)/lib
-LD_RUN_PATH = $(STAGING)/lib
-CPPFLAGS = -I$(STAGING)/include -DNDEBUG
-PKG_CONFIG_PATH = $(STAGING)/lib/pkgconfig
+LC_ALL   := C
+CFLAGS   := -g -O2
+CXXFLAGS := -g -O2
+LDFLAGS  := -L$(STAGING)/lib
+LD_RUN_PATH := $(STAGING)/lib
+CPPFLAGS := -I$(STAGING)/include -DNDEBUG
+PKG_CONFIG_PATH := $(STAGING)/lib/pkgconfig
 PATH := $(STAGING)/sbin:$(STAGING)/bin:$(TOOLS)/bin:$(PATH)
 export CFLAGS CPPFLAGS CXXFLAGS LC_ALL LD_RUN_PATH LDFLAGS PATH PKG_CONFIG_PATH
 
-CMAKE_INCLUDE_PATH = $(STAGING)/include
-CMAKE_LIBRARY_PATH = $(STAGING)/lib
+CMAKE_INCLUDE_PATH := $(STAGING)/include
+CMAKE_LIBRARY_PATH := $(STAGING)/lib
 export CMAKE_INCLUDE_PATH CMAKE_LIBRARY_PATH
 
 AUTORECONF := autoreconf
@@ -48,19 +48,28 @@ MV := mv -f
 LN := ln -f
 AR := ar
 
-ifeq ($(shell ../version.sh $(CXX) 4.2.0),OK)
+MACHINE := $(shell uname -m)
+SYSTEM := $(shell uname -s)
+
+nghttp2_enable := ._nghttp2
+ifneq ($(shell ../version.sh $(CXX) 4.7.0),OK)
+ifneq ($(SYSTEM),Darwin)
+nghttp2_enable :=
+endif
+endif
+
 boost_version := 1_59_0
-thrift_version := 0.9.2
+thrift_version := 0.9.3
 thrift_flags := --disable-tests --disable-tutorial
-else
+ifneq ($(shell ../version.sh $(CXX) 4.3.0),OK)
+ifneq ($(SYSTEM),Darwin)
 boost_version := 1_55_0
 thrift_version := 0.9.1
 thrift_flags := --without-tests
 endif
+endif
 
 OpenSSL_configure := ./config
-MACHINE := $(shell uname -m)
-SYSTEM := $(shell uname -s)
 SO_S := so*
 SO := so
 ifeq ($(SYSTEM),Darwin)
@@ -125,6 +134,7 @@ $(eval $(call M,util-linux,util-linux-2.21.2.tar.xz,,--without-ncurses --disable
 $(eval $(call M,libxml2,libxml2-2.9.2.tar.gz,libreadline xz zlib,--without-python --with-zlib=$(STAGING) --with-lzma=$(STAGING)))
 $(eval $(call M,tar,tar-1.27.1.tar.xz,bzip2 gzip xz,--disable-rpath --disable-acl --disable-nls --without-posix-acls --without-selinux --without-xattrs))
 $(eval $(call M,pcre,pcre-8.37.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
+$(eval $(call M,nghttp2,nghttp2-1.3.4.tar.xz,libev libevent libxml2 openssl zlib,--disable-hpack-tools --disable-examples --disable-failmalloc --disable-python-bindings --without-boost --without-spdylay --without-jemalloc))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-$(thrift_version).tar.gz,boost libevent openssl php5 zlib,PHP_PREFIX='$(STAGING)/lib/php' $(thrift_flags) --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
 $(eval $(call M,php5,php-5.6.14.tar.xz,bzip2 icu libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --enable-intl=shared --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
@@ -303,12 +313,12 @@ $(eval $(call M,php5,php-5.6.14.tar.xz,bzip2 icu libcurl libfreetype2 libiconv l
         $(PATCH) -p1 <$(PATCHES)/gsoap.patch && \
         $(AUTORECONF) -fvi && \
         CFLAGS="${CFLAGS} ${CPPFLAGS}" CXXFLAGS="${CXXFLAGS} ${CPPFLAGS}" \
-        ./configure --prefix=$(STAGING) --enable-ipv6 && \
+        ./configure --prefix=$(STAGING) --enable-ipv6 --with-openssl=$(STAGING) && \
         $(MAKE) && $(MAKE) install
 	$(TOUCH) $@
 
 # HTTPd needs a little tweak.
-._httpd: $(SOURCES)/httpd-2.4.16.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2
+._httpd: $(SOURCES)/httpd-2.4.17.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2 $(nghttp2_enable)
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
@@ -333,7 +343,7 @@ $(eval $(call M,php5,php-5.6.14.tar.xz,bzip2 icu libcurl libfreetype2 libiconv l
 	$(TOUCH) $@
 
 # libcurl needs some tweaks and is sensitive about CFLAGS.
-._libcurl: $(SOURCES)/curl-7.44.0.tar.lzma ._c-ares ._openssl ._zlib
+._libcurl: $(SOURCES)/curl-7.45.0.tar.lzma ._c-ares ._openssl ._zlib $(nghttp2_enable)
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
