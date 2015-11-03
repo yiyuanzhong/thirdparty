@@ -51,13 +51,6 @@ AR := ar
 MACHINE := $(shell uname -m)
 SYSTEM := $(shell uname -s)
 
-nghttp2_enable := ._nghttp2
-ifneq ($(shell ../version.sh $(CXX) 4.7.0),OK)
-ifneq ($(SYSTEM),Darwin)
-nghttp2_enable :=
-endif
-endif
-
 boost_version := 1_59_0
 thrift_version := 0.9.3
 thrift_flags := --disable-tests --disable-tutorial
@@ -118,7 +111,7 @@ $(eval $(call M,c-ares,c-ares-1.10.0.tar.gz))
 $(eval $(call M,libpng,libpng-1.6.18.tar.xz))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz))
 $(eval $(call M,protobuf,protobuf-2.6.1.tar.bz2,zlib))
-$(eval $(call M,sqlite3,sqlite-autoconf-3081101.tar.gz))
+$(eval $(call M,sqlite3,sqlite-autoconf-3090100.tar.gz))
 $(eval $(call M,libpopt,popt-1.16.tar.gz,,--disable-nls))
 $(eval $(call M,gperftools,gperftools-2.4.tar.gz,,--enable-minimal))
 $(eval $(call M,libmcrypt,libmcrypt-2.5.8.tar.bz2,,--enable-static))
@@ -134,13 +127,13 @@ $(eval $(call M,util-linux,util-linux-2.21.2.tar.xz,,--without-ncurses --disable
 $(eval $(call M,libxml2,libxml2-2.9.2.tar.gz,libreadline xz zlib,--without-python --with-zlib=$(STAGING) --with-lzma=$(STAGING)))
 $(eval $(call M,tar,tar-1.27.1.tar.xz,bzip2 gzip xz,--disable-rpath --disable-acl --disable-nls --without-posix-acls --without-selinux --without-xattrs))
 $(eval $(call M,pcre,pcre-8.37.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
-$(eval $(call M,nghttp2,nghttp2-1.3.4.tar.xz,libev libevent libxml2 openssl zlib,--disable-hpack-tools --disable-examples --disable-failmalloc --disable-python-bindings --without-boost --without-spdylay --without-jemalloc))
+$(eval $(call M,nghttp2,nghttp2-1.3.4.tar.xz,libev libevent libxml2 openssl zlib,--disable-app --enable-asio-lib --disable-hpack-tools --disable-examples --disable-failmalloc --disable-python-bindings --without-boost --without-spdylay --without-jemalloc))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-$(thrift_version).tar.gz,boost libevent openssl php5 zlib,PHP_PREFIX='$(STAGING)/lib/php' $(thrift_flags) --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
 $(eval $(call M,php5,php-5.6.14.tar.xz,bzip2 icu libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --enable-intl=shared --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
 
 # ICU is hard to build.
-._icu: $(SOURCES)/icu4c-55_1-src.tgz
+._icu: $(SOURCES)/icu4c-56_1-src.tgz
 	$(RM) -R $(BUILD)/icu
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/icu/source && \
@@ -163,7 +156,7 @@ $(eval $(call M,php5,php-5.6.14.tar.xz,bzip2 icu libcurl libfreetype2 libiconv l
 	$(TOUCH) $@
 
 # MySQL uses cmake.
-._mysql: $(SOURCES)/mysql-5.6.26.tar.gz ._libncurses ._openssl
+._mysql: $(SOURCES)/mysql-5.6.27.tar.gz ._libncurses ._openssl
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -318,7 +311,7 @@ $(eval $(call M,php5,php-5.6.14.tar.xz,bzip2 icu libcurl libfreetype2 libiconv l
 	$(TOUCH) $@
 
 # HTTPd needs a little tweak.
-._httpd: $(SOURCES)/httpd-2.4.17.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2 $(nghttp2_enable)
+._httpd: $(SOURCES)/httpd-2.4.17.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2 ._nghttp2
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
@@ -343,7 +336,7 @@ $(eval $(call M,php5,php-5.6.14.tar.xz,bzip2 icu libcurl libfreetype2 libiconv l
 	$(TOUCH) $@
 
 # libcurl needs some tweaks and is sensitive about CFLAGS.
-._libcurl: $(SOURCES)/curl-7.45.0.tar.lzma ._c-ares ._openssl ._zlib $(nghttp2_enable)
+._libcurl: $(SOURCES)/curl-7.45.0.tar.lzma ._c-ares ._openssl ._zlib ._nghttp2
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
