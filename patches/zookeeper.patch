@@ -18,34 +18,3 @@
      }else{
          /*
           * Path already exists; check if the watcher already exists.
---- a/include/recordio.h	2015-02-17 00:05:33.000000000 +0800
-+++ b/include/recordio.h	2015-02-17 00:05:45.000000000 +0800
-@@ -73,7 +73,9 @@
- char *get_buffer(struct oarchive *);
- int get_buffer_len(struct oarchive *);
- 
-+#ifndef htonll
- int64_t htonll(int64_t v);
-+#endif
- 
- #ifdef __cplusplus
- }
---- a/src/recordio.c	2015-02-17 00:06:03.000000000 +0800
-+++ b/src/recordio.c	2015-02-17 00:06:17.000000000 +0800
-@@ -80,6 +80,8 @@
-     priv->off+=sizeof(i);
-     return 0;
- }
-+
-+#ifndef htonll
- int64_t htonll(int64_t v)
- {
-     int i = 0;
-@@ -95,6 +97,7 @@
- 
-     return v;
- }
-+#endif
- 
- int oa_serialize_long(struct oarchive *oa, const char *tag, const int64_t *d)
- {

@@ -52,7 +52,7 @@ clean:
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && $(PATCH) -p1 <$(PATCHES)/bzip2-host.patch && $(MAKE) && $(MAKE) PREFIX=$(STAGING) install
 	$(TOUCH) $@
 
-._xz: $(SOURCES)/xz-5.2.1.tar.bz2 ._bzip2
+._xz: $(SOURCES)/xz-5.2.2.tar.bz2 ._bzip2
 	$(RM) -r $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && bzip2 -d -c $< | tar -x
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && ./configure --prefix=$(STAGING) --disable-shared --disable-nls && $(MAKE) && $(MAKE) install
@@ -84,7 +84,7 @@ $(eval $(call M,libtool,libtool-2.4.6.tar.xz,automake,--disable-ltdl-install))
 $(eval $(call M,find,findutils-4.5.14.tar.gz,,--disable-nls --without-selinux))
 $(eval $(call M,sed,sed-4.2.2.tar.bz2,,--disable-acl --disable-nls --without-selinux))
 $(eval $(call M,pkg-config,pkg-config-0.28.tar.gz,,--disable-host-tool --with-internal-glib))
-$(eval $(call M,python,Python-2.7.10.tar.xz,,--disable-shared,,,$(RM) $(STAGING)/bin/python*-config))
+$(eval $(call M,python,Python-2.7.11.tar.xz,,--disable-shared,,,$(RM) $(STAGING)/bin/python*-config))
 $(eval $(call M,flex,flex-2.5.39.tar.xz,,--disable-shared --disable-nls,,,$(LN) -s flex $(STAGING)/bin/lex))
 $(eval $(call M,coreutils,coreutils-8.24.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
 
