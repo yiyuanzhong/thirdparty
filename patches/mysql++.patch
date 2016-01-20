@@ -26,7 +26,8 @@
 +	$(AR) $(AROPTIONS) $@ $(MYSQLPP_OBJECTS)
 +	$(RANLIB) $@
 +	
- install_mysqlpp: $(DLLPREFIX)mysqlpp$(__mysqlpp___targetsuf3)
+-install_mysqlpp: $(DLLPREFIX)mysqlpp$(__mysqlpp___targetsuf3)
++install_mysqlpp: $(DLLPREFIX)mysqlpp$(__mysqlpp___targetsuf3) $(LIBPREFIX)mysqlpp$(LIBEXT)
  	$(INSTALL_DIR) $(DESTDIR)$(libdir)
  	$(INSTALL_DATA) $(LIBPREFIX)mysqlpp.$(DLLIMP_SUFFIX) $(DESTDIR)$(libdir)
  	$(INSTALL_PROGRAM) $(DLLPREFIX)mysqlpp$(__mysqlpp___targetsuf3) $(DESTDIR)$(libdir)

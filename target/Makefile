@@ -1,4 +1,4 @@
-.PHONY: all clean staging
+.PHONY: all staging
 
 TOP := $(shell cd .. && pwd)
 CWD := $(shell pwd)
@@ -12,16 +12,20 @@ PATCHES := $(TOP)/patches
 LC_ALL   := C
 CFLAGS   := -g -O2
 CXXFLAGS := -g -O2
+OLD_PATH := $(PATH)
 LDFLAGS  := -L$(STAGING)/lib
 LD_RUN_PATH := $(STAGING)/lib
+PATH     := $(STAGING)/bin:$(TOOLS)/bin
 CPPFLAGS := -I$(STAGING)/include -DNDEBUG
 PKG_CONFIG_PATH := $(STAGING)/lib/pkgconfig
-PATH := $(STAGING)/sbin:$(STAGING)/bin:$(TOOLS)/bin:$(PATH)
 export CFLAGS CPPFLAGS CXXFLAGS LC_ALL LD_RUN_PATH LDFLAGS PATH PKG_CONFIG_PATH
 
 CMAKE_INCLUDE_PATH := $(STAGING)/include
 CMAKE_LIBRARY_PATH := $(STAGING)/lib
 export CMAKE_INCLUDE_PATH CMAKE_LIBRARY_PATH
+
+CCACHE_PATH := $(OLD_PATH)
+export CCACHE_PATH
 
 AUTORECONF := autoreconf
 PATCH_RAW := patch
@@ -51,7 +55,7 @@ AR := ar
 MACHINE := $(shell uname -m)
 SYSTEM := $(shell uname -s)
 
-boost_version := 1_59_0
+boost_version := 1_60_0
 thrift_version := 0.9.3
 thrift_flags := --disable-tests --disable-tutorial
 ifneq ($(shell ../version.sh $(CXX) 4.3.0),OK)
@@ -99,10 +103,6 @@ staging: ._libintl ._mod_fcgid ._sqlite3 ._mysql++ ._clearsilver ._jsoncpp \
          ._libev ._xlslib ._libxls ._tar ._gmock ._protobuf ._libarchive \
          ._php5-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++
 
-clean:
-	rm -f ._*
-	$(RM) -R $(BUILD)
-
 $(eval $(call M,xz,xz-5.2.2.tar.bz2))
 $(eval $(call M,gzip,gzip-1.6.tar.gz))
 $(eval $(call M,fcgi,fcgi-2.4.0.tar.gz))
@@ -130,7 +130,7 @@ $(eval $(call M,pcre,pcre-8.37.tar.bz2,bzip2 libreadline zlib,--disable-cpp --en
 $(eval $(call M,nghttp2,nghttp2-1.5.0.tar.xz,libev libevent libxml2 openssl zlib,--disable-app --enable-asio-lib --disable-hpack-tools --disable-examples --disable-failmalloc --disable-python-bindings --without-boost --without-spdylay --without-jemalloc))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-$(thrift_version).tar.gz,boost libevent openssl php5 zlib,PHP_PREFIX='$(STAGING)/lib/php' $(thrift_flags) --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
-$(eval $(call M,php5,php-5.6.16.tar.xz,bzip2 icu libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --enable-intl=shared --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
+$(eval $(call M,php5,php-5.6.17.tar.xz,bzip2 icu libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --enable-intl=shared --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
 
 # ICU is hard to build.
 ._icu: $(SOURCES)/icu4c-56_1-src.tgz
@@ -200,6 +200,7 @@ $(eval $(call M,php5,php-5.6.16.tar.xz,bzip2 icu libcurl libfreetype2 libiconv l
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
+        $(PATCH) -p1 <'$(PATCHES)/boost.patch' && \
         ./bootstrap.sh --prefix=$(STAGING) \
             --without-libraries=python,graph_parallel,mpi,log && \
         ./b2 include='$(STAGING)/include' linkflags='-L$(STAGING)/lib' \

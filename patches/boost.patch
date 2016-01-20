@@ -1,0 +1,10 @@
+--- a/tools/build/src/tools/darwin.jam	2016-01-19 23:53:14.000000000 +0800
++++ b/tools/build/src/tools/darwin.jam	2016-01-19 23:54:02.000000000 +0800
+@@ -586,5 +586,6 @@
+ # TODO: Find a way to use the underlying tools, i.e. lipo, to do this.
+ actions piecemeal archive
+ {
+-    "$(.LIBTOOL)" -static -o "$(<:T)"  $(ARFLAGS)  "$(>:T)"
++    "ar" $(ARFLAGS) rc "$(<)" "$(>)"
++    "ranlib" -cs "$(<)"
+ }

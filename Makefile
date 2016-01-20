@@ -24,12 +24,10 @@ sources:
 	$(MAKE) -C sources
 
 shrink:
-	$(MAKE) -C target clean
-	$(MAKE) -C host clean
+	$(RM) -r target/build host/build
+	$(RM) target/._* host/._*
 
-clean:
-	$(MAKE) -C target clean
-	$(MAKE) -C host clean
+clean: shrink
 	$(RM) -r $(STAGING)
 	$(RM) -r $(OUTPUT)
 	$(RM) -r $(TOOLS)
