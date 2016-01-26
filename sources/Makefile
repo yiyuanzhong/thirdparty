@@ -30,6 +30,7 @@ $(eval $(call M,50f97f4159805e374639a73e2636f22e,autoconf-2.69.tar.xz,http://ftp
 $(eval $(call M,9a1ddb0e053474d9d1105cfe39b0c48d,automake-1.15.tar.xz,http://ftp.gnu.org/gnu/automake/automake-1.15.tar.xz))
 $(eval $(call M,c342201de104cc9ce0a21e0ad10d4021,bison-3.0.4.tar.xz,http://ftp.gnu.org/gnu/bison/bison-3.0.4.tar.xz))
 $(eval $(call M,d6eef4b4cacb2183f2bf265a5a03a354,boost_1_55_0.tar.bz2,http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2/download))
+$(eval $(call M,6aa9a5c6a4ca1016edd0ed1178e3cb87,boost_1_59_0.tar.bz2,http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.bz2/download))
 $(eval $(call M,65a840e1a0b13a558ff19eeb2c4f0cbe,boost_1_60_0.tar.bz2,http://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.tar.bz2/download))
 $(eval $(call M,00b516f4704d4a7cb50a1d97e6e8e15b,bzip2-1.0.6.tar.gz,http://bzip.org/1.0.6/bzip2-1.0.6.tar.gz))
 $(eval $(call M,1196067641411a75d3cbebe074fd36d8,c-ares-1.10.0.tar.gz,http://c-ares.haxx.se/download/c-ares-1.10.0.tar.gz))

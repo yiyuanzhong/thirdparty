@@ -58,11 +58,14 @@ SYSTEM := $(shell uname -s)
 boost_version := 1_60_0
 thrift_version := 0.9.3
 thrift_flags := --disable-tests --disable-tutorial
-ifneq ($(shell ../version.sh $(CXX) 4.3.0),OK)
 ifneq ($(SYSTEM),Darwin)
+ifneq ($(shell ../version.sh $(CXX) 4.8.0),OK)
+boost_version := 1_59_0
+ifneq ($(shell ../version.sh $(CXX) 4.3.0),OK)
 boost_version := 1_55_0
 thrift_version := 0.9.1
 thrift_flags := --without-tests
+endif
 endif
 endif
 
