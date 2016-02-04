@@ -33,11 +33,18 @@ SYSTEM := $(shell uname -s)
 
 all: mrproper \
      ._tar ._coreutils ._sed ._grep ._diff ._which ._make ._patch \
-     ._find ._unzip ._pkg-config ._bison \
-     ._flex ._libtool ._cmake ._chrpath
+     ._find ._unzip ._pkg-config ._bison ._util-linux \
+     ._flex ._libtool ._cmake
+
+ifneq ($(SYSTEM),Darwin)
+all: ._chrpath
+endif
 
 mrproper:
 	@PATH=$(OLD_PATH) $(CWD)/prepare.sh
+
+$(SOURCES)/%:
+	$(MAKE) -C $(SOURCES) $(notdir $@)
 
 ._tar: $(SOURCES)/tar-1.27.1.tar.xz ._gzip ._bzip2 ._xz
 	$(RM) -r $(BUILD)/$(basename $(basename $(notdir $<)))
@@ -54,7 +61,7 @@ mrproper:
 ._bzip2: $(SOURCES)/bzip2-1.0.6.tar.gz
 	$(RM) -r $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && gzip -d -c $< | tar -x
-	cd $(BUILD)/$(basename $(basename $(notdir $<))) && $(PATCH) -p1 <$(PATCHES)/bzip2-host.patch && $(MAKE) && $(MAKE) PREFIX=$(TOOLS) install
+	cd $(BUILD)/$(basename $(basename $(notdir $<))) && $(MAKE) && $(MAKE) PREFIX=$(TOOLS) install
 	$(TOUCH) $@
 
 ._xz: $(SOURCES)/xz-5.2.2.tar.bz2 ._bzip2
@@ -79,6 +86,7 @@ define M
 endef
 
 $(eval $(call M,m4,m4-1.4.17.tar.xz))
+$(eval $(call M,chrpath,chrpath-0.16.tar.gz))
 $(eval $(call M,autoconf,autoconf-2.69.tar.xz,m4))
 $(eval $(call M,grep,grep-2.22.tar.xz,,--disable-nls))
 $(eval $(call M,make,make-4.1.tar.bz2,,--disable-nls))
@@ -93,21 +101,8 @@ $(eval $(call M,find,findutils-4.6.0.tar.gz,,--disable-nls --without-selinux))
 $(eval $(call M,sed,sed-4.2.2.tar.bz2,,--disable-acl --disable-nls --without-selinux))
 $(eval $(call M,pkg-config,pkg-config-0.28.tar.gz,,--disable-host-tool --with-internal-glib))
 $(eval $(call M,flex,flex-2.5.39.tar.xz,,--disable-shared --disable-nls,,,$(LN) -s flex $(TOOLS)/bin/lex))
-$(eval $(call M,coreutils,coreutils-8.24.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
-
-ifeq ($(SYSTEM),Darwin)
-._chrpath: bin/chrpath
-	$(MKDIR) $(TOOLS)/bin
-	$(CP) bin/chrpath $(TOOLS)/bin
-	$(TOUCH) $@
-else
-._chrpath: $(SOURCES)/chrpath-0.16.tar.gz
-	$(RM) -r $(BUILD)/$(basename $(basename $(notdir $<)))
-	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
-	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
-		./configure --prefix=$(TOOLS) && $(MAKE) && $(MAKE) install
-	$(TOUCH) $@
-endif
+$(eval $(call M,util-linux,util-linux-2.21.2.tar.xz,,--without-ncurses --disable-nls,-C getopt,-C getopt))
+$(eval $(call M,coreutils,coreutils-8.25.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
 
 ._unzip: $(SOURCES)/unzip60.tar.gz
 	$(RM) -r $(BUILD)/unzip60

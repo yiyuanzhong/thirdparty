@@ -1,4 +1,4 @@
-.PHONY: all clean debug host release shrink sources target
+.PHONY: all clean debug host release shrink target
 
 TOP = $(shell cd .. && pwd)
 CWD = $(shell pwd)
@@ -11,17 +11,14 @@ CP = cp -pd
 RM = rm -f
 
 all: release
+debug: host target
 release: debug shrink
-debug: sources host target
 
 host:
 	$(MAKE) -C host
 
 target:
 	$(MAKE) -C target
-
-sources:
-	$(MAKE) -C sources
 
 shrink:
 	$(RM) -r target/build host/build

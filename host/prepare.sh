@@ -17,16 +17,18 @@ run()
 # Coreutils, will replace.
 # Coreutils (continued), will replace.
 # Tools, will replace.
-# Tools, won't/yet replaced.
+# Tools, won't replace/yet replaced.
 # Toolchain, won't replace.
+# Toolchain (continued), won't replace.
 # Toolchain (continued), won't replace.
 for i in \
     cat chmod cp expr ln ls mkdir mv rm sort touch rmdir \
     uname uniq tr basename date install printf \
-    cmp diff gzip tar sed grep make patch \
+    cmp diff gzip tar sed grep make \
     SetFile awk perl sh ps \
     addr2line ar as c++filt gprof ld nm nmedit objcopy objdump \
-    ranlib readelf size strings strip c++ cc g++ gcc gcov ldd; do
+    ranlib readelf size strings strip c++ cc g++ gcc gcov ldd \
+    otool install_name_tool; do
 
     run "${i}"
 done
