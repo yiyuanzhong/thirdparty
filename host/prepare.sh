@@ -22,10 +22,10 @@ run()
 # Toolchain (continued), won't replace.
 # Toolchain (continued), won't replace.
 for i in \
-    cat chmod cp expr ln ls mkdir mv rm sort touch rmdir \
-    uname uniq tr basename date install printf \
+    cat chmod cp echo expr ln ls mkdir mv rm sort touch rmdir \
+    uname uniq tr basename date install printf md5sum false \
     cmp diff gzip tar sed grep make \
-    SetFile awk perl sh ps \
+    SetFile awk curl md5 openssl perl sh ps \
     addr2line ar as c++filt gprof ld nm nmedit objcopy objdump \
     ranlib readelf size strings strip c++ cc g++ gcc gcov ldd \
     otool install_name_tool; do

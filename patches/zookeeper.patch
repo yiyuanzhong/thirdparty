@@ -1,13 +1,3 @@
---- a/src/zookeeper.c	2014-11-04 15:38:25.000000000 +0800
-+++ b/src/zookeeper.c	2014-11-04 15:38:42.000000000 +0800
-@@ -426,6 +426,7 @@
-     } else {
-         int rc = read(fd, &seed, sizeof(seed));
-         assert(rc == sizeof(seed));
-+        (void)rc;
-         close(fd);
-     }
-     srandom(seed);
 --- a/src/zk_hashtable.c	2014-11-04 15:50:22.000000000 +0800
 +++ b/src/zk_hashtable.c	2014-11-04 15:50:39.000000000 +0800
 @@ -188,6 +188,7 @@
@@ -18,34 +8,3 @@
      }else{
          /*
           * Path already exists; check if the watcher already exists.
---- a/include/recordio.h	2015-02-17 00:05:33.000000000 +0800
-+++ b/include/recordio.h	2015-02-17 00:05:45.000000000 +0800
-@@ -73,7 +73,9 @@
- char *get_buffer(struct oarchive *);
- int get_buffer_len(struct oarchive *);
- 
-+#ifndef htonll
- int64_t htonll(int64_t v);
-+#endif
- 
- #ifdef __cplusplus
- }
---- a/src/recordio.c	2015-02-17 00:06:03.000000000 +0800
-+++ b/src/recordio.c	2015-02-17 00:06:17.000000000 +0800
-@@ -80,6 +80,8 @@
-     priv->off+=sizeof(i);
-     return 0;
- }
-+
-+#ifndef htonll
- int64_t htonll(int64_t v)
- {
-     int i = 0;
-@@ -95,6 +97,7 @@
- 
-     return v;
- }
-+#endif
- 
- int oa_serialize_long(struct oarchive *oa, const char *tag, const int64_t *d)
- {
