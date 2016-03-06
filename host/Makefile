@@ -32,7 +32,7 @@ LN := ln -f
 SYSTEM := $(shell uname -s)
 
 all: mrproper \
-     ._tar ._coreutils ._sed ._grep ._diff ._which ._make ._patch \
+     ._tar ._coreutils ._grep ._sed ._gawk ._diff ._which ._make ._patch \
      ._find ._unzip ._pkg-config ._bison ._util-linux \
      ._flex ._libtool ._cmake
 
@@ -96,6 +96,7 @@ $(eval $(call M,which,which-2.21.tar.gz,,--disable-iberty))
 $(eval $(call M,patch,patch-2.7.5.tar.xz,,--disable-xattr))
 $(eval $(call M,bison,bison-3.0.4.tar.xz,m4,--disable-nls))
 $(eval $(call M,cmake,cmake-3.4.3.tar.gz,,-- -DBUILD_CursesDialog=OFF))
+$(eval $(call M,gawk,gawk-4.1.3.tar.xz,,,,,$(LN) -s gawk $(TOOLS)/bin/awk))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz,automake,--disable-ltdl-install))
 $(eval $(call M,find,findutils-4.6.0.tar.gz,,--disable-nls --without-selinux))
 $(eval $(call M,sed,sed-4.2.2.tar.bz2,,--disable-acl --disable-nls --without-selinux))

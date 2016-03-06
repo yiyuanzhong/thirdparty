@@ -11,13 +11,13 @@ fi
 LIBDIR=`cd "${2}" && pwd` || exit 2
 BINDIR=`dirname "${1}"` || exit 2
 BINDIR=`cd "${BINDIR}" && pwd` || exit 2
-BINNAME=`basename "${1}"` || exit 2
-BINNAME="${BINDIR}/${BINNAME}"
+BINFILE=`basename "${1}"` || exit 2
+BINNAME="${BINDIR}/${BINFILE}"
 
 SYSTEM=`uname -s` || exit 1
 CWD=`dirname "${0}"` || exit 1
 CWD=`cd "${CWD}" && pwd` || exit 1
-CHRPATH="${CWD}/tools/bin/chrpath"
+export PATH="${CWD}/tools/bin"
 
 linux()
 {
@@ -27,10 +27,7 @@ linux()
         return 0
     fi
 
-    if [ ! -x "${BINNAME}" ]; then
-        chmod +x "${BINNAME}" || return 1
-    fi
-
+    chmod +wx "${BINNAME}" || return 1
     rpath=`echo "${elf}" | awk '{ if ($2 == "(RPATH)") { print substr($5, 2, length($5) - 2); exit(0); } }'`
     runpath=`echo "${elf}" | awk '{ if ($2 == "(RUNPATH)") { print substr($5, 2, length($5) - 2); exit(0); } }'`
 
@@ -70,9 +67,9 @@ linux()
             ret = ret \\"/..\\"
         }
 
-        for (i = 1; i <= updir; ++i) {
-            if (e[i + remdir] == \\"\\") break
-            ret = ret \\"/\\" e[i + remdir]
+        for (i = remdir + 1; i <= length(e); ++i) {
+            if (e[i] == \\"\\") break
+            ret = ret \\"/\\" e[i]
         }
 
         print ret
@@ -82,7 +79,7 @@ linux()
     ret=$?
     if [ ${ret} -eq 0 ]; then
         echo "[REMOVE] ${BINNAME} has no dependencies in ${LIBDIR}."
-        ${CHRPATH} -d "${BINNAME}"
+        chrpath -d "${BINNAME}"
         return $?
     elif [ ${ret} -ne 170 ]; then
         return 1
@@ -90,9 +87,9 @@ linux()
 
     echo "[CHANGE] ${BINNAME} set to [${newpath}]."
     if [ -n "${runpath}" ]; then
-        ${CHRPATH} -r "${newpath}" "${BINNAME}" || return 1
+        chrpath -r "${newpath}" "${BINNAME}" || return 1
     else
-        ${CHRPATH} -c -r "${newpath}" "${BINNAME}" || return 1
+        chrpath -c -r "${newpath}" "${BINNAME}" || return 1
     fi
 
     return 0
@@ -100,7 +97,56 @@ linux()
 
 macosx()
 {
-    return 0
+    d=`otool -D "${BINNAME}" 2>/dev/null`
+    if [ $? -ne 0 ]; then
+        echo "[IGNORE] ${BINNAME} type unknown."
+        return 0
+    fi
+
+    if [ x`echo "${d}" | awk '{ print $NF; exit }'` != x"${BINNAME}:" ]; then
+        echo "[IGNORE] ${BINNAME} is not Mach-O."
+        return 0
+    fi
+
+    o=`echo "${d}" | tail -n +2`
+    if [ $? -ne 0 ]; then
+        return 1
+    fi
+
+    l=`otool -L "${BINNAME}" 2>/dev/null`
+    if [ $? -ne 0 ]; then
+        return 1
+    fi
+
+    chmod +wx "${BINNAME}" || return 1
+    if [ -n "${o}" ]; then
+        install_name_tool -id "${BINNAME}" "${BINNAME}"
+        if [ $? -ne 0 ]; then
+            return 1
+        fi
+        o=`echo "${l}" | tail -n +3`
+        if [ $? -ne 0 ]; then
+            return 1
+        fi
+    else
+        o=`echo "${l}" | tail -n +2`
+        if [ $? -ne 0 ]; then
+            return 1
+        fi
+    fi
+
+    if [ -z "${o}" ]; then
+        return 0
+    fi
+
+    echo "${o}" | awk "{
+        if (substr(\$1, 1, 1) != \"/\") {
+            print \"[CHANGE] ${BINNAME}: \" \$1 \" to ${LIBDIR}/\" \$1
+            if (system(\"install_name_tool -change \" \$1 \" ${LIBDIR}/\" \$1 \" ${BINNAME}\")) exit 1
+        }
+    }"
+
+    return $?
 }
 
 case "${SYSTEM}" in
