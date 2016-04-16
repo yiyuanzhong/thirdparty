@@ -69,6 +69,15 @@ endif
 endif
 endif
 
+LIBHUGETLBFS :=
+LIBHUGETLBFS_FLAGS := LIB32=lib LIB64=lib64
+ifeq ($(MACHINE),x86_64)
+LIBHUGETLBFS_FLAGS := LIB32=lib32 LIB64=lib
+endif
+ifeq ($(SYSTEM),Linux)
+LIBHUGETLBFS := ._libhugetlbfs
+endif
+
 OpenSSL_configure := ./config
 SO_S := so*
 SO := so
@@ -104,7 +113,8 @@ staging: ._libintl ._mod_fcgid ._sqlite3 ._mysql++ ._clearsilver ._jsoncpp \
          ._libcurl ._logrotate ._gsoap ._fcgi ._libxslt ._php5 ._memcached \
          ._tinyxml ._nginx ._libmemcached ._php5-memcached ._hiredis \
          ._libev ._xlslib ._libxls ._tar ._gmock ._protobuf ._libarchive \
-         ._php5-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++
+         ._php5-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++ \
+         ._libmpfr
 
 $(SOURCES)/%:
 	$(MAKE) -C $(SOURCES) $(notdir $@)
@@ -116,8 +126,10 @@ $(eval $(call M,libev,libev-4.22.tar.gz))
 $(eval $(call M,c-ares,c-ares-1.10.0.tar.gz))
 $(eval $(call M,libpng,libpng-1.6.21.tar.xz))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz))
+$(eval $(call M,libmpfr,mpfr-3.1.4.tar.xz,libgmp))
+$(eval $(call M,libgmp,gmp-6.1.0.tar.xz,libreadline))
 $(eval $(call M,protobuf,protobuf-2.6.1.tar.bz2,zlib))
-$(eval $(call M,sqlite3,sqlite-autoconf-3110000.tar.gz))
+$(eval $(call M,sqlite3,sqlite-autoconf-3120000.tar.gz))
 $(eval $(call M,libpopt,popt-1.16.tar.gz,,--disable-nls))
 $(eval $(call M,gperftools,gperftools-2.4.tar.gz,,--enable-minimal))
 $(eval $(call M,libmcrypt,libmcrypt-2.5.8.tar.bz2,,--enable-static))
@@ -137,11 +149,11 @@ $(eval $(call M,pcre,pcre-8.38.tar.bz2,bzip2 libreadline zlib,--disable-cpp --en
 $(eval $(call M,nghttp2,nghttp2-1.8.0.tar.xz,libev libevent libxml2 openssl zlib,--disable-app --enable-asio-lib --disable-hpack-tools --disable-examples --disable-failmalloc --disable-python-bindings --without-boost --without-spdylay --without-jemalloc))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-$(thrift_version).tar.gz,boost libevent openssl php5 zlib,PHP_PREFIX='$(STAGING)/lib/php' $(thrift_flags) --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
-$(eval $(call M,libcurl,curl-7.47.1.tar.lzma,c-ares nghttp2 openssl zlib,--enable-http --enable-crypto-auth --enable-ipv6 --enable-tls-srp --enable-ftp --enable-manual --disable-ldap --disable-ldaps --disable-rtsp --enable-proxy --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-file --without-krb4 --without-libidn --without-ca-bundle --without-ca-path --without-gssapi --disable-libcurl-option --enable-verbose --enable-shared --enable-static --enable-cookies --enable-symbol-hiding --disable-threaded-resolver --disable-curldebug --enable-optimize --disable-debug --without-librtmp --without-libssh2 --without-winidn --without-libmetalink --without-axtls --without-nss  --without-cyassl --disable-dependency-tracking --without-gnutls --without-darwinssl --without-winssl --disable-ntlm-wb --disable-sspi --disable-largefile --without-polarssl --enable-ares))
-$(eval $(call M,php5,php-5.6.19.tar.xz,bzip2 icu libcurl libfreetype2 libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --enable-intl=shared --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
+$(eval $(call M,libcurl,curl-7.48.0.tar.lzma,c-ares nghttp2 openssl zlib,--enable-http --enable-crypto-auth --enable-ipv6 --enable-tls-srp --enable-ftp --enable-manual --disable-ldap --disable-ldaps --disable-rtsp --enable-proxy --disable-dict --disable-telnet --disable-tftp --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-file --without-krb4 --without-libidn --without-ca-bundle --without-ca-path --without-gssapi --disable-libcurl-option --enable-verbose --enable-shared --enable-static --enable-cookies --enable-symbol-hiding --disable-threaded-resolver --disable-curldebug --enable-optimize --disable-debug --without-librtmp --without-libssh2 --without-winidn --without-libmetalink --without-axtls --without-nss  --without-cyassl --disable-dependency-tracking --without-gnutls --without-darwinssl --without-winssl --disable-ntlm-wb --disable-sspi --disable-largefile --without-polarssl --enable-ares))
+$(eval $(call M,php5,php-5.6.20.tar.xz,bzip2 icu libcurl libfreetype2 libgmp libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --enable-intl=shared --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysql=shared$(comma)mysqlnd --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-gmp=shared$(comma)$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
 
 # ICU is hard to build.
-._icu: $(SOURCES)/icu4c-56_1-src.tgz
+._icu: $(SOURCES)/icu4c-57_1-src.tgz
 	$(RM) -R $(BUILD)/icu
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/icu/source && \
@@ -228,8 +240,16 @@ $(eval $(call M,php5,php-5.6.19.tar.xz,bzip2 icu libcurl libfreetype2 libiconv l
         --with-included-gettext && $(MAKE) -C intl && $(MAKE) -C intl install
 	$(TOUCH) $@
 
+# This one is definitely something.
+._libhugetlbfs: $(SOURCES)/libhugetlbfs-2.20.tar.gz
+	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
+	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
+	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
+        $(MAKE) BUILDTYPE=NATIVEONLY PREFIX=$(STAGING) $(LIBHUGETLBFS_FLAGS) libs tools install
+	$(TOUCH) $@
+
 # memcached needs to be reconfigured.
-._memcached: $(SOURCES)/memcached-1.4.25.tar.gz ._libevent
+._memcached: $(SOURCES)/memcached-1.4.25.tar.gz ._libevent $(LIBHUGETLBFS)
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -328,7 +348,7 @@ $(eval $(call M,php5,php-5.6.19.tar.xz,bzip2 icu libcurl libfreetype2 libiconv l
 	$(TOUCH) $@
 
 # HTTPd needs a little tweak.
-._httpd: $(SOURCES)/httpd-2.4.18.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2 ._nghttp2
+._httpd: $(SOURCES)/httpd-2.4.20.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2 ._nghttp2
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
