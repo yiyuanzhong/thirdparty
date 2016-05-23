@@ -1,0 +1,11 @@
+--- a/src/libc_override_osx.h	2016-05-14 21:33:37.000000000 +0800
++++ b/src/libc_override_osx.h	2016-05-14 21:34:18.000000000 +0800
+@@ -278,4 +278,8 @@
+   malloc_zone_register(default_zone);
+ }
+ 
++#ifdef ENABLE_SIZED_DELETE
++void operator delete(void* p, size_t s) throw()  { tc_delete_sized(p, s);     }
++#endif
++
+ #endif  // TCMALLOC_LIBC_OVERRIDE_OSX_INL_H_

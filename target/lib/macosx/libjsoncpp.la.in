@@ -8,7 +8,7 @@
 dlname='libjsoncpp.0.dylib'
 
 # Names of this library.
-library_names='libjsoncpp.0.10.5.dylib libjsoncpp.0.dylib libjsoncpp.dylib'
+library_names='libjsoncpp.0.10.6.dylib libjsoncpp.0.dylib libjsoncpp.dylib'
 
 # The name of the static archive.
 old_library='libjsoncpp.a'

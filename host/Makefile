@@ -52,7 +52,7 @@ $(SOURCES)/%:
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && ./configure --prefix=$(TOOLS) --disable-acl --disable-nls --without-posix-acls --without-selinux --without-xattrs && $(MAKE) && $(MAKE) install
 	$(TOUCH) $@
 
-._gzip: $(SOURCES)/gzip-1.6.tar.gz
+._gzip: $(SOURCES)/gzip-1.8.tar.gz
 	$(RM) -r $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && gzip -d -c $< | tar -x
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && ./configure --prefix=$(TOOLS) && $(MAKE) && $(MAKE) install-exec
@@ -88,20 +88,20 @@ endef
 $(eval $(call M,m4,m4-1.4.17.tar.xz))
 $(eval $(call M,chrpath,chrpath-0.16.tar.gz))
 $(eval $(call M,autoconf,autoconf-2.69.tar.xz,m4))
-$(eval $(call M,grep,grep-2.22.tar.xz,,--disable-nls))
+$(eval $(call M,grep,grep-2.25.tar.xz,,--disable-nls))
 $(eval $(call M,make,make-4.1.tar.bz2,,--disable-nls))
 $(eval $(call M,automake,automake-1.15.tar.xz,autoconf))
 $(eval $(call M,diff,diffutils-3.3.tar.xz,,--disable-nls))
 $(eval $(call M,which,which-2.21.tar.gz,,--disable-iberty))
 $(eval $(call M,patch,patch-2.7.5.tar.xz,,--disable-xattr))
 $(eval $(call M,bison,bison-3.0.4.tar.xz,m4,--disable-nls))
-$(eval $(call M,cmake,cmake-3.4.3.tar.gz,,-- -DBUILD_CursesDialog=OFF))
+$(eval $(call M,cmake,cmake-3.5.2.tar.gz,,-- -DBUILD_CursesDialog=OFF))
 $(eval $(call M,gawk,gawk-4.1.3.tar.xz,,,,,$(LN) -s gawk $(TOOLS)/bin/awk))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz,automake,--disable-ltdl-install))
 $(eval $(call M,find,findutils-4.6.0.tar.gz,,--disable-nls --without-selinux))
 $(eval $(call M,sed,sed-4.2.2.tar.bz2,,--disable-acl --disable-nls --without-selinux))
 $(eval $(call M,pkg-config,pkg-config-0.28.tar.gz,,--disable-host-tool --with-internal-glib))
-$(eval $(call M,flex,flex-2.5.39.tar.xz,,--disable-shared --disable-nls,,,$(LN) -s flex $(TOOLS)/bin/lex))
+$(eval $(call M,flex,flex-2.6.0.tar.xz,,--disable-shared --disable-nls,,,$(LN) -s flex $(TOOLS)/bin/lex))
 $(eval $(call M,util-linux,util-linux-2.21.2.tar.xz,,--without-ncurses --disable-nls,-C getopt,-C getopt))
 $(eval $(call M,coreutils,coreutils-8.25.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
 
