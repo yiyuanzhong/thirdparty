@@ -1,0 +1,10 @@
+--- a/src/google/protobuf/map.h	2016-05-30 10:56:56.000000000 +0800
++++ b/src/google/protobuf/map.h	2016-05-30 10:57:04.000000000 +0800
+@@ -650,7 +650,6 @@
+       return std::numeric_limits<size_type>::max();
+     }
+ 
+-   private:
+     typedef void DestructorSkippable_;
+     Arena* const arena_;
+ 

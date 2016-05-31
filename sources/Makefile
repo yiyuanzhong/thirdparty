@@ -31,6 +31,7 @@ check/$(2):
 	$(AT)if [ `$$(CAT) '$(2)' | $$(MD5SUM) | $$(AWK) '{ print $$$$NF }'` != '$(1)' ]; then $$(RM) '$(2)'; $$(FALSE); fi
 endef
 
+$(eval $(call M,af23ab91d9d1de142c940dbf2b2398df,apcu-5.1.4.tgz,https://pecl.php.net/get/apcu-5.1.4.tgz))
 $(eval $(call M,4e9769f3349fe11fc0a5e1b224c236aa,apr-1.5.2.tar.bz2,http://mirrors.cnnic.cn/apache/apr/apr-1.5.2.tar.bz2))
 $(eval $(call M,2202b18f269ad606d70e1864857ed93c,apr-util-1.5.4.tar.bz2,http://mirrors.cnnic.cn/apache/apr/apr-util-1.5.4.tar.bz2))
 $(eval $(call M,50f97f4159805e374639a73e2636f22e,autoconf-2.69.tar.xz,https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz))
@@ -78,7 +79,7 @@ $(eval $(call M,4492b145b6d542e4a2f41e77fa199ab0,logrotate-3.9.1.tar.gz,https://
 $(eval $(call M,12a3c829301a4fd6586a57d3fcf196dc,m4-1.4.17.tar.xz,https://ftp.gnu.org/gnu/m4/m4-1.4.17.tar.xz))
 $(eval $(call M,57a7a224a822f94789a587ccbcedff69,make-4.1.tar.bz2,https://ftp.gnu.org/gnu/make/make-4.1.tar.bz2))
 $(eval $(call M,55ca94e02639365fef3eac2b3f96de7c,memcached-1.4.25.tar.gz,http://www.memcached.org/files/memcached-1.4.25.tar.gz))
-$(eval $(call M,28937c6144f734e000c6300242f44ce6,memcached-2.2.0.tgz,https://pecl.php.net/get/memcached-2.2.0.tgz))
+$(eval $(call M,9ae1f9b199b4bae2b85cdef7cb5faf22,php-memcached-6ee96cad7be5caa1f13a1f3e5a4d5f900b9c04ce.zip,https://github.com/php-memcached-dev/php-memcached/archive/6ee96cad7be5caa1f13a1f3e5a4d5f900b9c04ce.zip))
 $(eval $(call M,262a8c59bceee5fcb669dd92a85c637d,mod_fcgid-2.3.9.tar.bz2,http://mirrors.cnnic.cn/apache/httpd/mod_fcgid/mod_fcgid-2.3.9.tar.bz2))
 $(eval $(call M,d6a1d5f8ddea3abd2cc3e98f58352d26,mpc-1.0.3.tar.gz,https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz))
 $(eval $(call M,064b2c18185038e404a401b830d59be8,mpfr-3.1.4.tar.xz,http://www.mpfr.org/mpfr-current/mpfr-3.1.4.tar.xz))
@@ -91,10 +92,10 @@ $(eval $(call M,c184c873d2798c5ba92be95ed1209c02,nginx-1.10.0.tar.gz,http://ngin
 $(eval $(call M,9392e65072ce4b614c1392eefc1f23d0,openssl-1.0.2h.tar.gz,https://www.openssl.org/source/openssl-1.0.2h.tar.gz))
 $(eval $(call M,e3da7940431633fb65a01b91d3b7a27a,patch-2.7.5.tar.xz,https://ftp.gnu.org/gnu/patch/patch-2.7.5.tar.xz))
 $(eval $(call M,00aabbfe56d5a48b270f999b508c5ad2,pcre-8.38.tar.bz2,https://sourceforge.net/projects/pcre/files/pcre/8.38/pcre-8.38.tar.bz2/download))
-$(eval $(call M,177c69d47024541739c439c9d9eb6ba5,php-5.6.21.tar.xz,http://cn2.php.net/get/php-5.6.21.tar.xz/from/this/mirror))
+$(eval $(call M,75f8d1693a470cefe2a50abd283eb291,php-7.0.7.tar.xz,http://cn2.php.net/get/php-7.0.7.tar.xz/from/this/mirror))
 $(eval $(call M,aa3c86e67551adc3ac865160e34a2a0d,pkg-config-0.28.tar.gz,http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz))
 $(eval $(call M,3743beefa3dd6247a73f8f7a32c14c33,popt-1.16.tar.gz,http://rpm5.org/files/popt/popt-1.16.tar.gz))
-$(eval $(call M,11aaac2d704eef8efd1867a807865d85,protobuf-2.6.1.tar.bz2,https://github.com/google/protobuf/releases/download/v2.6.1/protobuf-2.6.1.tar.bz2))
+$(eval $(call M,89afd3855f2d4782e59c09e07d9efa67,protobuf-3.0.0-beta-3.tar.gz,https://github.com/google/protobuf/archive/v3.0.0-beta-3.tar.gz))
 $(eval $(call M,33c8fb279e981274f485fd91da77e94a,readline-6.3.tar.gz,https://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz))
 $(eval $(call M,7ffe1c7cdc3233e1e0c4b502df253974,sed-4.2.2.tar.bz2,https://ftp.gnu.org/gnu/sed/sed-4.2.2.tar.bz2))
 $(eval $(call M,c552a133aca1ce1d647163d9e43bbcb1,sqlite-autoconf-3120200.tar.gz,https://www.sqlite.org/2016/sqlite-autoconf-3120200.tar.gz))
