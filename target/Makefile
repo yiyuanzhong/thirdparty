@@ -107,11 +107,11 @@ $(SOURCES)/%:
 
 $(eval $(call M,xz,xz-5.2.2.tar.bz2))
 $(eval $(call M,gzip,gzip-1.8.tar.gz))
-$(eval $(call M,fcgi,fcgi-2.4.0.tar.gz))
 $(eval $(call M,libev,libev-4.22.tar.gz))
 $(eval $(call M,c-ares,c-ares-1.10.0.tar.gz))
-$(eval $(call M,libpng,libpng-1.6.21.tar.xz))
+$(eval $(call M,libpng,libpng-1.6.22.tar.xz))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz))
+$(eval $(call M,fcgi,libfcgi-2.4.0.orig.tar.gz))
 $(eval $(call M,libmpfr,mpfr-3.1.4.tar.xz,libgmp))
 $(eval $(call M,libgmp,gmp-6.1.0.tar.xz,libreadline))
 $(eval $(call M,libmpc,mpc-1.0.3.tar.gz,libgmp libmpfr))
