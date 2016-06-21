@@ -46,7 +46,7 @@ mrproper:
 $(SOURCES)/%:
 	$(MAKE) -C $(SOURCES) $(notdir $@)
 
-._tar: $(SOURCES)/tar-1.27.1.tar.xz ._gzip ._bzip2 ._xz
+._tar: $(SOURCES)/tar-1.29.tar.xz ._gzip ._bzip2 ._xz
 	$(RM) -r $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && xz -d -c $< | tar -x
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && ./configure --prefix=$(TOOLS) --disable-acl --disable-nls --without-posix-acls --without-selinux --without-xattrs && $(MAKE) && $(MAKE) install
@@ -89,7 +89,7 @@ $(eval $(call M,m4,m4-1.4.17.tar.xz))
 $(eval $(call M,chrpath,chrpath-0.16.tar.gz))
 $(eval $(call M,autoconf,autoconf-2.69.tar.xz,m4))
 $(eval $(call M,grep,grep-2.25.tar.xz,,--disable-nls))
-$(eval $(call M,make,make-4.1.tar.bz2,,--disable-nls))
+$(eval $(call M,make,make-4.2.1.tar.bz2,,--disable-nls))
 $(eval $(call M,automake,automake-1.15.tar.xz,autoconf))
 $(eval $(call M,diff,diffutils-3.3.tar.xz,,--disable-nls))
 $(eval $(call M,which,which-2.21.tar.gz,,--disable-iberty))
