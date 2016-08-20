@@ -1,5 +1,5 @@
---- a/configure.ac	2011-10-22 23:12:11.000000000 +0200
-+++ b/configure.ac	2011-11-01 06:25:39.071999543 +0100
+--- a/configure.ac	2016-08-18 01:35:56.000000000 +0800
++++ b/configure.ac	2016-08-20 08:00:46.274851404 +0800
 @@ -16,8 +16,8 @@
  AM_PROG_LEX
  AC_PROG_YACC
@@ -11,7 +11,7 @@
  AC_PROG_LN_S
  AC_PROG_AWK
  AC_PROG_INSTALL
-@@ -236,7 +236,7 @@
+@@ -242,7 +242,7 @@
      WSDL2H_EXTRA_LIBS="${WSDL2H_EXTRA_LIBS} -lgnutls -lgcrypt -lgpg-error -lz"
      SAMPLE_INCLUDES=
      SAMPLE_SSL_LIBS="-lgnutls -lgcrypt -lgpg-error -lz"
@@ -20,16 +20,16 @@
    else
      AC_MSG_RESULT(no)
      WSDL2H_EXTRA_FLAGS="-DWITH_OPENSSL -DWITH_GZIP"
-@@ -245,7 +245,7 @@
-     WSDL2H_EXTRA_LIBS="${WSDL2H_EXTRA_LIBS} ../plugin/httpda.c ../plugin/md5evp.c ../plugin/threads.c -lssl -lcrypto -lz"
+@@ -251,7 +251,7 @@
+     WSDL2H_EXTRA_LIBS="${WSDL2H_EXTRA_LIBS} ../plugin/httpda.c ../plugin/smdevp.c ../plugin/threads.c -lssl -lcrypto -lz"
      SAMPLE_INCLUDES=
      SAMPLE_SSL_LIBS="-lssl -lcrypto -lz"
 -    WSDL2H_SOAP_CPP_LIB="libgsoapssl++.a"
 +    WSDL2H_SOAP_CPP_LIB="libgsoapssl++.la"
    fi
-   if test -n "$OPENSSL"; then
-     WSDL2H_EXTRA_FLAGS="-I${OPENSSL}/include ${WSDL2H_EXTRA_FLAGS}"
-@@ -258,7 +258,7 @@
+   if test -n "$ZLIB"; then
+     WSDL2H_EXTRA_FLAGS="-I${ZLIB}/include ${WSDL2H_EXTRA_FLAGS}"
+@@ -270,7 +270,7 @@
    WSDL2H_EXTRA_FLAGS=
    SAMPLE_SSL_LIBS=
    SAMPLE_INCLUDES=
@@ -38,8 +38,8 @@
  fi
  AC_SUBST(WSDL2H_EXTRA_FLAGS)
  AC_SUBST(WSDL2H_EXTRA_LIBS)
---- a/gsoap/Makefile.am	2011-10-22 23:12:12.000000000 +0200
-+++ b/gsoap/Makefile.am	2011-11-01 06:25:39.071999543 +0100
+--- a/gsoap/Makefile.am	2016-08-18 01:36:00.000000000 +0800
++++ b/gsoap/Makefile.am	2016-08-20 08:00:46.274851404 +0800
 @@ -34,20 +34,26 @@
  dom_cpp.cpp: dom.cpp
  	$(LN_S) -f $(srcdir)/dom.cpp dom_cpp.cpp
@@ -78,21 +78,10 @@
 +libgsoapssl___la_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform) $(WSDL2H_EXTRA_FLAGS) -DWITH_DOM -DWITH_COOKIES
 +libgsoapssl___la_LDFLAGS = -version-info 0
  
- BUILT_SOURCES = stdsoap2_cpp.cpp dom_cpp.cpp $(lib_LIBRARIES)
+ BUILT_SOURCES = stdsoap2_cpp.cpp dom_cpp.cpp stdsoap2_ck.c stdsoap2_ck_cpp.cpp stdsoap2_ssl.c stdsoap2_ssl_cpp.cpp
  
---- a/gsoap/samples/autotest/Makefile.am	2011-10-22 23:12:14.000000000 +0200
-+++ b/gsoap/samples/autotest/Makefile.am	2011-11-01 06:25:39.071999543 +0100
-@@ -14,7 +14,7 @@
- WSDLINPUT=$(srcdir)/examples.wsdl
- SOAPHEADER=$(srcdir)/examples.h
- SOAP_CPP_SRC=soapC.cpp soapServer.cpp
--SOAP_CPP_LIB=$(top_builddir)/gsoap/libgsoap++.a
-+SOAP_CPP_LIB=$(top_builddir)/gsoap/libgsoap++.la
- 
- $(SOAP_CPP_SRC) : $(WSDLINPUT)
- 	$(WSDL) $(WSDL_FLAGS) $(WSDLINPUT)
---- a/gsoap/samples/databinding/Makefile.am	2011-10-22 23:12:15.000000000 +0200
-+++ b/gsoap/samples/databinding/Makefile.am	2011-11-01 06:25:39.071999543 +0100
+--- a/gsoap/samples/databinding/Makefile.am	2016-08-18 01:36:04.000000000 +0800
++++ b/gsoap/samples/databinding/Makefile.am	2016-08-20 08:00:46.274851404 +0800
 @@ -14,7 +14,7 @@
  WSDLINPUT=$(srcdir)/address.xsd
  SOAPHEADER=$(srcdir)/address.h
@@ -102,8 +91,19 @@
  
  $(SOAP_CPP_SRC) : $(WSDLINPUT)
  	$(WSDL) $(WSDL_FLAGS) $(WSDLINPUT)
---- a/gsoap/samples/Makefile.defines	2011-10-22 23:12:15.000000000 +0200
-+++ b/gsoap/samples/Makefile.defines	2011-11-01 06:25:39.071999543 +0100
+--- a/gsoap/samples/autotest/Makefile.am	2016-08-18 01:36:03.000000000 +0800
++++ b/gsoap/samples/autotest/Makefile.am	2016-08-20 08:00:46.274851404 +0800
+@@ -14,7 +14,7 @@
+ WSDLINPUT=$(srcdir)/examples.wsdl
+ SOAPHEADER=$(srcdir)/examples.h
+ SOAP_CPP_SRC=soapC.cpp soapServer.cpp
+-SOAP_CPP_LIB=$(top_builddir)/gsoap/libgsoap++.a
++SOAP_CPP_LIB=$(top_builddir)/gsoap/libgsoap++.la
+ 
+ $(SOAP_CPP_SRC) : $(WSDLINPUT)
+ 	$(WSDL) $(WSDL_FLAGS) $(WSDLINPUT)
+--- a/gsoap/samples/Makefile.defines	2016-08-18 01:36:04.000000000 +0800
++++ b/gsoap/samples/Makefile.defines	2016-08-20 08:00:46.275851243 +0800
 @@ -13,13 +13,13 @@
  SOAP_C_CORE=soapC.c
  SOAP_C_CLIENT=soapClient.c $(SOAP_C_CORE)
@@ -124,39 +124,3 @@
 +SOAP_CPP_LIB=$(top_builddir)/gsoap/libgsoap++.la
 +SOAP_CPP_LIB_CK=$(top_builddir)/gsoap/libgsoapck++.la
 +SOAP_CPP_LIB_SSL=$(top_builddir)/gsoap/libgsoapssl++.la
---- a/gsoap/stdsoap2.c	2015-10-12 22:26:03.000000000 +0800
-+++ b/gsoap/stdsoap2.c	2015-10-12 22:26:32.000000000 +0800
-@@ -5098,6 +5098,7 @@
-   }
- #endif
- #ifdef TCP_FASTOPEN
-+#ifdef SOL_TCP
-   if (!(soap->omode & SOAP_IO_UDP) && setsockopt(soap->master, SOL_TCP, TCP_FASTOPEN, (char*)&set, sizeof(int)))
-   { soap->errnum = soap_socket_errno(soap->master);
-     soap_set_receiver_error(soap, tcp_error(soap), "setsockopt TCP_FASTOPEN failed in soap_bind()", SOAP_TCP_ERROR);
-@@ -5106,6 +5107,7 @@
- #endif
- #endif
- #endif
-+#endif
- #ifdef WITH_IPV6
- #ifdef WITH_IPV6_V6ONLY
-   if (res.ai_family == AF_INET6 && setsockopt(soap->master, IPPROTO_IPV6, IPV6_V6ONLY, (char*)&set, sizeof(int)))
---- a/gsoap/stdsoap2.cpp	2015-10-12 22:26:03.000000000 +0800
-+++ b/gsoap/stdsoap2.cpp	2015-10-12 22:26:32.000000000 +0800
-@@ -5098,6 +5098,7 @@
-   }
- #endif
- #ifdef TCP_FASTOPEN
-+#ifdef SOL_TCP
-   if (!(soap->omode & SOAP_IO_UDP) && setsockopt(soap->master, SOL_TCP, TCP_FASTOPEN, (char*)&set, sizeof(int)))
-   { soap->errnum = soap_socket_errno(soap->master);
-     soap_set_receiver_error(soap, tcp_error(soap), "setsockopt TCP_FASTOPEN failed in soap_bind()", SOAP_TCP_ERROR);
-@@ -5106,6 +5107,7 @@
- #endif
- #endif
- #endif
-+#endif
- #ifdef WITH_IPV6
- #ifdef WITH_IPV6_V6ONLY
-   if (res.ai_family == AF_INET6 && setsockopt(soap->master, IPPROTO_IPV6, IPV6_V6ONLY, (char*)&set, sizeof(int)))

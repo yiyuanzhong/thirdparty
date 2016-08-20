@@ -1,0 +1,15 @@
+--- a/configure	2016-02-19 17:08:53.000000000 +0800
++++ b/configure	2016-08-20 09:33:49.017884291 +0800
+@@ -28302,12 +28302,6 @@
+   fi
+ 
+ 
+-if test "x$cross_compiling" = "xno"; then
+-
+-
+-subdirs="$subdirs test"
+-
+-fi
+ 
+ ac_config_files="$ac_config_files Makefile libcares.pc"
+ 

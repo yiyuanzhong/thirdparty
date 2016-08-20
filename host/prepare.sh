@@ -23,7 +23,7 @@ run()
 # Toolchain (continued), won't replace.
 for i in \
     cat chmod cp echo expr ln ls mkdir mv rm sort touch rmdir \
-    uname uniq tr basename date install printf md5sum false \
+    uname uniq tr basename date install printf md5sum false sleep \
     awk cmp diff gzip tar sed grep make \
     SetFile curl md5 openssl perl sh ps \
     addr2line ar as c++filt gprof ld nm nmedit objcopy objdump \
