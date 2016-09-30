@@ -371,7 +371,7 @@ $(eval $(call M,php7,php-7.0.11.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # OpenSSL has something really weird.
-._openssl: $(SOURCES)/openssl-1.0.2i.tar.gz ._zlib
+._openssl: $(SOURCES)/openssl-1.0.2j.tar.gz ._zlib
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
