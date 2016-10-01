@@ -9,23 +9,19 @@ STAGING := $(TOP)/staging
 SOURCES := $(TOP)/sources
 PATCHES := $(TOP)/patches
 
-LC_ALL   := C
-CFLAGS   := -g -O2
-CXXFLAGS := -g -O2
-OLD_PATH := $(PATH)
-LDFLAGS  := -L$(STAGING)/lib
+LC_ALL      := C
+CCACHE_PATH := $(PATH)
 LD_RUN_PATH := $(STAGING)/lib
-PATH     := $(STAGING)/bin:$(TOOLS)/bin
-CPPFLAGS := -I$(STAGING)/include -DNDEBUG
+LDFLAGS     := -L$(STAGING)/lib
+PATH        := $(STAGING)/bin:$(TOOLS)/bin
+CPPFLAGS    := -I$(STAGING)/include -DNDEBUG
 PKG_CONFIG_PATH := $(STAGING)/lib/pkgconfig
-export CFLAGS CPPFLAGS CXXFLAGS LC_ALL LD_RUN_PATH LDFLAGS PATH PKG_CONFIG_PATH
+export CCACHE_PATH CPPFLAGS LC_ALL LD_RUN_PATH LDFLAGS PATH PKG_CONFIG_PATH
+unexport CFLAGS CXXFLAGS
 
 CMAKE_INCLUDE_PATH := $(STAGING)/include
 CMAKE_LIBRARY_PATH := $(STAGING)/lib
 export CMAKE_INCLUDE_PATH CMAKE_LIBRARY_PATH
-
-CCACHE_PATH := $(OLD_PATH)
-export CCACHE_PATH
 
 AUTORECONF := autoreconf
 UNZIP := unzip -n -q
@@ -110,7 +106,7 @@ $(eval $(call M,libev,libev-4.22.tar.gz))
 $(eval $(call M,libpng,libpng-1.6.25.tar.xz))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz))
 $(eval $(call M,fcgi,libfcgi-2.4.0.orig.tar.gz))
-$(eval $(call M,libmpfr,mpfr-3.1.4.tar.xz,libgmp))
+$(eval $(call M,libmpfr,mpfr-3.1.5.tar.xz,libgmp))
 $(eval $(call M,libgmp,gmp-6.1.1.tar.xz,libreadline))
 $(eval $(call M,libmpc,mpc-1.0.3.tar.gz,libgmp libmpfr))
 $(eval $(call M,sqlite3,sqlite-autoconf-3140200.tar.gz))
@@ -335,13 +331,12 @@ $(eval $(call M,php7,php-7.0.11.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # gSOAP is distributed with zipball.
-._gsoap: $(SOURCES)/gsoap_2.8.34.zip ._openssl
+._gsoap: $(SOURCES)/gsoap_2.8.36.zip ._openssl
 	$(RM) -R $(BUILD)/gsoap-2.8
 	$(MKDIR) $(BUILD) && cd $(BUILD) && $(UNZIP) $<
 	cd $(BUILD)/gsoap-2.8 && \
         $(PATCH) -p1 <$(PATCHES)/gsoap.patch && \
         $(AUTORECONF) -fvi && \
-        CFLAGS="${CFLAGS} ${CPPFLAGS}" CXXFLAGS="${CXXFLAGS} ${CPPFLAGS}" \
         ./configure --prefix=$(STAGING) --enable-ipv6 --with-openssl=$(STAGING) && \
         $(MAKE) && $(MAKE) install
 	$(TOUCH) $@

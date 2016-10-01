@@ -8,18 +8,14 @@ TOOLS := $(TOP)/tools
 SOURCES := $(TOP)/sources
 PATCHES := $(TOP)/patches
 
-LC_ALL   := C
-CFLAGS   := -g -O2
-CXXFLAGS := -g -O2
-OLD_PATH := $(PATH)
-PATH     := $(TOOLS)/bin
-LDFLAGS  := -L$(TOOLS)/lib
-CPPFLAGS := -I$(TOOLS)/include -DNDEBUG
+LC_ALL      := C
+CCACHE_PATH := $(PATH)
+PATH        := $(TOOLS)/bin
+LDFLAGS     := -L$(TOOLS)/lib
+CPPFLAGS    := -I$(TOOLS)/include -DNDEBUG
 PKG_CONFIG_PATH := $(TOOLS)/lib/pkgconfig
-export CFLAGS CPPFLAGS CXXFLAGS LC_ALL LDFLAGS PATH PKG_CONFIG_PATH
-
-CCACHE_PATH := $(OLD_PATH)
-export CCACHE_PATH
+export CCACHE_PATH CPPFLAGS LC_ALL LDFLAGS PATH PKG_CONFIG_PATH
+unexport CFLAGS CXXFLAGS
 
 PATCH := patch -b
 MKDIR := mkdir -p
@@ -41,7 +37,7 @@ all: ._chrpath
 endif
 
 mrproper:
-	@PATH=$(OLD_PATH) $(CWD)/prepare.sh
+	@PATH=$(CCACHE_PATH) $(CWD)/prepare.sh
 
 $(SOURCES)/%:
 	$(MAKE) -C $(SOURCES) $(notdir $@)

@@ -254,15 +254,20 @@
  
  /* For compilers (well, cpp actually) which don't define __PRETTY_FUNCTION__ */
  #ifndef __GNUC__
-@@ -62,7 +62,7 @@
+@@ -62,10 +62,10 @@
  
  /* Technically, we could do this in configure and detect what their compiler
   * can handle, but for now... */
 -#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
-+#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L && !defined (__clang__)
- #define USE_C99_VARARG_MACROS 1
- #elif __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 4) || defined (S_SPLINT_S)
+-#define USE_C99_VARARG_MACROS 1
+-#elif __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 4) || defined (S_SPLINT_S)
++#if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 4) || defined (S_SPLINT_S)
  #define USE_GNUC_VARARG_MACROS 1
++#elif defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
++#define USE_C99_VARARG_MACROS 1
+ #else
+ #error The compiler is missing support for variable-argument macros.
+ #endif
 @@ -155,7 +155,7 @@
   */
  void nerr_log_error (NEOERR *err);
@@ -314,7 +319,7 @@
 +else
  $(NEO_SO): $(NEO_STATIC_LIBS) $(DEP_LIBS) Makefile 
 -	 /usr/bin/ld  -rpath ../libs -shared -o libneo.so -whole-archive ../libs/libneo_cgi.a ../libs/libneo_cs.a ../libs/libneo_utl.a -no-whole-archive $(LDFLAGS) $(LIBS)
-+	 /usr/bin/ld --soname=libneo.so.0 -rpath '$$ORIGIN' -shared -o libneo.so.0.0.0 -whole-archive ../libs/libneo_cgi.a ../libs/libneo_cs.a ../libs/libneo_utl.a -no-whole-archive $(LDFLAGS) $(LIBS)
++	 gcc -Wl,--soname=libneo.so.0 -Wl,-rpath,'$$ORIGIN' -shared -o libneo.so.0.0.0 -Wl,-whole-archive ../libs/libneo_cgi.a ../libs/libneo_cs.a ../libs/libneo_utl.a -Wl,-no-whole-archive $(LDFLAGS) $(LIBS)
 +	 ln -sf libneo.so.0.0.0 libneo.so.0
 +	 ln -sf libneo.so.0.0.0 libneo.so
 +endif
