@@ -97,10 +97,9 @@ all: staging
 
 staging: ._libintl ._mod_fcgid ._sqlite3 ._mysql++ ._clearsilver ._jsoncpp \
          ._libcurl ._logrotate ._gsoap ._fcgi ._libxslt ._php7 ._memcached \
-         ._tinyxml ._nginx ._libmemcached ._php7-memcached ._hiredis \
-         ._libev ._xlslib ._libxls ._tar ._googletest ._protobuf ._libarchive \
-         ._php7-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++ \
-         ._libmpc ._php7-apcu
+         ._nginx ._libmemcached ._php7-memcached ._hiredis ._libmpc \
+         ._libev ._tar ._googletest ._protobuf ._libarchive ._php7-apcu \
+         ._php7-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++
 
 $(SOURCES)/%:
 	$(MAKE) -C $(SOURCES) $(notdir $@)
@@ -418,18 +417,6 @@ $(eval $(call M,php7,php-7.0.11.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
         ./configure.apxs && $(MAKE) && $(MAKE) install
-	$(TOUCH) $@
-
-# TinyXML is really not friendly.
-._tinyxml: $(SOURCES)/tinyxml_2_6_2.tar.gz
-	$(RM) -R $(BUILD)/tinyxml
-	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
-	cd $(BUILD)/tinyxml && \
-        $(PATCH) -p1 <$(PATCHES)/tinyxml.patch && \
-        $(MAKE) && \
-        $(CP) tinyxml.h $(STAGING)/include/ && \
-        $(CP) libtinyxml.a libtinyxml.$(SO_S) $(STAGING)/lib/
-	$(SED) -e 's|@libdir@|$(STAGING)/lib|g' lib/$(MACOSX)libtinyxml.la.in >$(STAGING)/lib/libtinyxml.la
 	$(TOUCH) $@
 
 # Nginx is naughty about dependencies.
