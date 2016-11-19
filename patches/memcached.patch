@@ -34,3 +34,14 @@
  
  AM_CONDITIONAL([BUILD_CACHE], [test "x$build_cache" = "xyes"])
  
+--- a/items.c	2016-11-19 11:55:45.000000000 +0800
++++ b/items.c	2016-11-19 11:55:53.000000000 +0800
+@@ -148,7 +148,7 @@
+     uint8_t nsuffix;
+     item *it = NULL;
+     char suffix[40];
+-    if (nbytes < 2 || nkey < 0)
++    if (nbytes < 2)
+         return 0;
+ 
+     size_t ntotal = item_make_header(nkey + 1, flags, nbytes, suffix, &nsuffix);
