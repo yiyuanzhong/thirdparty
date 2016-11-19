@@ -2,7 +2,7 @@
 Dependency is always a headache for C/C++ applications, nor it's easy for web apps.
 You need to find a proper distro and rely on packages it provides, and you need great
 efforts to make sure your develop machine has the same environment as the production
-machines. It's even worth when you're running multiple applications distributed in
+machines. It's even worse when you're running multiple applications distributed in
 different time on the same production server, the dependencies can conflict.
 
 In short, thirdparty is a distro without toolchain.
@@ -22,9 +22,9 @@ In short, thirdparty is a distro without toolchain.
 * And do you want to know who made the docker environment and how? (Check LFS)
 
 ### What you get
-* Update to date common packages widely used in daily development
-* No root privilege required, compiling or running
-* Tested on Debian8, CentOS6, CentOS7, MacOSX 10.11
+* Up to date common packages widely used in daily development
+* No root privilege required, compiling nor running
+* Tested on Debian8, CentOS6, CentOS7, MacOSX 10.12
 * Ready to be packaged and distributed to clean client machines (you need flinter to make a relocatable package)
 
 ### What you don't
