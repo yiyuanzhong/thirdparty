@@ -91,7 +91,7 @@ $(eval $(call M,e8f5f4beed041e63eb97f9f4f55f3085,nginx-1.10.2.tar.gz,http://ngin
 $(eval $(call M,96322138f0b69e61b7212bc53d5e912b,openssl-1.0.2j.tar.gz,https://www.openssl.org/source/openssl-1.0.2j.tar.gz))
 $(eval $(call M,e3da7940431633fb65a01b91d3b7a27a,patch-2.7.5.tar.xz,https://ftp.gnu.org/gnu/patch/patch-2.7.5.tar.xz))
 $(eval $(call M,e3fca7650a0556a2647821679d81f585,pcre-8.39.tar.bz2,https://sourceforge.net/projects/pcre/files/pcre/8.39/pcre-8.39.tar.bz2/download))
-$(eval $(call M,eb117bf1d1efc99c522f132b265a3402,php-7.0.13.tar.xz,http://cn2.php.net/get/php-7.0.13.tar.xz/from/this/mirror))
+$(eval $(call M,a51f1d4f03f4e4c745856e9f76fca476,php-7.0.14.tar.xz,http://php.net/get/php-7.0.14.tar.xz/from/this/mirror))
 $(eval $(call M,f739a28cae4e0ca291f82d1d41ef107d,pkg-config-0.29.1.tar.gz,http://pkgconfig.freedesktop.org/releases/pkg-config-0.29.1.tar.gz))
 $(eval $(call M,3743beefa3dd6247a73f8f7a32c14c33,popt-1.16.tar.gz,http://rpm5.org/files/popt/popt-1.16.tar.gz))
 $(eval $(call M,845b39e4b7681a2ddfd8c7f528299fbb,protobuf-3.0.2.tar.gz,https://github.com/google/protobuf/archive/v3.0.2.tar.gz))
