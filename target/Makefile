@@ -100,36 +100,35 @@ staging: ._libintl ._mod_fcgid ._sqlite3 ._mysql++ ._clearsilver ._jsoncpp \
 $(SOURCES)/%:
 	$(MAKE) -C $(SOURCES) $(notdir $@)
 
-$(eval $(call M,xz,xz-5.2.2.tar.bz2))
+$(eval $(call M,xz,xz-5.2.3.tar.bz2))
 $(eval $(call M,gzip,gzip-1.8.tar.gz))
-$(eval $(call M,libev,libev-4.23.tar.gz))
-$(eval $(call M,libpng,libpng-1.6.26.tar.xz))
+$(eval $(call M,libev,libev-4.24.tar.gz))
+$(eval $(call M,libpng,libpng-1.6.28.tar.xz))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz))
 $(eval $(call M,fcgi,libfcgi-2.4.0.orig.tar.gz))
 $(eval $(call M,libmpfr,mpfr-3.1.5.tar.xz,libgmp))
-$(eval $(call M,libgmp,gmp-6.1.1.tar.xz,libreadline))
+$(eval $(call M,libgmp,gmp-6.1.2.tar.xz,libreadline))
 $(eval $(call M,libmpc,mpc-1.0.3.tar.gz,libgmp libmpfr))
-$(eval $(call M,sqlite3,sqlite-autoconf-3150100.tar.gz))
+$(eval $(call M,sqlite3,sqlite-autoconf-3160200.tar.gz))
 $(eval $(call M,libpopt,popt-1.16.tar.gz,,--disable-nls))
 $(eval $(call M,c-ares,c-ares-1.12.0.tar.gz,,--disable-tests))
 $(eval $(call M,libmcrypt,libmcrypt-2.5.8.tar.bz2,,--enable-static))
 $(eval $(call M,libevent,libevent-2.0.22-stable.tar.gz,openssl zlib))
-$(eval $(call M,libfreetype2,freetype-2.6.5.tar.bz2,bzip2 libpng zlib))
+$(eval $(call M,libfreetype2,freetype-2.7.1.tar.bz2,bzip2 libpng zlib))
 $(eval $(call M,libxslt,libxslt-1.1.29.tar.gz,libxml2,--without-python))
 $(eval $(call M,libjpeg,jpeg-9b.tar.gz,,--enable-shared --enable-static))
 $(eval $(call M,libreadline,readline-7.0.tar.gz,libncurses,--with-curses))
 $(eval $(call M,apr,apr-1.5.2.tar.bz2,util-linux,--enable-threads --enable-posix-shm))
 $(eval $(call M,libiconv,libiconv-1.14.tar.gz,,--enable-static --disable-rpath --disable-nls))
 $(eval $(call M,libncurses,ncurses-6.0.tar.gz,,--without-debug --with-shared --enable-overwrite))
-$(eval $(call M,flex,flex-2.5.39.tar.xz,,--disable-shared --disable-nls,,,$(LN) -s flex $(STAGING)/bin/lex))
 $(eval $(call M,util-linux,util-linux-2.21.2.tar.xz,,--without-ncurses --disable-nls,-C libuuid,-C libuuid))
 $(eval $(call M,libxml2,libxml2-2.9.4.tar.gz,libreadline xz zlib,--without-python --with-zlib=$(STAGING) --with-lzma=$(STAGING)))
 $(eval $(call M,tar,tar-1.29.tar.xz,bzip2 gzip xz,--disable-rpath --disable-acl --disable-nls --without-posix-acls --without-selinux --without-xattrs))
 $(eval $(call M,pcre,pcre-8.39.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
-$(eval $(call M,nghttp2,nghttp2-1.16.1.tar.xz,libev libevent libxml2 openssl zlib,--disable-app --enable-asio-lib --disable-hpack-tools --disable-examples --disable-failmalloc --disable-python-bindings --without-boost --without-spdylay --without-jemalloc))
+$(eval $(call M,nghttp2,nghttp2-1.18.1.tar.xz,libev libevent libxml2 openssl zlib,--disable-app --enable-asio-lib --disable-hpack-tools --disable-examples --disable-failmalloc --disable-python-bindings --without-boost --without-spdylay --without-jemalloc))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-0.9.3.tar.gz,boost libevent openssl php7 zlib,PHP_PREFIX='$(STAGING)/lib/php' --disable-tests --disable-tutorial --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
-$(eval $(call M,libcurl,curl-7.51.0.tar.lzma,c-ares nghttp2 openssl zlib,--enable-http --enable-crypto-auth --enable-ipv6 --enable-tls-srp --enable-ftp --enable-manual --disable-ldap --disable-ldaps --disable-rtsp --enable-proxy --enable-dict --enable-telnet --enable-tftp --enable-pop3 --enable-imap --enable-smtp --enable-gopher --enable-file --without-krb4 --without-libidn --without-ca-bundle --without-ca-path --without-gssapi --disable-libcurl-option --enable-verbose --enable-shared --enable-static --enable-cookies --enable-symbol-hiding --disable-threaded-resolver --disable-curldebug --enable-optimize --disable-debug --without-librtmp --without-libssh2 --without-winidn --without-libmetalink --without-axtls --without-nss  --without-cyassl --disable-dependency-tracking --without-gnutls --without-darwinssl --without-winssl --disable-ntlm-wb --disable-sspi --enable-largefile --without-polarssl --enable-ares))
+$(eval $(call M,libcurl,curl-7.52.1.tar.lzma,c-ares nghttp2 openssl zlib,--enable-http --enable-crypto-auth --enable-ipv6 --enable-tls-srp --enable-ftp --enable-manual --disable-ldap --disable-ldaps --disable-rtsp --enable-proxy --enable-dict --enable-telnet --enable-tftp --enable-pop3 --enable-imap --enable-smtp --enable-gopher --enable-file --without-krb4 --without-libidn --without-ca-bundle --without-ca-path --without-gssapi --disable-libcurl-option --enable-verbose --enable-shared --enable-static --enable-cookies --enable-symbol-hiding --disable-threaded-resolver --disable-curldebug --enable-optimize --disable-debug --without-librtmp --without-libssh2 --without-winidn --without-libmetalink --without-axtls --without-nss  --without-cyassl --disable-dependency-tracking --without-gnutls --without-darwinssl --without-winssl --disable-ntlm-wb --disable-sspi --enable-largefile --without-polarssl --enable-ares))
 $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp libiconv libjpeg libintl libmcrypt libpng libtool libxml2 sqlite3 zlib,--enable-fpm --enable-intl=shared --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-gmp=shared$(comma)$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
 
 # protobuf needs external gmock support, or not.
@@ -155,7 +154,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # ICU is hard to build.
-._icu: $(SOURCES)/icu4c-58_1-src.tgz
+._icu: $(SOURCES)/icu4c-58_2-src.tgz
 	$(RM) -R $(BUILD)/icu
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/icu/source && \
@@ -182,7 +181,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # MySQL uses cmake.
-._mysql: $(SOURCES)/mysql-5.7.16.tar.gz ._boost ._libevent ._libncurses ._openssl
+._mysql: $(SOURCES)/mysql-5.7.17.tar.gz ._boost ._libevent ._libncurses ._openssl
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -203,7 +202,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # MySQL Connector/C++ uses cmake.
-._mysql-connector-c++: $(SOURCES)/mysql-connector-c++-1.1.7.tar.gz ._boost ._mysql
+._mysql-connector-c++: $(SOURCES)/mysql-connector-c++-1.1.8.tar.gz ._boost ._mysql
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -256,7 +255,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # memcached needs to be reconfigured.
-._memcached: $(SOURCES)/memcached-1.4.33.tar.gz ._libevent $(LIBHUGETLBFS)
+._memcached: $(SOURCES)/memcached-1.4.34.tar.gz ._libevent $(LIBHUGETLBFS)
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -267,7 +266,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # zlib needs a libtool archive.
-._zlib: $(SOURCES)/zlib-1.2.8.tar.gz
+._zlib: $(SOURCES)/zlib-1.2.8.tar.xz
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -295,7 +294,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # MySQL++ needs to be patched to produce static libraries.
-._mysql++: $(SOURCES)/mysql++-3.2.2.tar.gz ._mysql ._libintl
+._mysql++: $(SOURCES)/mysql++-3.2.3.tar.gz ._mysql ._libintl
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -331,7 +330,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # gSOAP is distributed with zipball.
-._gsoap: $(SOURCES)/gsoap_2.8.39.zip ._openssl
+._gsoap: $(SOURCES)/gsoap_2.8.41.zip ._openssl
 	$(RM) -R $(BUILD)/gsoap-2.8
 	$(MKDIR) $(BUILD) && cd $(BUILD) && $(UNZIP) $<
 	cd $(BUILD)/gsoap-2.8 && \
@@ -342,7 +341,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # HTTPd needs a little tweak.
-._httpd: $(SOURCES)/httpd-2.4.23.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2 ._nghttp2
+._httpd: $(SOURCES)/httpd-2.4.25.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2 ._nghttp2
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
@@ -466,7 +465,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # It's a PHP module.
-._php7-apcu: $(SOURCES)/apcu-5.1.5.tgz ._php7
+._php7-apcu: $(SOURCES)/apcu-5.1.8.tgz ._php7
 	$(RM) -R $(BUILD)/$(basename $(notdir $<))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(notdir $<)) && \
@@ -476,7 +475,7 @@ $(eval $(call M,php7,php-7.0.14.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # It's a PHP module.
-._php7-memcached: $(SOURCES)/php-memcached-583ecd68faec886ac9233277531f78fb6e2043c7.zip ._php7 ._libmemcached ._zlib
+._php7-memcached: $(SOURCES)/php-memcached-e65be324557eda7167c4831b4bfb1ad23a152beb.zip ._php7 ._libmemcached ._zlib
 	$(RM) -R $(BUILD)/$(basename $(notdir $<))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && $(UNZIP) $<
 	cd $(BUILD)/$(basename $(notdir $<)) && \
