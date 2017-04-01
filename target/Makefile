@@ -124,7 +124,7 @@ $(eval $(call M,libncurses,ncurses-6.0.tar.gz,,--without-debug --with-shared --e
 $(eval $(call M,util-linux,util-linux-2.21.2.tar.xz,,--without-ncurses --disable-nls,-C libuuid,-C libuuid))
 $(eval $(call M,libxml2,libxml2-2.9.4.tar.gz,libreadline xz zlib,--without-python --with-zlib=$(STAGING) --with-lzma=$(STAGING)))
 $(eval $(call M,tar,tar-1.29.tar.xz,bzip2 gzip xz,--disable-rpath --disable-acl --disable-nls --without-posix-acls --without-selinux --without-xattrs))
-$(eval $(call M,pcre,pcre-8.39.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
+$(eval $(call M,pcre,pcre-8.40.tar.bz2,bzip2 libreadline zlib,--disable-cpp --enable-unicode-properties --enable-pcregrep-libz --enable-pcregrep-libbz2 --enable-pcretest-libreadline))
 $(eval $(call M,nghttp2,nghttp2-1.18.1.tar.xz,libev libevent libxml2 openssl zlib,--disable-app --enable-asio-lib --disable-hpack-tools --disable-examples --disable-failmalloc --disable-python-bindings --without-boost --without-spdylay --without-jemalloc))
 $(eval $(call M,apr-util,apr-util-1.5.4.tar.bz2,apr libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=builtin --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-0.9.3.tar.gz,boost libevent openssl php7 zlib,PHP_PREFIX='$(STAGING)/lib/php' --disable-tests --disable-tutorial --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
