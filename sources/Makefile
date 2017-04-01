@@ -77,7 +77,7 @@ $(eval $(call M,a129d3c44c022de3b9dcf6d6f288d72e,libxslt-1.1.29.tar.gz,ftp://xml
 $(eval $(call M,10dd0623130e0c3908e849315cbd2415,logrotate-3.9.2.tar.xz,https://github.com/logrotate/logrotate/releases/download/3.9.2/logrotate-3.9.2.tar.xz))
 $(eval $(call M,730bb15d96fffe47e148d1e09235af82,m4-1.4.18.tar.xz,https://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz))
 $(eval $(call M,15b012617e7c44c0ed482721629577ac,make-4.2.1.tar.bz2,https://ftp.gnu.org/gnu/make/make-4.2.1.tar.bz2))
-$(eval $(call M,040887d52dfcc88b2e8918b4bfd91bf5,memcached-1.4.34.tar.gz,http://www.memcached.org/files/memcached-1.4.34.tar.gz))
+$(eval $(call M,1e028fbab7288911fcaa5ed2a21817fe,memcached-1.4.36.tar.gz,http://www.memcached.org/files/memcached-1.4.36.tar.gz))
 $(eval $(call M,8f62d75035e3a23cfedd327ce659898d,php-memcached-e65be324557eda7167c4831b4bfb1ad23a152beb.zip,https://github.com/php-memcached-dev/php-memcached/archive/e65be324557eda7167c4831b4bfb1ad23a152beb.zip))
 $(eval $(call M,262a8c59bceee5fcb669dd92a85c637d,mod_fcgid-2.3.9.tar.bz2,http://www-us.apache.org/dist/httpd/mod_fcgid/mod_fcgid-2.3.9.tar.bz2))
 $(eval $(call M,d6a1d5f8ddea3abd2cc3e98f58352d26,mpc-1.0.3.tar.gz,https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz))
