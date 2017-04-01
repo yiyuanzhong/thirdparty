@@ -55,7 +55,7 @@ $(eval $(call M,16877098823401d1bf2ed7891d7dce36,googletest-release-1.8.0.tar.gz
 $(eval $(call M,f58fa8001d60c4c77595fbbb62b63c1d,gmp-6.1.2.tar.xz,https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz))
 $(eval $(call M,aa1eaf95dbe2c9828d0bd3a00f770f50,gperftools-2.5.tar.gz,https://github.com/gperftools/gperftools/releases/download/gperftools-2.5/gperftools-2.5.tar.gz))
 $(eval $(call M,6138dd227c39d4a25f81eea76a44d4cb,grep-2.27.tar.xz,https://ftp.gnu.org/gnu/grep/grep-2.27.tar.xz))
-$(eval $(call M,c64bd65e49691fd3139a605bd79866f0,gsoap_2.8.41.zip,https://sourceforge.net/projects/gsoap2/files/gsoap-2.8/gsoap_2.8.41.zip/download))
+$(eval $(call M,9117fbd45319cd1e64bd024f383fabbe,gsoap_2.8.44.zip,https://sourceforge.net/projects/gsoap2/files/gsoap-2.8/gsoap_2.8.44.zip/download))
 $(eval $(call M,732553152814b22dc35aa0267df5286c,gzip-1.8.tar.gz,https://ftp.gnu.org/gnu/gzip/gzip-1.8.tar.gz))
 $(eval $(call M,43dca1445ec6d3b702821dba36000279,hiredis-0.13.3.tar.gz,https://github.com/redis/hiredis/archive/v0.13.3.tar.gz))
 $(eval $(call M,2826f49619112ad5813c0be5afcc7ddb,httpd-2.4.25.tar.bz2,http://www-us.apache.org/dist/httpd/httpd-2.4.25.tar.bz2))

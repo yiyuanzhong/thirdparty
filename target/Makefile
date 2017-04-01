@@ -330,7 +330,7 @@ $(eval $(call M,php7,php-7.0.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # gSOAP is distributed with zipball.
-._gsoap: $(SOURCES)/gsoap_2.8.41.zip ._openssl
+._gsoap: $(SOURCES)/gsoap_2.8.44.zip ._openssl
 	$(RM) -R $(BUILD)/gsoap-2.8
 	$(MKDIR) $(BUILD) && cd $(BUILD) && $(UNZIP) $<
 	cd $(BUILD)/gsoap-2.8 && \
