@@ -86,7 +86,7 @@ $(eval $(call M,5ded941ffeeec895022b97e58b1b204b,mysql++-3.2.3.tar.gz,http://www
 $(eval $(call M,db2a87ede6132b226f8d43d3ac349284,mysql-5.7.17.tar.gz,http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.17.tar.gz))
 $(eval $(call M,db3fa9c199ad159519074c89f1c0243c,mysql-connector-c++-1.1.8.tar.gz,http://dev.mysql.com/get/Downloads/Connector-C++/mysql-connector-c++-1.1.8.tar.gz))
 $(eval $(call M,ee13d052e1ead260d7c28071f46eefb1,ncurses-6.0.tar.gz,https://ftp.gnu.org/gnu/ncurses/ncurses-6.0.tar.gz))
-$(eval $(call M,3b5c96bd0ab871061e119706ddc26eeb,nghttp2-1.18.1.tar.xz,https://github.com/nghttp2/nghttp2/releases/download/v1.18.1/nghttp2-1.18.1.tar.xz))
+$(eval $(call M,8d5cd7090d58692e7156c67955694003,nghttp2-1.21.0.tar.xz,https://github.com/nghttp2/nghttp2/releases/download/v1.21.0/nghttp2-1.21.0.tar.xz))
 $(eval $(call M,204a20cb4f0b0c9db746c630d89ff4ea,nginx-1.10.3.tar.gz,http://nginx.org/download/nginx-1.10.3.tar.gz))
 $(eval $(call M,f965fc0bf01bf882b31314b61391ae65,openssl-1.0.2k.tar.gz,https://www.openssl.org/source/openssl-1.0.2k.tar.gz))
 $(eval $(call M,e3da7940431633fb65a01b91d3b7a27a,patch-2.7.5.tar.xz,https://ftp.gnu.org/gnu/patch/patch-2.7.5.tar.xz))
