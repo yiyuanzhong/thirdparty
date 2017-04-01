@@ -44,7 +44,7 @@ $(eval $(call M,2bf8d1d1ee345fc8a7915576f5649982,chrpath-0.16.tar.gz,https://ali
 $(eval $(call M,b8c0c7fbe0ef5e06e0c935f134304d44,clearsilver-0.10.5.tar.gz,http://www.clearsilver.net/downloads/clearsilver-0.10.5.tar.gz))
 $(eval $(call M,79bd7e65cd81ea3aa2619484ad6ff25a,cmake-3.7.2.tar.gz,https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz))
 $(eval $(call M,d5aa2072f662d4118b9f4c63b94601a6,coreutils-8.26.tar.xz,https://ftp.gnu.org/gnu/coreutils/coreutils-8.26.tar.xz))
-$(eval $(call M,ddbd157359bc8a9174e11b151254b264,curl-7.52.1.tar.lzma,http://curl.haxx.se/download/curl-7.52.1.tar.lzma))
+$(eval $(call M,78fce113c34e7a7941080bcd0d21fecc,curl-7.53.1.tar.lzma,http://curl.haxx.se/download/curl-7.53.1.tar.lzma))
 $(eval $(call M,569354697ff1cfc9a9de3781361015fa,diffutils-3.5.tar.xz,https://ftp.gnu.org/gnu/diffutils/diffutils-3.5.tar.xz))
 $(eval $(call M,9936aa8009438ce185bea2694a997fc1,findutils-4.6.0.tar.gz,https://ftp.gnu.org/gnu/findutils/findutils-4.6.0.tar.gz))
 $(eval $(call M,a5f65570cd9107ec8a8ec88f17b31bb1,flex-2.6.3.tar.gz,https://github.com/westes/flex/releases/download/v2.6.3/flex-2.6.3.tar.gz))
