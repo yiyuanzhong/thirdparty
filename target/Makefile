@@ -414,7 +414,7 @@ $(eval $(call M,php7,php-7.0.18.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # Nginx is naughty about dependencies.
-._nginx: $(SOURCES)/nginx-1.10.3.tar.gz ._openssl ._pcre
+._nginx: $(SOURCES)/nginx-1.12.0.tar.gz ._openssl ._pcre
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	$(MKDIR) $(STAGING)/sbin
