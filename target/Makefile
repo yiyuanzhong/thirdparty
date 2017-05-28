@@ -138,7 +138,10 @@ $(eval $(call M,php7,php-7.0.19.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
         $(AUTORECONF) -fvi && \
         ./configure --prefix=$(STAGING) --with-zip && \
-        $(MAKE) && $(MAKE) install
+        $(MAKE) && $(MAKE) install && \
+        $(RM) -r $(STAGING)/lib/php/GPBMetadata $(STAGING)/lib/php/Google && \
+        $(CP) php/src/GPBMetadata php/src/Google $(STAGING)/lib/php && \
+        $(MV) $(STAGING)/lib/php/Google/Protobuf/descriptor.php $(STAGING)/lib/php/Google/Protobuf/Internal/Descriptor.php
 	$(TOUCH) $@
 
 # gperftools is evolving and not quite adapted to some environments.
