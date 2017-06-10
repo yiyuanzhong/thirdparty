@@ -1,0 +1,11 @@
+--- a/src/google/protobuf/metadata_lite.h.orig	2017-06-10 15:00:00.167970617 +0800
++++ b/src/google/protobuf/metadata_lite.h	2017-06-10 15:00:15.511539429 +0800
+@@ -167,7 +167,7 @@
+   InternalMetadataWithArenaLite() {}
+ 
+   explicit InternalMetadataWithArenaLite(Arena* arena)
+-      : InternalMetadataWithArenaBase(arena) {}
++      : InternalMetadataWithArenaBase<string, InternalMetadataWithArenaLite>(arena) {}
+ 
+   void DoSwap(string* other) {
+     mutable_unknown_fields()->swap(*other);
