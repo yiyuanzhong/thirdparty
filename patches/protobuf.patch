@@ -1,4 +1,4 @@
---- a/src/google/protobuf/metadata_lite.h.orig	2017-06-10 15:00:00.167970617 +0800
+--- a/src/google/protobuf/metadata_lite.h	2017-06-10 15:00:00.167970617 +0800
 +++ b/src/google/protobuf/metadata_lite.h	2017-06-10 15:00:15.511539429 +0800
 @@ -167,7 +167,7 @@
    InternalMetadataWithArenaLite() {}
@@ -9,3 +9,14 @@
  
    void DoSwap(string* other) {
      mutable_unknown_fields()->swap(*other);
+--- a/src/google/protobuf/generated_message_util.h	2017-06-10 15:36:00.530441928 +0800
++++ b/src/google/protobuf/generated_message_util.h	2017-06-10 15:38:22.204394996 +0800
+@@ -138,7 +138,7 @@
+     }
+   }
+ 
+-#if LANG_CXX11
++#if LANG_CXX11 && (!defined(__GNUC__) || __GNUC__ > 4 || __GNUC__ == 4 && __GNUC_MINOR__ >= 6)
+   constexpr
+ #endif
+       const T&
