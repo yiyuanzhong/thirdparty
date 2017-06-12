@@ -9,14 +9,16 @@
  
    void DoSwap(string* other) {
      mutable_unknown_fields()->swap(*other);
---- a/src/google/protobuf/generated_message_util.h	2017-06-10 15:36:00.530441928 +0800
-+++ b/src/google/protobuf/generated_message_util.h	2017-06-10 15:38:22.204394996 +0800
-@@ -138,7 +138,7 @@
-     }
-   }
- 
--#if LANG_CXX11
-+#if LANG_CXX11 && (!defined(__GNUC__) || __GNUC__ > 4 || __GNUC__ == 4 && __GNUC_MINOR__ >= 6)
-   constexpr
+--- a/src/google/protobuf/stubs/port.h	2017-06-12 20:30:34.286188704 +0800
++++ b/src/google/protobuf/stubs/port.h	2017-06-12 20:31:44.449616895 +0800
+@@ -105,8 +105,10 @@
+ // Define this to 1 if the code is compiled in C++11 mode; leave it
+ // undefined otherwise.  Do NOT define it to 0 -- that causes
+ // '#ifdef LANG_CXX11' to behave differently from '#if LANG_CXX11'.
++#if !defined(__GNUC__) || __GNUC__ > 4 || __GNUC__ == 4 && __GNUC_MINOR__ >= 6
+ #define LANG_CXX11 1
  #endif
-       const T&
++#endif
+ 
+ namespace google {
+ namespace protobuf {
