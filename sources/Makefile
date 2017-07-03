@@ -32,8 +32,8 @@ check/$(2):
 endef
 
 $(eval $(call M,0ef8be2ee8acb4dba5a66b247a254995,apcu-5.1.8.tgz,https://pecl.php.net/get/apcu-5.1.8.tgz))
-$(eval $(call M,4e9769f3349fe11fc0a5e1b224c236aa,apr-1.5.2.tar.bz2,http://www-us.apache.org/dist/apr/apr-1.5.2.tar.bz2))
-$(eval $(call M,2202b18f269ad606d70e1864857ed93c,apr-util-1.5.4.tar.bz2,http://www-us.apache.org/dist/apr/apr-util-1.5.4.tar.bz2))
+$(eval $(call M,e81a851967c79b5ce9bfbc909e4bf735,apr-1.6.2.tar.bz2,http://www-us.apache.org/dist/apr/apr-1.6.2.tar.bz2))
+$(eval $(call M,069a9a980776acab05212c5f37ef8368,apr-util-1.6.0.tar.bz2,http://www-us.apache.org/dist/apr/apr-util-1.6.0.tar.bz2))
 $(eval $(call M,50f97f4159805e374639a73e2636f22e,autoconf-2.69.tar.xz,https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz))
 $(eval $(call M,9a1ddb0e053474d9d1105cfe39b0c48d,automake-1.15.tar.xz,https://ftp.gnu.org/gnu/automake/automake-1.15.tar.xz))
 $(eval $(call M,c342201de104cc9ce0a21e0ad10d4021,bison-3.0.4.tar.xz,https://ftp.gnu.org/gnu/bison/bison-3.0.4.tar.xz))
@@ -46,6 +46,7 @@ $(eval $(call M,b5dff61f6a7f1305271ab3f6ae261419,cmake-3.8.2.tar.gz,https://cmak
 $(eval $(call M,d5aa2072f662d4118b9f4c63b94601a6,coreutils-8.26.tar.xz,https://ftp.gnu.org/gnu/coreutils/coreutils-8.26.tar.xz))
 $(eval $(call M,3cf2de0ca4ac43e59067eb6b4f876982,curl-7.54.0.tar.lzma,http://curl.haxx.se/download/curl-7.54.0.tar.lzma))
 $(eval $(call M,569354697ff1cfc9a9de3781361015fa,diffutils-3.5.tar.xz,https://ftp.gnu.org/gnu/diffutils/diffutils-3.5.tar.xz))
+$(eval $(call M,5d60b2e757eceb9a52b92ceec1fb033c,libexpat-R_2_2_1.tar.gz,https://github.com/libexpat/libexpat/archive/R_2_2_1.tar.gz))
 $(eval $(call M,9936aa8009438ce185bea2694a997fc1,findutils-4.6.0.tar.gz,https://ftp.gnu.org/gnu/findutils/findutils-4.6.0.tar.gz))
 $(eval $(call M,a5f65570cd9107ec8a8ec88f17b31bb1,flex-2.6.3.tar.gz,https://github.com/westes/flex/releases/download/v2.6.3/flex-2.6.3.tar.gz))
 $(eval $(call M,b3230110e0cab777e0df7631837ac36e,freetype-2.7.1.tar.bz2,https://sourceforge.net/projects/freetype/files/freetype2/2.7.1/freetype-2.7.1.tar.bz2/download))
@@ -58,7 +59,7 @@ $(eval $(call M,5d18e244a78fde69d3998a0447a6f795,grep-2.28.tar.xz,https://ftp.gn
 $(eval $(call M,bab8a43e5b69c2b7bfa1ca0b4e44c676,gsoap_2.8.47.zip,https://sourceforge.net/projects/gsoap2/files/gsoap-2.8/gsoap_2.8.47.zip/download))
 $(eval $(call M,732553152814b22dc35aa0267df5286c,gzip-1.8.tar.gz,https://ftp.gnu.org/gnu/gzip/gzip-1.8.tar.gz))
 $(eval $(call M,43dca1445ec6d3b702821dba36000279,hiredis-0.13.3.tar.gz,https://github.com/redis/hiredis/archive/v0.13.3.tar.gz))
-$(eval $(call M,2826f49619112ad5813c0be5afcc7ddb,httpd-2.4.25.tar.bz2,http://www-us.apache.org/dist/httpd/httpd-2.4.25.tar.bz2))
+$(eval $(call M,d4d47749a44461cb2e6c9d78a22b522b,httpd-2.4.26.tar.bz2,http://www-us.apache.org/dist/httpd/httpd-2.4.26.tar.bz2))
 $(eval $(call M,fac212b32b7ec7ab007a12dff1f3aea1,icu4c-58_2-src.tgz,http://download.icu-project.org/files/icu4c/58.2/icu4c-58_2-src.tgz))
 $(eval $(call M,6a9996ce116ec5c52b4870dbcd6d3ddb,jpeg-9b.tar.gz,http://ijg.org/files/jpegsrc.v9b.tar.gz))
 $(eval $(call M,13d1991d79697df8cadbc25c93e37c83,jsoncpp-0.10.6.tar.gz,https://github.com/open-source-parsers/jsoncpp/archive/0.10.6.tar.gz))
