@@ -83,7 +83,7 @@ $(eval $(call M,001341afeded3724c19a740148737444,memcached-3.0.3.tgz,https://pec
 $(eval $(call M,262a8c59bceee5fcb669dd92a85c637d,mod_fcgid-2.3.9.tar.bz2,http://www-us.apache.org/dist/httpd/mod_fcgid/mod_fcgid-2.3.9.tar.bz2))
 $(eval $(call M,d6a1d5f8ddea3abd2cc3e98f58352d26,mpc-1.0.3.tar.gz,https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz))
 $(eval $(call M,c4ac246cf9795a4491e7766002cd528f,mpfr-3.1.5.tar.xz,http://www.mpfr.org/mpfr-3.1.5/mpfr-3.1.5.tar.xz))
-$(eval $(call M,5ded941ffeeec895022b97e58b1b204b,mysql++-3.2.3.tar.gz,http://www.tangentsoft.net/mysql++/releases/mysql++-3.2.3.tar.gz))
+$(eval $(call M,5ded941ffeeec895022b97e58b1b204b,mysql++-3.2.3.tar.gz,https://tangentsoft.com/mysqlpp/releases/mysql++-3.2.3.tar.gz))
 $(eval $(call M,db2a87ede6132b226f8d43d3ac349284,mysql-5.7.17.tar.gz,http://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.17.tar.gz))
 $(eval $(call M,db3fa9c199ad159519074c89f1c0243c,mysql-connector-c++-1.1.8.tar.gz,http://dev.mysql.com/get/Downloads/Connector-C++/mysql-connector-c++-1.1.8.tar.gz))
 $(eval $(call M,ee13d052e1ead260d7c28071f46eefb1,ncurses-6.0.tar.gz,https://ftp.gnu.org/gnu/ncurses/ncurses-6.0.tar.gz))
