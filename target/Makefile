@@ -199,7 +199,7 @@ $(eval $(call M,php7,php-7.0.20.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # MySQL uses cmake.
-._mysql: $(SOURCES)/mysql-5.7.17.tar.gz ._boost ._libevent ._libncurses ._openssl
+._mysql: $(SOURCES)/mysql-5.7.18.tar.gz ._boost ._libevent ._libncurses ._openssl
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
