@@ -105,6 +105,6 @@ $(eval $(call M,62b490407489521db863b523a7f86375,unzip60.tar.gz,https://sourcefo
 $(eval $(call M,54ba880f1d66782c2287ee2c898520e9,util-linux-2.21.2.tar.xz,https://www.kernel.org/pub/linux/utils/util-linux/v2.21/util-linux-2.21.2.tar.xz))
 $(eval $(call M,1695511daf585fcaf7816a401a6216f6,uuid-1.0.4.tgz,https://pecl.php.net/get/uuid-1.0.4.tgz))
 $(eval $(call M,097ff1a324ae02e0a3b0369f07a7544a,which-2.21.tar.gz,https://ftp.gnu.org/gnu/which/which-2.21.tar.gz))
-$(eval $(call M,1592e7ca3eece099b03b35f4d9179e7c,xz-5.2.3.tar.bz2,http://tukaani.org/xz/xz-5.2.3.tar.bz2))
+$(eval $(call M,1592e7ca3eece099b03b35f4d9179e7c,xz-5.2.3.tar.bz2,https://tukaani.org/xz/xz-5.2.3.tar.bz2))
 $(eval $(call M,85adef240c5f370b308da8c938951a68,zlib-1.2.11.tar.xz,https://sourceforge.net/projects/libpng/files/zlib/1.2.11/zlib-1.2.11.tar.xz/download))
 $(eval $(call M,e4cf1b1593ca870bf1c7a75188f09678,zookeeper-3.4.10.tar.gz,http://www-us.apache.org/dist/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz))
