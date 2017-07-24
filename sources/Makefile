@@ -59,7 +59,7 @@ $(eval $(call M,5d18e244a78fde69d3998a0447a6f795,grep-2.28.tar.xz,https://ftp.gn
 $(eval $(call M,bab8a43e5b69c2b7bfa1ca0b4e44c676,gsoap_2.8.47.zip,https://sourceforge.net/projects/gsoap2/files/gsoap-2.8/gsoap_2.8.47.zip/download))
 $(eval $(call M,732553152814b22dc35aa0267df5286c,gzip-1.8.tar.gz,https://ftp.gnu.org/gnu/gzip/gzip-1.8.tar.gz))
 $(eval $(call M,43dca1445ec6d3b702821dba36000279,hiredis-0.13.3.tar.gz,https://github.com/redis/hiredis/archive/v0.13.3.tar.gz))
-$(eval $(call M,d4d47749a44461cb2e6c9d78a22b522b,httpd-2.4.26.tar.bz2,http://www-us.apache.org/dist/httpd/httpd-2.4.26.tar.bz2))
+$(eval $(call M,97b6bbfa83c866dbe20ef317e3afd108,httpd-2.4.27.tar.bz2,http://www-us.apache.org/dist/httpd/httpd-2.4.27.tar.bz2))
 $(eval $(call M,fac212b32b7ec7ab007a12dff1f3aea1,icu4c-58_2-src.tgz,http://download.icu-project.org/files/icu4c/58.2/icu4c-58_2-src.tgz))
 $(eval $(call M,6a9996ce116ec5c52b4870dbcd6d3ddb,jpeg-9b.tar.gz,http://ijg.org/files/jpegsrc.v9b.tar.gz))
 $(eval $(call M,13d1991d79697df8cadbc25c93e37c83,jsoncpp-0.10.6.tar.gz,https://github.com/open-source-parsers/jsoncpp/archive/0.10.6.tar.gz))
