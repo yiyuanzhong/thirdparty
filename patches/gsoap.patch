@@ -11,7 +11,7 @@
  AC_PROG_LN_S
  AC_PROG_AWK
  AC_PROG_INSTALL
-@@ -242,7 +242,7 @@
+@@ -259,7 +259,7 @@
      WSDL2H_EXTRA_LIBS="${WSDL2H_EXTRA_LIBS} -lgnutls -lgcrypt -lgpg-error -lz"
      SAMPLE_INCLUDES=
      SAMPLE_SSL_LIBS="-lgnutls -lgcrypt -lgpg-error -lz"
@@ -20,7 +20,7 @@
    else
      AC_MSG_RESULT(no)
      WSDL2H_EXTRA_FLAGS="-DWITH_OPENSSL -DWITH_GZIP"
-@@ -251,7 +251,7 @@
+@@ -268,7 +268,7 @@
      WSDL2H_EXTRA_LIBS="${WSDL2H_EXTRA_LIBS} ../plugin/httpda.c ../plugin/smdevp.c ../plugin/threads.c -lssl -lcrypto -lz"
      SAMPLE_INCLUDES=
      SAMPLE_SSL_LIBS="-lssl -lcrypto -lz"
@@ -29,7 +29,7 @@
    fi
    if test -n "$ZLIB"; then
      WSDL2H_EXTRA_FLAGS="-I${ZLIB}/include ${WSDL2H_EXTRA_FLAGS}"
-@@ -270,7 +270,7 @@
+@@ -287,7 +287,7 @@
    WSDL2H_EXTRA_FLAGS=
    SAMPLE_SSL_LIBS=
    SAMPLE_INCLUDES=
@@ -48,34 +48,34 @@
 +lib_LTLIBRARIES = libgsoap.la libgsoap++.la libgsoapck.la libgsoapck++.la libgsoapssl.la libgsoapssl++.la
  
 -libgsoap_a_SOURCES = stdsoap2.c dom.c
--libgsoap_a_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform)
+-libgsoap_a_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform)
 -libgsoap___a_SOURCES = stdsoap2_cpp.cpp dom_cpp.cpp
--libgsoap___a_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform)
+-libgsoap___a_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform)
 -libgsoapck_a_SOURCES = stdsoap2_ck.c dom.c
--libgsoapck_a_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform) -DWITH_COOKIES
+-libgsoapck_a_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform) -DWITH_COOKIES
 -libgsoapck___a_SOURCES = stdsoap2_ck_cpp.cpp dom_cpp.cpp
--libgsoapck___a_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform) -DWITH_COOKIES
+-libgsoapck___a_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform) -DWITH_COOKIES
 -libgsoapssl_a_SOURCES = stdsoap2_ssl.c dom.c
--libgsoapssl_a_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform) $(WSDL2H_EXTRA_FLAGS) -DWITH_DOM -DWITH_COOKIES
+-libgsoapssl_a_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform) $(WSDL2H_EXTRA_FLAGS) -DWITH_DOM -DWITH_COOKIES
 -libgsoapssl___a_SOURCES = stdsoap2_ssl_cpp.cpp dom_cpp.cpp
--libgsoapssl___a_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform) $(WSDL2H_EXTRA_FLAGS) -DWITH_DOM -DWITH_COOKIES
+-libgsoapssl___a_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform) $(WSDL2H_EXTRA_FLAGS) -DWITH_DOM -DWITH_COOKIES
 +libgsoap_la_SOURCES = stdsoap2.c dom.c
-+libgsoap_la_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform)
++libgsoap_la_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform)
 +libgsoap_la_LDFLAGS = -version-info 0
 +libgsoap___la_SOURCES = stdsoap2_cpp.cpp dom_cpp.cpp
-+libgsoap___la_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform)
++libgsoap___la_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform)
 +libgsoap___la_LDFLAGS = -version-info 0
 +libgsoapck_la_SOURCES = stdsoap2_ck.c dom.c
-+libgsoapck_la_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform) -DWITH_COOKIES
++libgsoapck_la_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform) -DWITH_COOKIES
 +libgsoapck_la_LDFLAGS = -version-info 0
 +libgsoapck___la_SOURCES = stdsoap2_ck_cpp.cpp dom_cpp.cpp
-+libgsoapck___la_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform) -DWITH_COOKIES
++libgsoapck___la_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform) -DWITH_COOKIES
 +libgsoapck___la_LDFLAGS = -version-info 0
 +libgsoapssl_la_SOURCES = stdsoap2_ssl.c dom.c
-+libgsoapssl_la_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform) $(WSDL2H_EXTRA_FLAGS) -DWITH_DOM -DWITH_COOKIES
++libgsoapssl_la_CFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform) $(WSDL2H_EXTRA_FLAGS) -DWITH_DOM -DWITH_COOKIES
 +libgsoapssl_la_LDFLAGS = -version-info 0
 +libgsoapssl___la_SOURCES = stdsoap2_ssl_cpp.cpp dom_cpp.cpp
-+libgsoapssl___la_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_IPV6) -D$(platform) $(WSDL2H_EXTRA_FLAGS) -DWITH_DOM -DWITH_COOKIES
++libgsoapssl___la_CXXFLAGS = $(SOAPCPP2_DEBUG) $(SOAPCPP2_NONAMESPACES) $(SOAPCPP2_NO_C_LOCALE) $(SOAPCPP2_IPV6) -D$(platform) $(WSDL2H_EXTRA_FLAGS) -DWITH_DOM -DWITH_COOKIES
 +libgsoapssl___la_LDFLAGS = -version-info 0
  
  BUILT_SOURCES = stdsoap2_cpp.cpp dom_cpp.cpp stdsoap2_ck.c stdsoap2_ck_cpp.cpp stdsoap2_ssl.c stdsoap2_ssl_cpp.cpp
