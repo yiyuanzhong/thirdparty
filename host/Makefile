@@ -48,7 +48,7 @@ $(SOURCES)/%:
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && ./configure --prefix=$(TOOLS) --disable-acl --disable-nls --without-posix-acls --without-selinux --without-xattrs && $(MAKE) && $(MAKE) install
 	$(TOUCH) $@
 
-._gzip: $(SOURCES)/gzip-1.8.tar.gz
+._gzip: $(SOURCES)/gzip-1.9.tar.gz
 	$(RM) -r $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && gzip -d -c $< | tar -x
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && ./configure --prefix=$(TOOLS) && $(MAKE) && $(MAKE) install-exec
@@ -86,12 +86,12 @@ $(eval $(call M,chrpath,chrpath-0.16.tar.gz))
 $(eval $(call M,autoconf,autoconf-2.69.tar.xz,m4))
 $(eval $(call M,grep,grep-3.1.tar.xz,,--disable-nls))
 $(eval $(call M,make,make-4.2.1.tar.bz2,,--disable-nls))
-$(eval $(call M,automake,automake-1.15.1.tar.xz,autoconf))
+$(eval $(call M,automake,automake-1.16.1.tar.xz,autoconf))
 $(eval $(call M,diff,diffutils-3.6.tar.xz,,--disable-nls))
 $(eval $(call M,which,which-2.21.tar.gz,,--disable-iberty))
-$(eval $(call M,patch,patch-2.7.5.tar.xz,,--disable-xattr))
+$(eval $(call M,patch,patch-2.7.6.tar.xz,,--disable-xattr))
 $(eval $(call M,bison,bison-3.0.4.tar.xz,m4,--disable-nls))
-$(eval $(call M,cmake,cmake-3.9.6.tar.gz,,-- -DBUILD_CursesDialog=OFF))
+$(eval $(call M,cmake,cmake-3.10.3.tar.gz,,-- -DBUILD_CursesDialog=OFF))
 $(eval $(call M,gawk,gawk-4.1.4.tar.xz,,,,,$(LN) -s gawk $(TOOLS)/bin/awk))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz,automake,--disable-ltdl-install))
 $(eval $(call M,find,findutils-4.6.0.tar.gz,,--disable-nls --without-selinux))
@@ -99,7 +99,7 @@ $(eval $(call M,sed,sed-4.4.tar.xz,,--disable-acl --disable-nls --without-selinu
 $(eval $(call M,pkg-config,pkg-config-0.29.2.tar.gz,,--disable-host-tool --with-internal-glib))
 $(eval $(call M,util-linux,util-linux-2.21.2.tar.xz,,--without-ncurses --disable-nls,-C getopt,-C getopt))
 $(eval $(call M,flex,flex-2.6.4.tar.gz,libtool,--disable-shared --disable-nls,,,$(LN) -s flex $(TOOLS)/bin/lex))
-$(eval $(call M,coreutils,coreutils-8.28.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
+$(eval $(call M,coreutils,coreutils-8.29.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
 
 ._unzip: $(SOURCES)/unzip60.tar.gz
 	$(RM) -r $(BUILD)/unzip60
