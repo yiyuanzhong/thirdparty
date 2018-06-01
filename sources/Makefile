@@ -28,16 +28,16 @@ $(2):
 	$(AT)$$(ECHO) 'Downloading $(2)'
 	$(AT)$$(CURL) -o $(2).dl '$(3)' || ($$(RM) $(2).dl; $$(FALSE))
 	$(AT)$$(ECHO) -n 'Checking $(2)...'
-	$(AT)if [ 64 -eq `expr length '$(1)'` ] && [ `$$(CAT) '$(2).dl' | $$(SHA256SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
-       elif [ 40 -eq `expr length '$(1)'` ] && [ `$$(CAT) '$(2).dl' | $$(SHA1SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
-       elif [ 32 -eq `expr length '$(1)'` ] && [ `$$(CAT) '$(2).dl' | $$(MD5SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
+	$(AT)if [ 64 -eq `expr '$(1)' : '.*'` ] && [ `$$(CAT) '$(2).dl' | $$(SHA256SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
+       elif [ 40 -eq `expr '$(1)' : '.*'` ] && [ `$$(CAT) '$(2).dl' | $$(SHA1SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
+       elif [ 32 -eq `expr '$(1)' : '.*'` ] && [ `$$(CAT) '$(2).dl' | $$(MD5SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
        else $$(ECHO) 'bad'; $$(RM) '$(2)'; $$(FALSE); fi
 	$(AT)$$(MV) $(2).dl $(2)
 check/$(2): $(2)
 	$(AT)$$(ECHO) -n 'Checking $(2)...'
-	$(AT)if [ 64 -eq `expr length '$(1)'` ] && [ `$$(CAT) '$(2)' | $$(SHA256SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
-       elif [ 40 -eq `expr length '$(1)'` ] && [ `$$(CAT) '$(2)' | $$(SHA1SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
-       elif [ 32 -eq `expr length '$(1)'` ] && [ `$$(CAT) '$(2)' | $$(MD5SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
+	$(AT)if [ 64 -eq `expr '$(1)' : '.*'` ] && [ `$$(CAT) '$(2)' | $$(SHA256SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
+       elif [ 40 -eq `expr '$(1)' : '.*'` ] && [ `$$(CAT) '$(2)' | $$(SHA1SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
+       elif [ 32 -eq `expr '$(1)' : '.*'` ] && [ `$$(CAT) '$(2)' | $$(MD5SUM)` = '$(1)' ]; then $$(ECHO) 'ok'; \
        else $$(ECHO) 'bad'; $$(RM) '$(2)'; $$(FALSE); fi
 endef
 
