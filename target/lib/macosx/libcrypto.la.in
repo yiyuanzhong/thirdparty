@@ -5,10 +5,10 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='libcrypto.1.0.0.dylib'
+dlname='libcrypto.1.1.dylib'
 
 # Names of this library.
-library_names='libcrypto.1.0.0.dylib libcrypto.dylib'
+library_names='libcrypto.1.1.dylib libcrypto.dylib'
 
 # The name of the static archive.
 old_library='libcrypto.a'

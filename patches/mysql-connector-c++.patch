@@ -1,0 +1,11 @@
+--- a/FindMySQL.cmake	2018-10-15 02:49:58.824136427 +0900
++++ b/FindMySQL.cmake	2018-10-15 02:50:10.208141979 +0900
+@@ -700,8 +700,6 @@
+ 
+ # For dynamic linking use the built-in sys and strings
+ if(NOT MYSQLCLIENT_STATIC_LINKING)
+-   list(APPEND SYS_LIBRARIES "mysql_sys")
+-   list(APPEND SYS_LIBRARIES "mysql_strings")
+    list(APPEND SYS_LIBRARIES ${MYSQL_LIBRARIES})
+    SET(MYSQL_LIBRARIES ${SYS_LIBRARIES})
+ 

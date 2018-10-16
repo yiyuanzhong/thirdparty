@@ -5,10 +5,10 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='libssl.so.1.0.0'
+dlname='libssl.so.1.1'
 
 # Names of this library.
-library_names='libssl.so.1.0.0 libssl.so'
+library_names='libssl.so.1.1 libssl.so'
 
 # The name of the static archive.
 old_library='libssl.a'
