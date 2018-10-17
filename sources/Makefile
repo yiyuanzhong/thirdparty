@@ -105,7 +105,7 @@ $(eval $(call M,df0d1c2ff04c359220cb902539a6e134af4497f4,pcre-8.42.tar.bz2,https
 $(eval $(call M,da1a705c0bc46410e330fc6baa967666c8cd2985378fb9707c01a8e33b01d985,php-7.2.11.tar.xz,http://php.net/get/php-7.2.11.tar.xz/from/this/mirror))
 $(eval $(call M,f6e931e319531b736fadc017f470e68a,pkg-config-0.29.2.tar.gz,http://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz))
 $(eval $(call M,3743beefa3dd6247a73f8f7a32c14c33,popt-1.16.tar.gz,http://rpm5.org/files/popt/popt-1.16.tar.gz))
-$(eval $(call M,e8ce2659ea4f5df1a1e0dbd107dd61d9,protobuf-3.6.1.tar.gz,https://github.com/google/protobuf/archive/v3.6.1.tar.gz))
+$(eval $(call M,ff6742018c172c66ecc627029ad54280,protobuf-3.5.2.tar.gz,https://github.com/google/protobuf/archive/v3.5.2.tar.gz))
 $(eval $(call M,205b03a87fc83dab653b628c59b9fc91,readline-7.0.tar.gz,https://ftp.gnu.org/gnu/readline/readline-7.0.tar.gz))
 $(eval $(call M,ade8f8c2c548bf41f74db2dcfc37e4e3,sed-4.5.tar.xz,https://ftp.gnu.org/gnu/sed/sed-4.5.tar.xz))
 $(eval $(call M,aedfbdc14eb700099434d6a743135743cff47393,sqlite-autoconf-3250200.tar.gz,https://www.sqlite.org/2018/sqlite-autoconf-3250200.tar.gz))
