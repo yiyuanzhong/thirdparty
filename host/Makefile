@@ -37,7 +37,7 @@ all: ._chrpath
 endif
 
 mrproper:
-	@PATH=$(CCACHE_PATH) $(CWD)/prepare.sh
+	@PATH="$(CCACHE_PATH)" $(CWD)/prepare.sh
 
 $(SOURCES)/%:
 	$(MAKE) -C $(SOURCES) $(notdir $@)

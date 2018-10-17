@@ -1,0 +1,11 @@
+--- a/lib/vasnprintf.c	2018-10-17 14:34:13.000000000 +0800
++++ b/lib/vasnprintf.c	2018-10-17 14:34:52.000000000 +0800
+@@ -168,7 +168,7 @@
+      size argument is >= 0x3000000.
+      Also don't use it on Linux libc5, since there snprintf with size = 1
+      writes any output without bounds, like sprintf.  */
+-# if (HAVE_DECL__SNPRINTF || HAVE_SNPRINTF) && !defined __BEOS__ && !(__GNU_LIBRARY__ == 1)
++# if (HAVE_DECL__SNPRINTF || HAVE_SNPRINTF) && !defined __BEOS__ && !defined __MACH__ && !(__GNU_LIBRARY__ == 1)
+ #  define USE_SNPRINTF 1
+ # else
+ #  define USE_SNPRINTF 0
