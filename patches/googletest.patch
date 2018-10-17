@@ -1,0 +1,20 @@
+--- a/googlemock/include/gmock/gmock-matchers.h	2018-10-17 22:48:03.116282481 +0900
++++ b/googlemock/include/gmock/gmock-matchers.h	2018-10-17 22:49:05.330316407 +0900
+@@ -3006,7 +3006,7 @@
+ class PointwiseMatcher {
+   GTEST_COMPILE_ASSERT_(
+       !IsHashTable<GTEST_REMOVE_REFERENCE_AND_CONST_(RhsContainer)>::value,
+-      use_UnorderedPointwise_with_hash_tables);
++      use_UnorderedPointwise_with_hash_tables_class);
+ 
+  public:
+   typedef internal::StlContainerView<RhsContainer> RhsView;
+@@ -3027,7 +3027,7 @@
+   operator Matcher<LhsContainer>() const {
+     GTEST_COMPILE_ASSERT_(
+         !IsHashTable<GTEST_REMOVE_REFERENCE_AND_CONST_(LhsContainer)>::value,
+-        use_UnorderedPointwise_with_hash_tables);
++        use_UnorderedPointwise_with_hash_tables_operator);
+ 
+     return MakeMatcher(new Impl<LhsContainer>(tuple_matcher_, rhs_));
+   }

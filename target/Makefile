@@ -298,6 +298,7 @@ $(eval $(call M,php7,php-7.2.11.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
+        $(PATCH) -p1 <$(PATCHES)/googletest.patch && \
         $(CMAKE) . -DCMAKE_INSTALL_PREFIX=$(STAGING) -DCMAKE_INSTALL_LIBDIR=lib && \
         $(MAKE) && $(MAKE) install
 	$(TOUCH) $@
