@@ -1,0 +1,20 @@
+--- a/lib/cpp/src/thrift/transport/THeaderTransport.h	2018-10-17 23:11:47.198053392 +0900
++++ b/lib/cpp/src/thrift/transport/THeaderTransport.h	2018-10-17 23:13:39.286113367 +0900
+@@ -76,7 +76,7 @@
+ 
+   /// Use default buffer sizes.
+   explicit THeaderTransport(const stdcxx::shared_ptr<TTransport>& transport)
+-    : TVirtualTransport(transport),
++    : TVirtualTransport<THeaderTransport, TFramedTransport> (transport),
+       outTransport_(transport),
+       protoId(T_COMPACT_PROTOCOL),
+       clientType(THRIFT_HEADER_CLIENT_TYPE),
+@@ -90,7 +90,7 @@
+ 
+   THeaderTransport(const stdcxx::shared_ptr<TTransport> inTransport,
+                    const stdcxx::shared_ptr<TTransport> outTransport)
+-    : TVirtualTransport(inTransport),
++    : TVirtualTransport<THeaderTransport, TFramedTransport> (inTransport),
+       outTransport_(outTransport),
+       protoId(T_COMPACT_PROTOCOL),
+       clientType(THRIFT_HEADER_CLIENT_TYPE),
