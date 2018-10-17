@@ -52,7 +52,7 @@ $(eval $(call M,00b516f4704d4a7cb50a1d97e6e8e15b,bzip2-1.0.6.tar.gz,https://foss
 $(eval $(call M,e57b37a7c46283e83c21cde234df10c7,c-ares-1.14.0.tar.gz,http://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz))
 $(eval $(call M,2bf8d1d1ee345fc8a7915576f5649982,chrpath-0.16.tar.gz,https://src.fedoraproject.org/lookaside/extras/chrpath/chrpath-0.16.tar.gz/2bf8d1d1ee345fc8a7915576f5649982/chrpath-0.16.tar.gz))
 $(eval $(call M,b8c0c7fbe0ef5e06e0c935f134304d44,clearsilver-0.10.5.tar.gz,http://www.clearsilver.net/downloads/clearsilver-0.10.5.tar.gz))
-$(eval $(call M,acbf13af31a741794106b76e5d22448b004a66485fc99f6d7df4d22e99da164a,cmake-3.12.3.tar.gz,https://cmake.org/files/v3.12/cmake-3.12.3.tar.gz))
+$(eval $(call M,7410851a783a41b521214ad987bb534a7e4a65e059651a2514e6ebfc8f46b218,cmake-3.9.6.tar.gz,https://cmake.org/files/v3.9/cmake-3.9.6.tar.gz))
 $(eval $(call M,ab06d68949758971fe744db66b572816,coreutils-8.30.tar.xz,https://ftp.gnu.org/gnu/coreutils/coreutils-8.30.tar.xz))
 $(eval $(call M,feb1856fcdb79ba0386c8e41b02e487d,curl-7.61.1.tar.xz,https://curl.haxx.se/download/curl-7.61.1.tar.xz))
 $(eval $(call M,07cf286672ced26fba54cd0313bdc071,diffutils-3.6.tar.xz,https://ftp.gnu.org/gnu/diffutils/diffutils-3.6.tar.xz))
