@@ -326,3 +326,26 @@
  
  #	$(LDSHARED) -o $@ $(LDFLAGS) -Wl,-whole-archive $(DLIBS)
  
+--- a/cgi/cgi.c	2018-12-21 00:43:52.404068387 +0900
++++ b/cgi/cgi.c	2018-12-21 00:47:18.597176245 +0900
+@@ -792,11 +792,20 @@
+ 
+ void cgi_destroy (CGI **cgi)
+ {
++  struct _cgi_parse_cb *my_pcb;
+   CGI *my_cgi;
+ 
+   if (!cgi || !*cgi)
+     return;
+   my_cgi = *cgi;
++  while (my_cgi->parse_callbacks)
++  {
++      my_pcb = my_cgi->parse_callbacks;
++      my_cgi->parse_callbacks = my_cgi->parse_callbacks->next;
++      free(my_pcb->ctype);
++      free(my_pcb->method);
++      free(my_pcb);
++  }
+   if (my_cgi->hdf)
+     hdf_destroy (&(my_cgi->hdf));
+   if (my_cgi->buf)
