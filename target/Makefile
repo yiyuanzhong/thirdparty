@@ -274,7 +274,7 @@ $(eval $(call M,php7,php-7.2.11.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # memcached needs to be reconfigured.
-._memcached: $(SOURCES)/memcached-1.5.11.tar.gz ._libevent $(LIBHUGETLBFS)
+._memcached: $(SOURCES)/memcached-1.5.12.tar.gz ._libevent $(LIBHUGETLBFS)
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
