@@ -49,7 +49,7 @@ $(eval $(call M,53f38e7591fa57c3d2cee682be668e5b,automake-1.16.1.tar.xz,https://
 $(eval $(call M,3e54f20988ecd1b62044e25481e5f06b,bison-3.0.5.tar.xz,https://ftp.gnu.org/gnu/bison/bison-3.0.5.tar.xz))
 $(eval $(call M,6aa9a5c6a4ca1016edd0ed1178e3cb87,boost_1_59_0.tar.bz2,https://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.bz2/download))
 $(eval $(call M,00b516f4704d4a7cb50a1d97e6e8e15b,bzip2-1.0.6.tar.gz,https://fossies.org/linux/misc/bzip2-1.0.6.tar.gz))
-$(eval $(call M,e57b37a7c46283e83c21cde234df10c7,c-ares-1.14.0.tar.gz,http://c-ares.haxx.se/download/c-ares-1.14.0.tar.gz))
+$(eval $(call M,6cdb97871f2930530c97deb7cf5c8fa4be5a0b02c7cea6e7c7667672a39d6852,c-ares-1.15.0.tar.gz,http://c-ares.haxx.se/download/c-ares-1.15.0.tar.gz))
 $(eval $(call M,2bf8d1d1ee345fc8a7915576f5649982,chrpath-0.16.tar.gz,https://src.fedoraproject.org/lookaside/extras/chrpath/chrpath-0.16.tar.gz/2bf8d1d1ee345fc8a7915576f5649982/chrpath-0.16.tar.gz))
 $(eval $(call M,b8c0c7fbe0ef5e06e0c935f134304d44,clearsilver-0.10.5.tar.gz,http://www.clearsilver.net/downloads/clearsilver-0.10.5.tar.gz))
 $(eval $(call M,7410851a783a41b521214ad987bb534a7e4a65e059651a2514e6ebfc8f46b218,cmake-3.9.6.tar.gz,https://cmake.org/files/v3.9/cmake-3.9.6.tar.gz))
