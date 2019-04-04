@@ -41,7 +41,7 @@ check/$(2): $(2)
        else $$(ECHO) 'bad'; $$(RM) '$(2)'; $$(FALSE); fi
 endef
 
-$(eval $(call M,590150223da115aec712fa86cb693807,apcu-5.1.12.tgz,https://pecl.php.net/get/apcu-5.1.12.tgz))
+$(eval $(call M,6b11b477890a9c096ad856e0251920d1d8b9558b7d115256c027e0223755c793,apcu-5.1.17.tgz,https://pecl.php.net/get/apcu-5.1.17.tgz))
 $(eval $(call M,a67ca9fcf9c4ff59bce7f428a323c8b5e18667fdea7b0ebad47d194371b0a105,apr-1.6.5.tar.bz2,http://www-us.apache.org/dist/apr/apr-1.6.5.tar.bz2))
 $(eval $(call M,d3e12f7b6ad12687572a3a39475545a072608f4ba03a6ce8a3778f607dd0035b,apr-util-1.6.1.tar.bz2,http://www-us.apache.org/dist/apr/apr-util-1.6.1.tar.bz2))
 $(eval $(call M,50f97f4159805e374639a73e2636f22e,autoconf-2.69.tar.xz,https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz))

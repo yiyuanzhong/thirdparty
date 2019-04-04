@@ -481,7 +481,7 @@ $(eval $(call M,php7,php-7.2.11.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # It's a PHP module.
-._php7-apcu: $(SOURCES)/apcu-5.1.12.tgz ._php7
+._php7-apcu: $(SOURCES)/apcu-5.1.17.tgz ._php7
 	$(RM) -R $(BUILD)/$(basename $(notdir $<))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(notdir $<)) && \
