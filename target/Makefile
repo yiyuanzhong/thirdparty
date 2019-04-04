@@ -235,7 +235,7 @@ $(eval $(call M,php7,php-7.2.11.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 ._zookeeper: $(SOURCES)/zookeeper-3.4.14.tar.gz
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
-	cd $(BUILD)/$(basename $(basename $(notdir $<)))/src/c && \
+	cd $(BUILD)/$(basename $(basename $(notdir $<)))/zookeeper-client/zookeeper-client-c && \
         $(PATCH) -p1 <'$(PATCHES)/zookeeper.patch' && \
         ./configure --prefix=$(STAGING) && $(MAKE) && $(MAKE) install
 	$(TOUCH) $@
