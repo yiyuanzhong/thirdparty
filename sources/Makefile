@@ -99,7 +99,7 @@ $(eval $(call M,e0babea574c236dd53124831ce9c73ee,mysql-connector-c++-1.1.11.tar.
 $(eval $(call M,98c889aaf8d23910d2b92d65be2e737a,ncurses-6.1.tar.gz,https://ftp.gnu.org/gnu/ncurses/ncurses-6.1.tar.gz))
 $(eval $(call M,77f2a1d5359ec2274b3de8e9d80587ba,nghttp2-1.34.0.tar.xz,https://github.com/nghttp2/nghttp2/releases/download/v1.34.0/nghttp2-1.34.0.tar.xz))
 $(eval $(call M,2d856aca3dfe1d32e3c9f8c4cac0cc95,nginx-1.14.0.tar.gz,http://nginx.org/download/nginx-1.14.0.tar.gz))
-$(eval $(call M,2836875a0f89c03d0fdf483941512613a50cfb421d6fd94b9f41d7279d586a3d,openssl-1.1.1.tar.gz,https://www.openssl.org/source/openssl-1.1.1.tar.gz))
+$(eval $(call M,5c557b023230413dfb0756f3137a13e6d726838ccd1430888ad15bfb2b43ea4b,openssl-1.1.1b.tar.gz,https://www.openssl.org/source/openssl-1.1.1b.tar.gz))
 $(eval $(call M,78ad9937e4caadcba1526ef1853730d5,patch-2.7.6.tar.xz,https://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.xz))
 $(eval $(call M,df0d1c2ff04c359220cb902539a6e134af4497f4,pcre-8.42.tar.bz2,https://sourceforge.net/projects/pcre/files/pcre/8.42/pcre-8.42.tar.bz2/download))
 $(eval $(call M,da1a705c0bc46410e330fc6baa967666c8cd2985378fb9707c01a8e33b01d985,php-7.2.11.tar.xz,http://php.net/get/php-7.2.11.tar.xz/from/this/mirror))
