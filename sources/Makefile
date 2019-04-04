@@ -117,4 +117,4 @@ $(eval $(call M,1695511daf585fcaf7816a401a6216f6,uuid-1.0.4.tgz,https://pecl.php
 $(eval $(call M,097ff1a324ae02e0a3b0369f07a7544a,which-2.21.tar.gz,https://ftp.gnu.org/gnu/which/which-2.21.tar.gz))
 $(eval $(call M,b3264b15ab1db04c8c428dc81838d4eb,xz-5.2.4.tar.bz2,https://tukaani.org/xz/xz-5.2.4.tar.bz2))
 $(eval $(call M,85adef240c5f370b308da8c938951a68,zlib-1.2.11.tar.xz,https://sourceforge.net/projects/libpng/files/zlib/1.2.11/zlib-1.2.11.tar.xz/download))
-$(eval $(call M,a989b527f3f990d471e6d47ee410e57d8be7620b,zookeeper-3.4.13.tar.gz,http://www-us.apache.org/dist/zookeeper/zookeeper-3.4.13/zookeeper-3.4.13.tar.gz))
+$(eval $(call M,b14f7a0fece8bd34c7fffa46039e563ac5367607c612517aa7bd37306afbd1cd,zookeeper-3.4.14.tar.gz,http://www-us.apache.org/dist/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz))
