@@ -54,7 +54,7 @@ $(eval $(call M,2bf8d1d1ee345fc8a7915576f5649982,chrpath-0.16.tar.gz,https://src
 $(eval $(call M,b8c0c7fbe0ef5e06e0c935f134304d44,clearsilver-0.10.5.tar.gz,http://www.clearsilver.net/downloads/clearsilver-0.10.5.tar.gz))
 $(eval $(call M,7410851a783a41b521214ad987bb534a7e4a65e059651a2514e6ebfc8f46b218,cmake-3.9.6.tar.gz,https://cmake.org/files/v3.9/cmake-3.9.6.tar.gz))
 $(eval $(call M,ab06d68949758971fe744db66b572816,coreutils-8.30.tar.xz,https://ftp.gnu.org/gnu/coreutils/coreutils-8.30.tar.xz))
-$(eval $(call M,feb1856fcdb79ba0386c8e41b02e487d,curl-7.61.1.tar.xz,https://curl.haxx.se/download/curl-7.61.1.tar.xz))
+$(eval $(call M,9252332a7f871ce37bfa7f78bdd0a0e3924d8187cc27cb57c76c9474a7168fb3,curl-7.64.1.tar.xz,https://curl.haxx.se/download/curl-7.64.1.tar.xz))
 $(eval $(call M,07cf286672ced26fba54cd0313bdc071,diffutils-3.6.tar.xz,https://ftp.gnu.org/gnu/diffutils/diffutils-3.6.tar.xz))
 $(eval $(call M,b6ccd2705cf8e732707eb4132a1c4dbc,libexpat-R_2_2_6.tar.gz,https://github.com/libexpat/libexpat/archive/R_2_2_6.tar.gz))
 $(eval $(call M,9936aa8009438ce185bea2694a997fc1,findutils-4.6.0.tar.gz,https://ftp.gnu.org/gnu/findutils/findutils-4.6.0.tar.gz))
