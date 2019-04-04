@@ -74,7 +74,7 @@ $(eval $(call M,fac212b32b7ec7ab007a12dff1f3aea1,icu4c-58_2-src.tgz,http://downl
 $(eval $(call M,93c62597eeef81a84d988bccbda1e990,jpeg-9c.tar.gz,http://ijg.org/files/jpegsrc.v9c.tar.gz))
 $(eval $(call M,13d1991d79697df8cadbc25c93e37c83,jsoncpp-0.10.6.tar.gz,https://github.com/open-source-parsers/jsoncpp/archive/0.10.6.tar.gz))
 $(eval $(call M,4038e366ca5b659dae3efcc744e72120,libarchive-3.3.3.tar.gz,http://libarchive.org/downloads/libarchive-3.3.3.tar.gz))
-$(eval $(call M,94459a5a22db041dec6f98424d6efe54,libev-4.24.tar.gz,http://dist.schmorp.de/libev/libev-4.24.tar.gz))
+$(eval $(call M,78757e1c27778d2f3795251d9fe09715d51ce0422416da4abb34af3929c02589,libev-4.25.tar.gz,http://dist.schmorp.de/libev/libev-4.25.tar.gz))
 $(eval $(call M,f3eeaed018542963b7d2416ef1135ecc,libevent-2.1.8-stable.tar.gz,https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz))
 $(eval $(call M,32f09f98ad52e11177d2400716749b9f,libfcgi-2.4.0.orig.tar.gz,http://http.debian.net/debian/pool/main/libf/libfcgi/libfcgi_2.4.0.orig.tar.gz))
 $(eval $(call M,5d966cd1b56897543afeaac6eaca6888,libhugetlbfs-2.21.tar.gz,https://github.com/libhugetlbfs/libhugetlbfs/releases/download/2.21/libhugetlbfs-2.21.tar.gz))

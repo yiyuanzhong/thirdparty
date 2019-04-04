@@ -102,7 +102,7 @@ $(SOURCES)/%:
 
 $(eval $(call M,xz,xz-5.2.4.tar.bz2))
 $(eval $(call M,gzip,gzip-1.9.tar.gz))
-$(eval $(call M,libev,libev-4.24.tar.gz))
+$(eval $(call M,libev,libev-4.25.tar.gz))
 $(eval $(call M,libpng,libpng-1.6.35.tar.xz))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz))
 $(eval $(call M,fcgi,libfcgi-2.4.0.orig.tar.gz))
