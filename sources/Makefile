@@ -108,7 +108,7 @@ $(eval $(call M,3743beefa3dd6247a73f8f7a32c14c33,popt-1.16.tar.gz,http://rpm5.or
 $(eval $(call M,ff6742018c172c66ecc627029ad54280,protobuf-3.5.2.tar.gz,https://github.com/google/protobuf/archive/v3.5.2.tar.gz))
 $(eval $(call M,205b03a87fc83dab653b628c59b9fc91,readline-7.0.tar.gz,https://ftp.gnu.org/gnu/readline/readline-7.0.tar.gz))
 $(eval $(call M,ade8f8c2c548bf41f74db2dcfc37e4e3,sed-4.5.tar.xz,https://ftp.gnu.org/gnu/sed/sed-4.5.tar.xz))
-$(eval $(call M,aedfbdc14eb700099434d6a743135743cff47393,sqlite-autoconf-3250200.tar.gz,https://www.sqlite.org/2018/sqlite-autoconf-3250200.tar.gz))
+$(eval $(call M,5f5750e3f39b7b60394a2fb6ddb2371f848670e6,sqlite-autoconf-3270200.tar.gz,https://www.sqlite.org/2019/sqlite-autoconf-3270200.tar.gz))
 $(eval $(call M,2d01c6cd1387be98f57a0ec4e6e35826,tar-1.30.tar.xz,https://ftp.gnu.org/gnu/tar/tar-1.30.tar.xz))
 $(eval $(call M,0be59730ebce071eceaf6bfdb8d3a20e,thrift-0.11.0.tar.gz,http://www-us.apache.org/dist/thrift/0.11.0/thrift-0.11.0.tar.gz))
 $(eval $(call M,62b490407489521db863b523a7f86375,unzip60.tar.gz,https://sourceforge.net/projects/infozip/files/UnZip%206.x%20%28latest%29/UnZip%206.0/unzip60.tar.gz/download))
