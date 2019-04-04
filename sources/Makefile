@@ -81,7 +81,7 @@ $(eval $(call M,5d966cd1b56897543afeaac6eaca6888,libhugetlbfs-2.21.tar.gz,https:
 $(eval $(call M,ace8b5f2db42f7b3b3057585e80d9808,libiconv-1.15.tar.gz,https://ftp.gnu.org/gnu/libiconv/libiconv-1.15.tar.gz))
 $(eval $(call M,c4f491dd411a09e9de3b8702ea6f73eb,libmcrypt-2.5.8.tar.bz2,https://sourceforge.net/projects/mcrypt/files/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.bz2/download))
 $(eval $(call M,b3958716b4e53ddc5992e6c49d97e819,libmemcached-1.0.18.tar.gz,https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz))
-$(eval $(call M,0df1561aa1da610e892239348970d574b14deed0,libpng-1.6.35.tar.xz,https://sourceforge.net/projects/libpng/files/libpng16/1.6.35/libpng-1.6.35.tar.xz/download))
+$(eval $(call M,eceb924c1fa6b79172fdfd008d335f0e59172a86a66481e09d4089df872aa319,libpng-1.6.36.tar.xz,https://sourceforge.net/projects/libpng/files/libpng16/1.6.36/libpng-1.6.36.tar.xz/download))
 $(eval $(call M,1bfb9b923f2c1339b4d2ce1807064aa5,libtool-2.4.6.tar.xz,https://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.xz))
 $(eval $(call M,94fb70890143e3c6549f265cee93ec064c80a84c42ad0f23e85ee1fd6540a871,libxml2-2.9.9.tar.gz,ftp://xmlsoft.org/libxml2/libxml2-2.9.9.tar.gz))
 $(eval $(call M,8e36605144409df979cab43d835002f63988f3dc94d5d3537c12796db90e38c8,libxslt-1.1.33.tar.gz,ftp://xmlsoft.org/libxml2/libxslt-1.1.33.tar.gz))
