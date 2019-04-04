@@ -361,7 +361,7 @@ $(eval $(call M,php7,php-7.2.11.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # HTTPd needs a little tweak.
-._httpd: $(SOURCES)/httpd-2.4.35.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2 ._nghttp2
+._httpd: $(SOURCES)/httpd-2.4.39.tar.bz2 ._apr ._apr-util ._pcre ._openssl ._libxml2 ._nghttp2
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) &&                               \
