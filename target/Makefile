@@ -51,6 +51,7 @@ AR := ar
 MACHINE := $(shell uname -m)
 SYSTEM := $(shell uname -s)
 
+LIBAIO :=
 LIBHUGETLBFS :=
 LIBHUGETLBFS_FLAGS := LIB32=lib LIB64=lib64
 ifeq ($(MACHINE),x86_64)
@@ -58,6 +59,7 @@ LIBHUGETLBFS_FLAGS := LIB32=lib32 LIB64=lib
 endif
 ifeq ($(SYSTEM),Linux)
 LIBHUGETLBFS := ._libhugetlbfs
+LIBAIO := ._libaio
 endif
 
 OpenSSL_configure := ./config
@@ -175,7 +177,7 @@ $(eval $(call M,php7,php-7.2.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<)))/expat && \
         $(CMAKE) . -DCMAKE_INSTALL_PREFIX=$(STAGING) \
-                   -DCMAKE_INSTALL_LIBDIR=$(STAGING)/lib \
+                   -DCMAKE_INSTALL_LIBDIR=lib \
                    -DBUILD_tools=OFF \
                    -DBUILD_example=OFF \
                    -DBUILD_tests=OFF \
@@ -215,7 +217,7 @@ $(eval $(call M,php7,php-7.2.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # MySQL uses cmake.
-._mysql: $(SOURCES)/mysql-5.7.25.tar.gz ._boost ._libevent ._libncurses ._openssl ._protobuf ._libcurl ._libaio ._lz4
+._mysql: $(SOURCES)/mysql-5.7.25.tar.gz ._boost ._libevent ._libncurses ._openssl ._protobuf ._libcurl ._lz4 $(LIBAIO)
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -423,7 +425,8 @@ $(eval $(call M,php7,php-7.2.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
         $(PATCH) -p1 <$(PATCHES)/jsoncpp.patch && \
         $(CMAKE) . -DCMAKE_INSTALL_PREFIX=$(STAGING) \
-                   -DINCLUDE_INSTALL_DIR=$(STAGING)/include \
+                   -DCMAKE_INSTALL_LIBDIR=lib \
+                   -DINCLUDE_INSTALL_DIR=include \
                    -DBUILD_SHARED_LIBS=ON \
                    -DJSONCPP_WITH_TESTS=OFF \
                    -DJSONCPP_WITH_PKGCONFIG_SUPPORT=ON \
