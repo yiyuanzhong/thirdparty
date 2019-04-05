@@ -1,6 +1,6 @@
 --- a/src/google/protobuf/stubs/port.h	2017-06-12 20:30:34.286188704 +0800
 +++ b/src/google/protobuf/stubs/port.h	2017-06-12 20:31:44.449616895 +0800
-@@ -108,8 +108,10 @@
+@@ -107,8 +107,10 @@
  // Define this to 1 if the code is compiled in C++11 mode; leave it
  // undefined otherwise.  Do NOT define it to 0 -- that causes
  // '#ifdef LANG_CXX11' to behave differently from '#if LANG_CXX11'.
