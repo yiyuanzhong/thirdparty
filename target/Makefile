@@ -213,7 +213,7 @@ $(eval $(call M,php7,php-7.2.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
-        $(MAKE) && $(MAKE) prefix=$(STAGING) install
+        $(MAKE) prefix=$(STAGING) && $(MAKE) prefix=$(STAGING) install
 	$(TOUCH) $@
 
 # MySQL uses cmake.
