@@ -425,8 +425,8 @@ $(eval $(call M,php7,php-7.2.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
         $(PATCH) -p1 <$(PATCHES)/jsoncpp.patch && \
         $(CMAKE) . -DCMAKE_INSTALL_PREFIX=$(STAGING) \
-                   -DCMAKE_INSTALL_LIBDIR=lib \
-                   -DINCLUDE_INSTALL_DIR=include \
+                   -DCMAKE_INSTALL_LIBDIR=$(STAGING)/lib \
+                   -DINCLUDE_INSTALL_DIR=$(STAGING)/include \
                    -DBUILD_SHARED_LIBS=ON \
                    -DJSONCPP_WITH_TESTS=OFF \
                    -DJSONCPP_WITH_PKGCONFIG_SUPPORT=ON \
