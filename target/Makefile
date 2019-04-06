@@ -440,6 +440,7 @@ $(eval $(call M,php7,php-7.2.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
+        $(PATCH) -p1 <$(PATCHES)/logrotate.patch && \
         ./autogen.sh && ./configure --prefix=$(STAGING) && \
         $(MAKE) && $(MAKE) install
 	$(TOUCH) $@

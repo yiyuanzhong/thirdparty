@@ -1,0 +1,16 @@
+--- a/logrotate.c	2019-04-06 15:52:56.000000000 +0800
++++ b/logrotate.c	2019-04-06 15:52:22.000000000 +0800
+@@ -691,8 +691,13 @@
+ #ifdef HAVE_UTIMENSAT
+     struct timespec ts[2];
+ 
++#ifdef __MACH__
++    ts[0] = sb->st_atimespec;
++    ts[1] = sb->st_mtimespec;
++#else
+     ts[0] = sb->st_atim;
+     ts[1] = sb->st_mtim;
++#endif
+     utimensat(AT_FDCWD, filename, ts, 0);
+ #else
+     struct utimbuf utim;
