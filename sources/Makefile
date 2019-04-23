@@ -120,3 +120,5 @@ $(eval $(call M,097ff1a324ae02e0a3b0369f07a7544a,which-2.21.tar.gz,https://ftp.g
 $(eval $(call M,b3264b15ab1db04c8c428dc81838d4eb,xz-5.2.4.tar.bz2,https://tukaani.org/xz/xz-5.2.4.tar.bz2))
 $(eval $(call M,85adef240c5f370b308da8c938951a68,zlib-1.2.11.tar.xz,https://sourceforge.net/projects/libpng/files/zlib/1.2.11/zlib-1.2.11.tar.xz/download))
 $(eval $(call M,b14f7a0fece8bd34c7fffa46039e563ac5367607c612517aa7bd37306afbd1cd,zookeeper-3.4.14.tar.gz,http://www-us.apache.org/dist/zookeeper/zookeeper-3.4.14/zookeeper-3.4.14.tar.gz))
+$(eval $(call M,374652f8bd68b89616e35885f7077b97,mongo-c-driver-1.14.0.tar.gz,https://github.com/mongodb/mongo-c-driver/releases/download/1.14.0/mongo-c-driver-1.14.0.tar.gz))
+$(eval $(call M,2577ee351719ca4397c5f91face35cf6,mongo-cxx-driver-r3.3.1.tar.gz,https://github.com/mongodb/mongo-cxx-driver/archive/r3.3.1.tar.gz))

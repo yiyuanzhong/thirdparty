@@ -97,7 +97,8 @@ staging: ._libintl ._mod_fcgid ._sqlite3 ._mysql++ ._clearsilver ._jsoncpp \
          ._libcurl ._logrotate ._gsoap ._fcgi ._libxslt ._php7 ._memcached \
          ._nginx ._libmemcached ._php7-memcached ._hiredis ._libmpc \
          ._libev ._tar ._googletest ._protobuf ._libarchive ._php7-apcu \
-         ._php7-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++
+         ._php7-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++ \
+		 ._mongoc ._mongocxx
 
 $(SOURCES)/%:
 	$(MAKE) -C $(SOURCES) $(notdir $@)
@@ -541,4 +542,23 @@ $(eval $(call M,php7,php-7.2.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
         $(MAKE) && $(MAKE) PREFIX=$(STAGING) install
+	$(TOUCH) $@
+
+._mongoc: $(SOURCES)/mongo-c-driver-1.14.0.tar.gz ._icu
+	$(RM) -R  $(BUILD)/$(basename $(basename $(notdir $<)))
+	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
+	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
+		$(CMAKE) . -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF \
+				   -DCMAKE_INSTALL_PREFIX=$(STAGING) && \
+	    $(MAKE) && $(MAKE) install
+	$(TOUCH) $@
+
+._mongocxx: $(SOURCES)/mongo-cxx-driver-r3.3.1.tar.gz ._mongoc
+	$(RM) -R  $(BUILD)/$(basename $(basename $(notdir $<)))
+	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
+	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
+		$(CMAKE) . -DCMAKE_BUILD_TYPE=Release \
+				   -DCMAKE_PREFIX_PATH=$(STAGING) \
+				   -DCMAKE_INSTALL_PREFIX=$(STAGING) && \
+		$(MAKE) && $(MAKE) install
 	$(TOUCH) $@
