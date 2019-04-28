@@ -549,6 +549,7 @@ $(eval $(call M,php7,php-7.2.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
 		$(CMAKE) . -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF \
+				   -DCMAKE_INSTALL_LIBDIR=lib \
 				   -DCMAKE_INSTALL_PREFIX=$(STAGING) && \
 	    $(MAKE) && $(MAKE) install
 	$(TOUCH) $@
@@ -559,6 +560,9 @@ $(eval $(call M,php7,php-7.2.17.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
 		$(CMAKE) . -DCMAKE_BUILD_TYPE=Release \
 				   -DCMAKE_PREFIX_PATH=$(STAGING) \
+				   -DBSONCXX_HEADER_INSTALL_DIR=include \
+				   -DMONGOCXX_HEADER_INSTALL_DIR=include \
+				   -DCMAKE_INSTALL_LIBDIR=lib \
 				   -DCMAKE_INSTALL_PREFIX=$(STAGING) && \
 		$(MAKE) && $(MAKE) install
 	$(TOUCH) $@
