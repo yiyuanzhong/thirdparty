@@ -54,7 +54,7 @@ $(SOURCES)/%:
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && ./configure --prefix=$(TOOLS) && $(MAKE) && $(MAKE) install-exec
 	$(TOUCH) $@
 
-._bzip2: $(SOURCES)/bzip2-1.0.6.tar.gz
+._bzip2: $(SOURCES)/bzip2-1.0.8.tar.gz
 	$(RM) -r $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && gzip -d -c $< | tar -x
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && $(MAKE) && $(MAKE) PREFIX=$(TOOLS) install
@@ -90,15 +90,15 @@ $(eval $(call M,automake,automake-1.16.1.tar.xz,autoconf))
 $(eval $(call M,diff,diffutils-3.7.tar.xz,,--disable-nls))
 $(eval $(call M,which,which-2.21.tar.gz,,--disable-iberty))
 $(eval $(call M,patch,patch-2.7.6.tar.xz,,--disable-xattr))
-$(eval $(call M,bison,bison-3.3.2.tar.xz,m4,--disable-nls))
+$(eval $(call M,bison,bison-3.4.1.tar.xz,m4,--disable-nls))
 $(eval $(call M,cmake,cmake-3.9.6.tar.gz,,-- -DBUILD_CursesDialog=OFF))
-$(eval $(call M,gawk,gawk-4.2.1.tar.xz,,,,,$(LN) -s gawk $(TOOLS)/bin/awk))
+$(eval $(call M,gawk,gawk-5.0.1.tar.xz,,,,,$(LN) -s gawk $(TOOLS)/bin/awk))
 $(eval $(call M,libtool,libtool-2.4.6.tar.xz,automake,--disable-ltdl-install))
-$(eval $(call M,find,findutils-4.6.0.tar.gz,,--disable-nls --without-selinux))
+$(eval $(call M,find,findutils-4.7.0.tar.xz,,--disable-nls --without-selinux))
 $(eval $(call M,sed,sed-4.7.tar.xz,,--disable-acl --disable-nls --without-selinux))
 $(eval $(call M,pkg-config,pkg-config-0.29.2.tar.gz,,--disable-host-tool --with-internal-glib))
 $(eval $(call M,flex,flex-2.6.4.tar.gz,libtool,--disable-shared --disable-nls,,,$(LN) -s flex $(TOOLS)/bin/lex))
-$(eval $(call M,util-linux,util-linux-2.33.1.tar.xz,,--disable-all-programs --enable-getopt --without-ncurses --disable-nls))
+$(eval $(call M,util-linux,util-linux-2.34.tar.xz,,--disable-all-programs --enable-getopt --without-ncurses --disable-nls))
 $(eval $(call M,coreutils,coreutils-8.31.tar.xz,,--disable-acl --disable-libcap --disable-nls --disable-xattr --without-gmp --without-selinux))
 
 ._unzip: $(SOURCES)/unzip60.tar.gz

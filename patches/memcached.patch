@@ -9,9 +9,9 @@
  
  BUILT_SOURCES=
  
---- a/configure.ac	2018-07-19 05:39:52.000000000 +0900
-+++ b/configure.ac	2019-04-05 02:05:15.668783293 +0900
-@@ -356,9 +356,6 @@
+--- a/configure.ac	2019-07-16 06:34:51.000000000 +0800
++++ b/configure.ac	2019-09-02 07:14:46.268326371 +0800
+@@ -453,9 +453,6 @@
  
  dnl ----------------------------------------------------------------------------
  
@@ -21,9 +21,9 @@
  AC_HEADER_STDBOOL
  AH_BOTTOM([#if HAVE_STDBOOL_H
  #include <stdbool.h>
-@@ -633,11 +630,7 @@
- AM_CONDITIONAL([BUILD_LINUX_PRIVS],[test "$build_linux_privs" = "yes"])
+@@ -740,11 +737,7 @@
  AM_CONDITIONAL([BUILD_OPENBSD_PRIVS],[test "$build_openbsd_privs" = "yes"])
+ AM_CONDITIONAL([BUILD_FREEBSD_PRIVS],[test "$build_freebsd_privs" = "yes"])
  
 -AC_CHECK_HEADER(umem.h, [
 -   AC_DEFINE([HAVE_UMEM_H], 1,

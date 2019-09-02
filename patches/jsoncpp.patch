@@ -22,25 +22,3 @@
  
      IF(NOT CMAKE_VERSION VERSION_LESS 2.8.11)
          TARGET_INCLUDE_DIRECTORIES( jsoncpp_lib_static PUBLIC
---- a/src/lib_json/json_reader.cpp	2017-07-08 10:00:54.196991896 +0000
-+++ b/src/lib_json/json_reader.cpp	2017-07-08 10:01:09.300211320 +0000
-@@ -44,7 +44,7 @@
- namespace Json {
- 
- #if __GNUC__ >= 6
--typedef std::scoped_ptr<CharReader> const  CharReaderPtr;
-+typedef std::unique_ptr<CharReader> const  CharReaderPtr;
- #else
- typedef std::auto_ptr<CharReader>          CharReaderPtr;
- #endif
---- a/src/lib_json/json_writer.cpp	2017-07-08 10:01:00.404669745 +0000
-+++ b/src/lib_json/json_writer.cpp	2017-07-08 10:01:18.451743585 +0000
-@@ -55,7 +55,7 @@
- namespace Json {
- 
- #if __GNUC__ >= 6
--typedef std::scoped_ptr<StreamWriter> const  StreamWriterPtr;
-+typedef std::unique_ptr<StreamWriter> const  StreamWriterPtr;
- #else
- typedef std::auto_ptr<StreamWriter>          StreamWriterPtr;
- #endif
