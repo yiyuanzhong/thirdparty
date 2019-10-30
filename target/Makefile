@@ -97,7 +97,8 @@ staging: ._libintl ._mod_fcgid ._sqlite3 ._mysql++ ._clearsilver ._jsoncpp \
          ._libcurl ._logrotate ._gsoap ._fcgi ._libxslt ._php7 ._memcached \
          ._nginx ._libmemcached ._php7-memcached ._hiredis ._libmpc \
          ._libev ._tar ._googletest ._protobuf ._libarchive ._php7-apcu \
-         ._php7-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++
+         ._php7-uuid ._thrift ._gperftools ._zookeeper ._mysql-connector-c++ \
+         ._libmicrohttpd
 
 $(SOURCES)/%:
 	$(MAKE) -C $(SOURCES) $(notdir $@)
@@ -111,7 +112,7 @@ $(eval $(call M,fcgi,libfcgi-2.4.0.orig.tar.gz))
 $(eval $(call M,libmpfr,mpfr-4.0.2.tar.xz,libgmp))
 $(eval $(call M,libgmp,gmp-6.1.2.tar.xz,libreadline))
 $(eval $(call M,libmpc,mpc-1.1.0.tar.gz,libgmp libmpfr))
-$(eval $(call M,sqlite3,sqlite-autoconf-3290000.tar.gz))
+$(eval $(call M,sqlite3,sqlite-autoconf-3300100.tar.gz))
 $(eval $(call M,libpopt,popt-1.16.tar.gz,,--disable-nls))
 $(eval $(call M,c-ares,c-ares-1.15.0.tar.gz,,--disable-tests))
 $(eval $(call M,libmcrypt,libmcrypt-2.5.8.tar.bz2,,--enable-static))
@@ -119,6 +120,7 @@ $(eval $(call M,libevent,libevent-2.1.11-stable.tar.gz,openssl zlib))
 $(eval $(call M,libxslt,libxslt-1.1.33.tar.gz,libxml2,--without-python))
 $(eval $(call M,libjpeg,jpeg-9c.tar.gz,,--enable-shared --enable-static))
 $(eval $(call M,libreadline,readline-8.0.tar.gz,libncurses,--with-curses))
+$(eval $(call M,libmicrohttpd,libmicrohttpd-0.9.68.tar.gz,,--disable-nls))
 $(eval $(call M,apr,apr-1.7.0.tar.bz2,util-linux,--enable-threads --enable-posix-shm))
 $(eval $(call M,libiconv,libiconv-1.16.tar.gz,,--enable-static --disable-rpath --disable-nls))
 $(eval $(call M,libncurses,ncurses-6.1.tar.gz,,--without-debug --with-shared --enable-overwrite))
@@ -130,8 +132,8 @@ $(eval $(call M,pcre,pcre-8.43.tar.bz2,bzip2 libreadline zlib,--disable-cpp --en
 $(eval $(call M,nghttp2,nghttp2-1.39.2.tar.xz,libev libevent libxml2 openssl zlib,--disable-app --enable-asio-lib --disable-hpack-tools --disable-examples --disable-failmalloc --disable-python-bindings --without-boost --without-spdylay --without-jemalloc))
 $(eval $(call M,apr-util,apr-util-1.6.1.tar.bz2,apr expat libiconv mysql openssl sqlite3 util-linux,--with-apr=$(STAGING) --with-expat=$(STAGING) --with-crypto --without-ldap --with-openssl=$(STAGING) --with-sqlite3=$(STAGING) --with-mysql=$(STAGING) --with-iconv=$(STAGING)))
 $(eval $(call M,thrift,thrift-0.12.0.tar.gz,boost libevent openssl php7 zlib,PHP_PREFIX='$(STAGING)/lib/php' --disable-tests --disable-tutorial --without-php_extension --without-lua --without-qt4 --without-c_glib --without-csharp --without-java --without-erlang --without-python --without-perl --without-ruby --without-haskell --without-go --without-d))
-$(eval $(call M,libcurl,curl-7.65.3.tar.xz,c-ares nghttp2 openssl zlib,--enable-http --enable-crypto-auth --enable-ipv6 --enable-tls-srp --enable-ftp --enable-manual --disable-ldap --disable-ldaps --disable-rtsp --enable-proxy --enable-dict --enable-telnet --enable-tftp --enable-pop3 --enable-imap --enable-smtp --enable-gopher --enable-file --without-krb4 --without-libidn --without-ca-bundle --without-ca-path --without-gssapi --disable-libcurl-option --enable-verbose --enable-shared --enable-static --enable-cookies --enable-symbol-hiding --disable-threaded-resolver --disable-curldebug --enable-optimize --disable-debug --without-librtmp --without-libssh2 --without-winidn --without-libmetalink --without-axtls --without-nss  --without-cyassl --disable-dependency-tracking --without-gnutls --without-darwinssl --without-winssl --disable-ntlm-wb --disable-sspi --enable-largefile --without-polarssl --enable-ares))
-$(eval $(call M,php7,php-7.2.22.tar.xz,bzip2 icu libcurl libfreetype2 libgmp libiconv libjpeg libintl libmcrypt libpng libtool libxml2 pcre sqlite3 zlib,--enable-fpm --enable-intl=shared --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-gmp=shared$(comma)$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
+$(eval $(call M,libcurl,curl-7.66.0.tar.xz,c-ares nghttp2 openssl zlib,--enable-http --enable-crypto-auth --enable-ipv6 --enable-tls-srp --enable-ftp --enable-manual --disable-ldap --disable-ldaps --disable-rtsp --enable-proxy --enable-dict --enable-telnet --enable-tftp --enable-pop3 --enable-imap --enable-smtp --enable-gopher --enable-file --without-krb4 --without-libidn --without-ca-bundle --without-ca-path --without-gssapi --disable-libcurl-option --enable-verbose --enable-shared --enable-static --enable-cookies --enable-symbol-hiding --disable-threaded-resolver --disable-curldebug --enable-optimize --disable-debug --without-librtmp --without-libssh2 --without-winidn --without-libmetalink --without-axtls --without-nss  --without-cyassl --disable-dependency-tracking --without-gnutls --without-darwinssl --without-winssl --disable-ntlm-wb --disable-sspi --enable-largefile --without-polarssl --enable-ares))
+$(eval $(call M,php7,php-7.2.24.tar.xz,bzip2 icu libcurl libfreetype2 libgmp libiconv libjpeg libintl libmcrypt libpng libtool libxml2 pcre sqlite3 zlib,--enable-fpm --enable-intl=shared --with-libxml-dir=$(STAGING) --with-openssl=shared$(comma)$(STAGING) --with-pdo-sqlite=shared$(comma)$(STAGING) --with-pdo-mysql=shared$(comma)mysqlnd --with-pcre-dir=$(STAGING) --with-pcre-regex=$(STAGING) --with-sqlite3=shared$(comma)$(STAGING) --with-mysqli=shared$(comma)mysqlnd --enable-mysqlnd=shared --with-curl=shared$(comma)$(STAGING) --with-xmlrpc=shared --enable-opcache --enable-mbstring --enable-sysvmsg --enable-sysvshm --enable-sysvsem --enable-sockets --enable-shmop --enable-pcntl --enable-bcmath --enable-calendar --enable-ftp=shared --enable-soap --with-config-file-path=/etc --with-mcrypt=shared$(comma)$(STAGING) --with-gettext=shared$(comma)$(STAGING) --with-icu-dir=$(STAGING) --with-gmp=shared$(comma)$(STAGING) --with-iconv=shared$(comma)$(STAGING) --with-iconv-dir=$(STAGING) --with-gd=shared --with-freetype-dir=$(STAGING) --with-jpeg-dir=$(STAGING) --with-png-dir=$(STAGING) --with-zlib-dir=$(STAGING) --with-zlib=$(STAGING) --with-bz2=shared$(comma)$(STAGING) --enable-wddx=shared))
 
 # protobuf needs external gmock support, or not.
 ._protobuf: $(SOURCES)/protobuf-3.5.2.tar.gz ._zlib ._php7
@@ -254,7 +256,7 @@ $(eval $(call M,php7,php-7.2.22.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # zookeeper is a big package but I need only a small portion.
-._zookeeper: $(SOURCES)/apache-zookeeper-3.5.5.tar.gz
+._zookeeper: $(SOURCES)/apache-zookeeper-3.5.6.tar.gz
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<)))/zookeeper-client/zookeeper-client-c && \
@@ -408,7 +410,7 @@ $(eval $(call M,php7,php-7.2.22.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # OpenSSL has something really weird.
-._openssl: $(SOURCES)/openssl-1.1.1c.tar.gz ._zlib
+._openssl: $(SOURCES)/openssl-1.1.1d.tar.gz ._zlib
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	cd $(BUILD)/$(basename $(basename $(notdir $<))) && \
@@ -455,7 +457,7 @@ $(eval $(call M,php7,php-7.2.22.tar.xz,bzip2 icu libcurl libfreetype2 libgmp lib
 	$(TOUCH) $@
 
 # Nginx is naughty about dependencies.
-._nginx: $(SOURCES)/nginx-1.17.3.tar.gz ._openssl ._pcre
+._nginx: $(SOURCES)/nginx-1.17.5.tar.gz ._openssl ._pcre
 	$(RM) -R $(BUILD)/$(basename $(basename $(notdir $<)))
 	$(MKDIR) $(BUILD) && cd $(BUILD) && tar -xaf $<
 	$(MKDIR) $(STAGING)/sbin
