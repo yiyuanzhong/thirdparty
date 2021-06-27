@@ -8,7 +8,7 @@
 dlname='libmysqlpp.so.3'
 
 # Names of this library.
-library_names='libmysqlpp.so.3.2.2 libmysqlpp.so.3 libmysqlpp.so'
+library_names='libmysqlpp.so.3.2.5 libmysqlpp.so.3 libmysqlpp.so'
 
 # The name of the static archive.
 old_library='libmysqlpp.a'

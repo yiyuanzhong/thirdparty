@@ -8,7 +8,7 @@
 dlname='libmysqlpp.3.dylib'
 
 # Names of this library.
-library_names='libmysqlpp.3.2.2.dylib libmysqlpp.3.dylib libmysqlpp.dylib'
+library_names='libmysqlpp.3.2.5.dylib libmysqlpp.3.dylib libmysqlpp.dylib'
 
 # The name of the static archive.
 old_library='libmysqlpp.a'

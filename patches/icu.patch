@@ -1,0 +1,39 @@
+--- a/common/uarrsort.cpp	2021-06-26 11:41:28.621522936 +0900
++++ b/common/uarrsort.cpp	2021-06-26 11:51:01.056702480 +0900
+@@ -24,6 +24,10 @@
+ #include "cmemory.h"
+ #include "uarrsort.h"
+ 
++#if defined(__GNUC__) && (__GNUC__ < 4 || __GNUC__ == 4 && __GNUC_MINOR__ < 9)
++namespace std { typedef long double max_align_t; }
++#endif
++
+ enum {
+     /**
+      * "from Knuth"
+--- a/common/utext.cpp	2021-06-26 11:52:38.040751416 +0900
++++ b/common/utext.cpp	2021-06-26 11:52:48.413756752 +0900
+@@ -32,6 +32,10 @@
+ #include "uassert.h"
+ #include "putilimp.h"
+ 
++#if defined(__GNUC__) && (__GNUC__ < 4 || __GNUC__ == 4 && __GNUC_MINOR__ < 9)
++namespace std { typedef long double max_align_t; }
++#endif
++
+ U_NAMESPACE_USE
+ 
+ #define I32_FLAG(bitIndex) ((int32_t)1<<(bitIndex))
+--- a/tools/toolutil/toolutil.cpp	2021-06-26 12:05:54.145165350 +0900
++++ b/tools/toolutil/toolutil.cpp	2021-06-26 12:06:29.604268946 +0900
+@@ -69,6 +69,10 @@
+ #include "toolutil.h"
+ #include "unicode/ucal.h"
+ 
++#if defined(__GNUC__) && (__GNUC__ < 4 || __GNUC__ == 4 && __GNUC_MINOR__ < 9)
++namespace std { typedef long double max_align_t; }
++#endif
++
+ U_NAMESPACE_BEGIN
+ 
+ IcuToolErrorCode::~IcuToolErrorCode() {

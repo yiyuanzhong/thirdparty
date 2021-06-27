@@ -28,6 +28,7 @@ for i in \
     SetFile curl md5 openssl perl sh ps \
     addr2line ar as c++filt gprof ld nm nmedit objcopy objdump \
     ranlib readelf size strings strip c++ cc g++ gcc gcov ldd \
+    md5sum sha1sum sha256sum sha512sum \
     otool install_name_tool; do
 
     run "${i}"

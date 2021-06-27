@@ -8,7 +8,7 @@
 dlname='libz.so.1'
 
 # Names of this library.
-library_names='libz.so.1.2.8 libz.so.1 libz.so'
+library_names='libz.so.1.2.11 libz.so.1 libz.so'
 
 # The name of the static archive.
 old_library='libz.a'

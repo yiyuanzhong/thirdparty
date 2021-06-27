@@ -9,28 +9,3 @@
  
  BUILT_SOURCES=
  
---- a/configure.ac	2019-07-16 06:34:51.000000000 +0800
-+++ b/configure.ac	2019-09-02 07:14:46.268326371 +0800
-@@ -453,9 +453,6 @@
- 
- dnl ----------------------------------------------------------------------------
- 
--AC_SEARCH_LIBS(umem_cache_create, umem)
--AC_SEARCH_LIBS(gethugepagesizes, hugetlbfs)
--
- AC_HEADER_STDBOOL
- AH_BOTTOM([#if HAVE_STDBOOL_H
- #include <stdbool.h>
-@@ -740,11 +737,7 @@
- AM_CONDITIONAL([BUILD_OPENBSD_PRIVS],[test "$build_openbsd_privs" = "yes"])
- AM_CONDITIONAL([BUILD_FREEBSD_PRIVS],[test "$build_freebsd_privs" = "yes"])
- 
--AC_CHECK_HEADER(umem.h, [
--   AC_DEFINE([HAVE_UMEM_H], 1,
--         [Define this if you have umem.h])
--   build_cache=no
--], [build_cache=yes])
-+build_cache=yes
- 
- AM_CONDITIONAL([BUILD_CACHE], [test "x$build_cache" = "xyes"])
- 

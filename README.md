@@ -24,7 +24,7 @@ In short, thirdparty is a distro without toolchain.
 ### What you get
 * Up to date common packages widely used in daily development
 * No root privilege required, compiling nor running
-* Tested on Debian8, CentOS6, CentOS7, MacOSX 10.12
+* Tested on CentOS7, but it should work on any distro with a C++11 capable GNU toolchain (in case you don't, have a look at my another project toolchain)
 * Ready to be packaged and distributed to clean client machines (you need flinter to make a relocatable package)
 
 ### What you don't

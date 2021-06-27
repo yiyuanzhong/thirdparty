@@ -8,7 +8,7 @@
 dlname='libz.1.dylib'
 
 # Names of this library.
-library_names='libz.1.2.8.dylib libz.1.dylib libz.dylib'
+library_names='libz.1.2.11.dylib libz.1.dylib libz.dylib'
 
 # The name of the static archive.
 old_library='libz.a'
